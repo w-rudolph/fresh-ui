@@ -3,6 +3,7 @@ import DInput from './input/input';
 import DIcon from './icon/icon';
 import DTag from './tag/tag';
 import DRate from './rate/rate';
+import DPopper from './popper/popper';
 
 const components = [
     DButton,
@@ -10,6 +11,7 @@ const components = [
     DIcon,
     DTag,
     DRate,
+    DPopper,
 ];
 
 const install = function (Vue, opts = {}) {
