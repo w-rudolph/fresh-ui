@@ -6,6 +6,7 @@ import DRate from './rate/rate';
 import DPopper from './popper/popper';
 import DCollapse from './collapse/collapse';
 import DCollapseItem from './collapse/collapse-item';
+import DCheckbox from './checkbox/checkbox';
 
 const components = [
     DButton,
@@ -16,6 +17,7 @@ const components = [
     DPopper,
     DCollapse,
     DCollapseItem,
+    DCheckbox,
 ];
 
 const install = function (Vue, opts = {}) {
