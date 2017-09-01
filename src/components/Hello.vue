@@ -51,7 +51,6 @@
 </template>
 
 <script>
-import Popper from '../packages/utils/popper';
 export default {
   name: 'hello',
   data() {
