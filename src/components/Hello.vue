@@ -19,13 +19,13 @@
       <d-rate v-model="rateNum"></d-rate><br>
       <d-rate v-model="rateNum1" disabled></d-rate>
     </p>
-    <p>
-      <d-popper :placement="placement" ref="_popper" title="标题">
+    <div>
+      <d-popper :placement="placement" :hideWhenClickOutside="true" ref="_popper" title="标题" style="text-align: left">
         <div slot="content">
           <div>Hello World!</div>
         </div>
       </d-popper>
-      <d-popper :placement="placement" style="width:200px;" ref="_popper1" trigger="hover" title="标题1">
+      <d-popper :placement="placement" :appendToBody="true" style="width:200px;" ref="_popper1" trigger="hover" title="标题1">
         <div slot="content">
           <div>
             Hello World!<br>
@@ -35,7 +35,7 @@
       </d-popper>
       <button v-popper:_popper>click</button>
       <d-button v-popper:_popper1 type="text">click</d-button>
-    </p>
+    </div>
     <br><br><br><br><br>
     <select v-model="placement">
       <option value="top">top</option>
@@ -67,19 +67,15 @@ export default {
     }
   },
   watch: {
-    placement() {
-      this.initPop();
-    }
+
   },
   created() {
-    // console.log(this);
   },
   mounted() {
     this.dispatch('app', 'hello', { a: 1 });
     this.subscribe('parant_event', payload => {
       console.log(payload);
     });
-    this.initPop();
   },
   methods: {
     handleClick(e) {
@@ -93,23 +89,7 @@ export default {
     },
     handleTagClose(idx) {
       this.tags.splice(idx, 1);
-    },
-    initPop() {
-      var reference = document.querySelector('.d-popper-ref');
-      // var popper = document.querySelector('.d-popper');
-
-      // let arrow = popper.querySelector('.d-popper__arrow');
-      // arrow.setAttribute('x-arrow', '');
-      // this.popper = new Popper(
-      //   reference,
-      //   popper,
-      //   {
-      //     placement: this.placement,
-      //     trigger: 'click',
-      //     arrowElement: arrow
-      //   }
-      // );
-    },
+    }
   }
 }
 </script>

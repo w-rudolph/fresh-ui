@@ -8,7 +8,7 @@
     </div>
 </template>
 <script>
-import Popper from '../utils/popper';
+import Popper from 'popper.js';
 import '../utils/popper_directive';
 
 export default {
@@ -29,6 +29,14 @@ export default {
         trigger: {
             type: String,
             default: 'click'
+        },
+        appendToBody: {
+            type: Boolean,
+            default: false
+        },
+        hideWhenClickOutside: {
+            type: Boolean,
+            default: false
         }
     },
     data() {
@@ -40,11 +48,11 @@ export default {
         }
     },
     watch: {
-        placement() {
+        placement(v) {
             this.createPopper();
         },
         showPopper() {
-            this.updatePopper();
+            this.popper ? this.updatePopper() : this.createPopper();
         }
     },
     methods: {
@@ -52,69 +60,78 @@ export default {
             this.popper.update();
         },
         createPopper() {
+            if (this.popper) {
+                this.popper.destroy();
+            }
             const reference = this.reference;
             const popper = this.$el;
             const arrow = popper.querySelector('.d-popper__arrow');
             arrow.setAttribute('x-arrow', '');
+            if (this.appendToBody) {
+                document.body.appendChild(popper);
+            }
             this.popper = new Popper(
                 reference,
                 popper,
                 {
                     placement: this.placement,
                     arrowElement: arrow,
-                    modifiers: {
-                        flip: {
-                            boundariesElement: document.body
-                        }
-                    }
                 }
             );
         },
         popperToggle() {
             this.showPopper = !this.showPopper;
+        },
+        handleMouseEnter() {
+            clearTimeout(this.timer);
+            this.showPopper = true;
+        },
+        handleMouseLeave() {
+            this.timer = setTimeout(_ => {
+                this.showPopper = false;
+            }, 200);
+        },
+        handleToggleClick() {
+            this.showPopper = !this.showPopper;
+        },
+        handleDocumentClick(e) {
+            if (!this.reference.contains(e.target) && !this.$el.contains(e.target) && this.showPopper) {
+                this.showPopper = false;
+            }
         }
     },
     mounted() {
         this.createPopper();
         const { reference, trigger } = this;
         if (trigger === 'click') {
-            reference.addEventListener('click', _ => {
-                this.popperToggle();
-            });
-        } else if (trigger === 'hover') {
-            reference.addEventListener('mouseover', _ => {
-                clearTimeout(this.timer);
-                this.showPopper = true;
-            });
-            reference.addEventListener('mouseleave', _ => {
-                this.timer = setTimeout(_ => {
-                    this.showPopper = false;
-                }, 200);
-            });
-            this.$el.addEventListener('mouseover', _ => {
-                clearTimeout(this.timer);
-                this.showPopper = true;
-            });
-            this.$el.addEventListener('mouseleave', _ => {
-                this.timer = setTimeout(_ => {
-                    this.showPopper = false;
-                }, 100);
-            });
+            reference.addEventListener('click', this.handleToggleClick);
+            if (this.hideWhenClickOutside) {
+                document.addEventListener('click', this.handleDocumentClick);
+            }
         }
-
+        if (trigger === 'hover') {
+            reference.addEventListener('mouseover', this.handleMouseEnter);
+            reference.addEventListener('mouseleave', this.handleMouseLeave);
+            this.$el.addEventListener('mouseover', this.handleMouseEnter);
+            this.$el.addEventListener('mouseleave', this.handleMouseLeave);
+        }
     },
     destroyed() {
         const { reference, trigger } = this;
         if (trigger === 'click') {
-            reference.removeEventListener('click');
-        } else if (trigger === 'hover') {
-            reference.removeEventListener('mouseover');
-            reference.removeEventListener('mouseleave');
-            this.$el.removeEventListener('mouseover');
-            this.$el.removeEventListener('mouseleave');
+            reference.removeEventListener('click', this.handleToggleClick);
+            if (this.hideWhenClickOutside) {
+                document.removeEventListener('click', this.handleDocumentClick);
+            }
         }
+        if (trigger === 'hover') {
+            reference.removeEventListener('mouseover', this.handleMouseEnter);
+            reference.removeEventListener('mouseleave', this.handleMouseLeave);
+            this.$el.removeEventListener('mouseover', this.handleMouseEnter);
+            this.$el.removeEventListener('mouseleave', this.handleMouseLeave);
+        }
+        this.popper.destroy();
     }
-
 }
 </script>
 <style>
