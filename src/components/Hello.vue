@@ -47,6 +47,35 @@
       <option value="left">left</option>
       <option value="auto">auto</option>
     </select>
+
+    <div>
+      <d-collapse style="width: 500px; text-align:left" :accordion="true">
+        <d-collapse-item>
+          <template slot="title">title1</template>
+          <template slot="content">content1</template>
+        </d-collapse-item>
+        <d-collapse-item>
+          <template slot="title">title2</template>
+          <template slot="content">content2</template>
+        </d-collapse-item>
+        <d-collapse-item>
+          <template slot="title">title3</template>
+          <template slot="content">content3</template>
+        </d-collapse-item>
+        <d-collapse-item>
+          <template slot="title">title4</template>
+          <template slot="content">
+            控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作；<br>
+            页面反馈：操作后，通过页面元素的变化清晰地展现当前状态。
+          </template>
+        </d-collapse-item>
+        <d-collapse-item>
+          <template slot="title">title5</template>
+          <template slot="content">content5</template>
+        </d-collapse-item>
+      </d-collapse>
+    </div>
+    <br><br><br><br><br>
   </div>
 </template>
 

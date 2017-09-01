@@ -4,6 +4,8 @@ import DIcon from './icon/icon';
 import DTag from './tag/tag';
 import DRate from './rate/rate';
 import DPopper from './popper/popper';
+import DCollapse from './collapse/collapse';
+import DCollapseItem from './collapse/collapse-item';
 
 const components = [
     DButton,
@@ -12,6 +14,8 @@ const components = [
     DTag,
     DRate,
     DPopper,
+    DCollapse,
+    DCollapseItem,
 ];
 
 const install = function (Vue, opts = {}) {
