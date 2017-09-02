@@ -1,6 +1,8 @@
 <template>
     <label :class="'d-checkbox' + (disabled ? ' disabled' : '')" @click="handleClick">
-        <d-icon :name="currentValue ? 'check-square' : 'square-o'" :class="'d-checkbox__icon' + (currentValue ? ' checked' : '')"></d-icon>
+        <span :class="'d-checkbox__input' + (currentValue ? ' checked' : '')">
+            <span class="d-checkbox__inner"></span>
+        </span>
         <span class="d-checkbox__label">
             <slot></slot>
         </span>
@@ -24,13 +26,21 @@ export default {
             currentValue: this.value,
         }
     },
+    watch: {
+        value(v){
+            this.toggleCurrentValue(v);
+        }
+    },
     methods: {
         handleClick() {
+            this.toggleCurrentValue(!this.currentValue);
+        },
+        toggleCurrentValue(v){
             if (this.disabled) {
                 return;
             }
-            this.currentValue = !this.currentValue;
-            this.$emit('input', this.currentValue);
+            this.currentValue = v;
+            this.$emit('input', v);
         }
     }
 }
@@ -38,23 +48,58 @@ export default {
 <style scoped>
 .d-checkbox {
     cursor: pointer;
+    display: inline-block;
 }
 
-.d-checkbox.disabled {
-    background: #ddd;
-    opacity: 0.5;
+.d-checkbox__inner {
+    position: relative;
+    display: inline-block;
+    vertical-align: top;
+    border: 1px solid #bfcbd9;
+    border-radius: 4px;
+    width: 18px;
+    height: 18px;
+    background-color: #fff;
+}
+.d-checkbox__inner:after {
+    position: absolute;
+    content: "";
+    border: 2px solid #fff;
+    border-left: 0;
+    border-top: 0;
+    width: 4px;
+    height: 8px;
+    left: 5px;
+    top: 1px;
+    transform: rotate(45deg) scaleY(0);
+    transition: all .2s ease-in-out;
+    transform-origin: center;
+}
+.d-checkbox__input.indeterminate .d-checkbox__inner:after {
+    width: 8px;
+    height: 1px;
+    left: 3px;
+    top: 7px;
+    border-width: 1px;
+    background: #fff;
+    transform: scale(1);
+}
+.d-checkbox__input.checked .d-checkbox__inner:after {
+    transform: rotate(45deg) scaleY(1);
 }
 
-.d-checkbox__icon {
-    font-size: 18px;
+.d-checkbox__input.checked .d-checkbox__inner,
+.d-checkbox__input.indeterminate .d-checkbox__inner{
+    background-color: #2d8cf0;
+    border-color: #2d8cf0;
 }
 
-.d-checkbox__icon:hover {
-    color: #006f42;
+.d-checkbox__inner:hover {
+    border-color: #2d8cf0;
 }
 
-.d-checkbox__icon.checked {
-    color: #006f42;
+.d-checkbox__label {
+    font-size: 14px;
 }
 </style>
 

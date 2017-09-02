@@ -74,10 +74,12 @@
         </d-collapse-item>
       </d-collapse>
     </div>
-    <br><br><br><br><br>
     <div>
-      <d-checkbox disabled v-model="checkboxValue">checkbox</d-checkbox>
+      <d-checkbox v-model="checkboxValue">北京</d-checkbox>
+      <d-checkbox v-model="checkboxValue1">上海</d-checkbox>
     </div>
+    <br><br><br><br><br>
+    
   </div>
 </template>
 
@@ -94,13 +96,15 @@ export default {
       popper: null,
       show: false,
       popperRef: null,
-      checkboxValue: false,
+      checkboxValue: true,
+      checkboxValue1: false,
     }
   },
   watch: {
-
+    
   },
   created() {
+    window.instance = this;
   },
   mounted() {
     this.dispatch('app', 'hello', { a: 1 });
