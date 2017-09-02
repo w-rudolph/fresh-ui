@@ -81,8 +81,19 @@
       <d-checkbox disabled>苏州</d-checkbox>
       <d-checkbox disabled class="indeterminate">南京</d-checkbox>
     </div>
+    <hr>
+    <div>
+      {{cites}}
+      <d-checkbox-group v-model="cites">
+        <d-checkbox label="苏州">苏州</d-checkbox>
+        <d-checkbox label="上海">上海</d-checkbox>
+        <d-checkbox label="杭州">杭州</d-checkbox>
+        <d-checkbox label="北京">北京</d-checkbox>
+        <d-checkbox label="广州">广州</d-checkbox>
+      </d-checkbox-group>
+    </div>
     <br><br><br><br><br>
-    
+
   </div>
 </template>
 
@@ -101,6 +112,7 @@ export default {
       popperRef: null,
       checkboxValue: true,
       checkboxValue1: true,
+      cites: ['苏州']
     }
   },
   created() {
@@ -111,6 +123,9 @@ export default {
     this.subscribe('parant_event', payload => {
       console.log(payload);
     });
+    setTimeout(_ => {
+      this.cites = ['苏州', '杭州'];
+    }, 1000)
   },
   methods: {
     handleClick(e) {

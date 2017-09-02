@@ -7,6 +7,7 @@ import DPopper from './popper/popper';
 import DCollapse from './collapse/collapse';
 import DCollapseItem from './collapse/collapse-item';
 import DCheckbox from './checkbox/checkbox';
+import DCheckboxGroup from './checkbox/checkbox-group';
 
 const components = [
     DButton,
@@ -18,6 +19,7 @@ const components = [
     DCollapse,
     DCollapseItem,
     DCheckbox,
+    DCheckboxGroup,
 ];
 
 const install = function (Vue, opts = {}) {
