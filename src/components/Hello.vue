@@ -76,7 +76,10 @@
     </div>
     <div>
       <d-checkbox v-model="checkboxValue">北京</d-checkbox>
-      <d-checkbox v-model="checkboxValue1">上海</d-checkbox>
+      <d-checkbox class="indeterminate">浙江</d-checkbox>
+      <d-checkbox disabled v-model="checkboxValue1">上海</d-checkbox>
+      <d-checkbox disabled>苏州</d-checkbox>
+      <d-checkbox disabled class="indeterminate">南京</d-checkbox>
     </div>
     <br><br><br><br><br>
     
@@ -97,11 +100,8 @@ export default {
       show: false,
       popperRef: null,
       checkboxValue: true,
-      checkboxValue1: false,
+      checkboxValue1: true,
     }
-  },
-  watch: {
-    
   },
   created() {
     window.instance = this;

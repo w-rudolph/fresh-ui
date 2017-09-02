@@ -50,7 +50,9 @@ export default {
     cursor: pointer;
     display: inline-block;
 }
-
+.d-checkbox.disabled {
+    cursor: not-allowed;
+}
 .d-checkbox__inner {
     position: relative;
     display: inline-block;
@@ -76,7 +78,7 @@ export default {
     transform-origin: center;
 }
 .d-checkbox__input.indeterminate .d-checkbox__inner:after {
-    width: 8px;
+    width: 10px;
     height: 1px;
     left: 3px;
     top: 7px;
@@ -93,13 +95,23 @@ export default {
     background-color: #2d8cf0;
     border-color: #2d8cf0;
 }
-
+.d-checkbox.disabled .d-checkbox__inner {
+    background-color: #eef1f6;
+    border-color: #d1dbe5;
+}
+.d-checkbox.disabled .d-checkbox__input.checked .d-checkbox__inner,
+.d-checkbox.disabled .d-checkbox__input.indeterminate .d-checkbox__inner {
+    background-color: #d1dbe5;
+}
 .d-checkbox__inner:hover {
     border-color: #2d8cf0;
 }
 
 .d-checkbox__label {
     font-size: 14px;
+}
+.d-checkbox.disabled .d-checkbox__label{
+    color: #ddd;
 }
 </style>
 
