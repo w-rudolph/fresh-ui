@@ -2,8 +2,7 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import FreshUI from './packages';
-import './assets/font-awesome/css/font-awesome.min.css';
-import './styles/base.scss';
+import './packages/sass/index.scss';
 
 Vue.config.productionTip = false
 Vue.use(FreshUI);
