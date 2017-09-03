@@ -2,7 +2,7 @@
   <div class="container">
     <h3>Collapse 组件</h3>
     <hr>
-    <d-collapse>
+    <d-collapse accordion>
       <d-collapse-item v-for="(cl, idx) in collapseList" :key="idx" :title="cl.title">
         <div v-html="cl.content"></div>
       </d-collapse-item>

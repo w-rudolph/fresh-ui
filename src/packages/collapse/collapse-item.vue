@@ -91,7 +91,7 @@ export default {
     transition: all 0.2s ease;
 }
 
-.d-collapse-item.open .d-collapse-item__content {
+.d-collapse-item.open > .d-collapse-item__content {
     padding: 10px 15px;
     height: auto;
     transform: scaleY(1);
@@ -99,11 +99,11 @@ export default {
 
 .d-collapse-item__arrow:before {
     margin-right: 5px;
-    transition: all .3s ease;
+    transition: all .2s ease;
     transform: rotate(0);
 }
 
-.d-collapse-item.open .d-collapse-item__arrow:before {
+.d-collapse-item.open > .d-collapse-item__title .d-collapse-item__arrow:before {
     transform: rotate(90deg);
 }
 </style>
