@@ -3,14 +3,14 @@
         <div class="d-collapse-item__title" @click="handleItemClick">
             <d-icon name="angle-right" class="d-collapse-item__arrow" size="lg"></d-icon>
             <slot name="title"></slot>
-            <template v-if="$slots.title.length > 0">
+            <template v-if="!$slots.title">
                 {{title}}
             </template>
         </div>
         <div ref="ct" class="d-collapse-item__content">
             <slot></slot>
             <slot name="content"></slot>
-            <template v-if="$slots.content.length > 0">
+            <template v-if="!$slots.content">
                 {{content}}
             </template>
         </div>
