@@ -4,7 +4,12 @@
     <hr>
     <d-collapse>
       <d-collapse-item v-for="(cl, idx) in collapseList" :key="idx" :title="cl.title">
-        {{cl.content}}
+        <div v-html="cl.content"></div>
+      </d-collapse-item>
+      <d-collapse-item title="nested">
+        <d-collapse>
+          <d-collapse-item title="sub">sub content</d-collapse-item>
+        </d-collapse>
       </d-collapse-item>
     </d-collapse>
   </div>
@@ -21,7 +26,7 @@ export default {
         },
         {
           title: 'collapse 2',
-          content: 'collapse content2'
+          content: 'collapse content2<br>collapse content2<br>'
         },
         {
           title: 'collapse 2',

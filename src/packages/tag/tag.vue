@@ -1,7 +1,7 @@
 <template>
     <span :class="computedClass">
         <slot></slot>
-        <DIcon v-if="closable" name="close" @click="handleClick"/>
+        <DIcon v-if="closable" class="d-icon" name="close" @click="handleClick"/>
     </span>
 </template>
 <script>

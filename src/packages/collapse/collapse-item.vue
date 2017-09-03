@@ -1,7 +1,7 @@
 <template>
     <div :class="'d-collapse-item' + (expand ? ' open' : '') ">
         <div class="d-collapse-item__title" @click="handleItemClick">
-            <d-icon name="angle-right" class="d-collapse-item__arrow" size="lg"></d-icon>
+            <d-icon name="chevron-right" class="d-collapse-item__arrow"></d-icon>
             <slot name="title"></slot>
             <template v-if="!$slots.title">
                 {{title}}
@@ -78,7 +78,7 @@ export default {
 }
 
 .d-collapse-item__content {
-    
+
     overflow: hidden;
     box-sizing: border-box;
     background-color: #fbfdff;
@@ -90,19 +90,20 @@ export default {
     transform: scaleY(0);
     transition: all 0.2s ease;
 }
-.d-collapse-item.open .d-collapse-item__content{
+
+.d-collapse-item.open .d-collapse-item__content {
     padding: 10px 15px;
     height: auto;
     transform: scaleY(1);
 }
-.d-collapse-item__arrow {
+
+.d-collapse-item__arrow:before {
     margin-right: 5px;
-    font-size: 18px;
     transition: all .3s ease;
     transform: rotate(0);
 }
 
-.d-collapse-item.open .d-collapse-item__arrow {
+.d-collapse-item.open .d-collapse-item__arrow:before {
     transform: rotate(90deg);
 }
 </style>

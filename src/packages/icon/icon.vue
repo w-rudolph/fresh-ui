@@ -9,15 +9,11 @@ export default {
         name: {
             type: String,
             default: false,
-        },
-        size: {
-            type: String,
-            default: ''
         }
     },
     computed: {
         computedClass() {
-            return 'fa fa-' + this.name + (this.size ? ' fa-' + this.size : '');
+            return 'd-icon-' + this.name;
         }
     },
     methods: {

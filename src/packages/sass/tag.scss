@@ -6,6 +6,7 @@
     border-radius: 4px;
     font-weight: 500;
     line-height: 1;
+    user-select: none;
     color: #fff;
     text-align: center;
     white-space: nowrap;
@@ -28,5 +29,11 @@
     }
     & + .d-tag{
         margin-left: 5px;
+    }
+    .d-icon{
+        cursor: pointer;
+        &:hover{
+            opacity: .8
+        }
     }
 }

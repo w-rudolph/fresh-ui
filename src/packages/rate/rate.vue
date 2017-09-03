@@ -1,7 +1,7 @@
 <template>
     <div :class="'d-rate' + (disabled ? ' disabled' : '')">
         <span v-for="idx in max" :key="idx" class="d-rate-item" @mouseover="handleMouseOver(idx)" @mouseleave="handleMouseLeave" @click="handleClick(idx)">
-            <DIcon :name="getComputedIconName(idx)" :class="getComputedIconClass(idx)" :size="size"></DIcon>
+            <DIcon :name="getComputedIconName(idx)" :class="getComputedIconClass(idx)"></DIcon>
         </span>
         <span class="d-rate-item--text">{{hoverIndex}}</span>
     </div>
@@ -44,7 +44,7 @@ export default {
     },
     methods: {
         getComputedIconName(idx) {
-            return this.hoverIndex >= idx ? 'star' : 'star-o';
+            return this.hoverIndex >= idx ? 'ios-star' : 'ios-star-outline';
         },
         getComputedIconClass(idx) {
             return 'd-rate-icon' + (this.hoverIndex >= idx ? ' d-rate-icon--active' : '');
@@ -76,6 +76,8 @@ export default {
 .d-rate,
 .d-rate-item {
     display: inline-block;
+    user-select: none;
+    font-size: 20px;
 }
 
 .d-rate-item {
