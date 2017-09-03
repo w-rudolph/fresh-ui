@@ -1,6 +1,8 @@
 @import 'normalize';
-// @import url('font-awesome/css/font-awesome.min.css');
+// @import './font-awesome/css/font-awesome.min.css';
 @import 'button';
+@import 'tag';
+@import 'checkbox';
 
 *{
     box-sizing: border-box;
