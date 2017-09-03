@@ -1,21 +1,19 @@
 <template>
-    <div class="d-collapse-item">
+    <div :class="'d-collapse-item' + (expand ? ' open' : '') ">
         <div class="d-collapse-item__title" @click="handleItemClick">
-            <d-icon name="angle-right" :class="'d-collapse-item__arrow' + (expand ? ' open' : '') " size="lg"></d-icon>
+            <d-icon name="angle-right" class="d-collapse-item__arrow" size="lg"></d-icon>
             <slot name="title"></slot>
             <template v-if="$slots.title.length > 0">
                 {{title}}
             </template>
         </div>
-        <transition name="fade">
-            <div class="d-collapse-item__content" v-show="expand">
-                <slot></slot>
-                <slot name="content"></slot>
-                <template v-if="$slots.content.length > 0">
-                    {{content}}
-                </template>
-            </div>
-        </transition>
+        <div ref="ct" class="d-collapse-item__content">
+            <slot></slot>
+            <slot name="content"></slot>
+            <template v-if="$slots.content.length > 0">
+                {{content}}
+            </template>
+        </div>
     </div>
 </template>
 <script>
@@ -24,12 +22,13 @@ import EventEmitter from '../../mixins/event_emitter';
 
 export default {
     name: 'DCollapseItem',
-    components: [DIcon],
+    components: { DIcon },
     mixins: [EventEmitter],
     data() {
         return {
             expand: false,
-            showContent: false
+            showContent: false,
+            timer: null
         }
     },
     props: {
@@ -44,9 +43,18 @@ export default {
     },
     methods: {
         handleItemClick() {
+            if (this.timer) {
+                clearTimeout(this.timer);
+            }
+            this.timer = setTimeout(_ => {
+                this.showToggle();
+            }, 200);
+        },
+        showToggle() {
             this.expand = !this.expand;
+            const dir = this.expand ? 'slideUp' : 'slideDown';
             this.dispatch('DCollapse', 'item-click', this);
-        }
+        },
     },
     mounted() {
         this.subscribe('sibling-item-click', vnode => {
@@ -70,24 +78,31 @@ export default {
 }
 
 .d-collapse-item__content {
-    will-change: height;
-    background-color: #fbfdff;
+    
     overflow: hidden;
     box-sizing: border-box;
+    background-color: #fbfdff;
     border-bottom: 1px solid #dfe6ec;
-    padding: 10px 15px;
-    font-size: 13px;
     color: #1f2d3d;
-    line-height: 1.769230769230769;
+    font-size: 13px;
+    padding: 0 15px;
+    height: 0;
+    transform: scaleY(0);
+    transition: all 0.2s ease;
 }
-
+.d-collapse-item.open .d-collapse-item__content{
+    padding: 10px 15px;
+    height: auto;
+    transform: scaleY(1);
+}
 .d-collapse-item__arrow {
     margin-right: 5px;
-    transition: all .3s ease;
     font-size: 18px;
+    transition: all .3s ease;
+    transform: rotate(0);
 }
 
-.d-collapse-item__arrow.open {
+.d-collapse-item.open .d-collapse-item__arrow {
     transform: rotate(90deg);
 }
 </style>

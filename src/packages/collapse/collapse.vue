@@ -5,7 +5,6 @@
 </template>
 <script>
 import EventEmitter from '../../mixins/event_emitter';
-
 export default {
     name: 'DCollapse',
     mixins: [EventEmitter],
@@ -36,6 +35,7 @@ export default {
 <style scoped>
 .d-collapse {
     border: 1px solid #dfe6ec;
+    border-bottom: none;
     border-radius: 0;
 }
 </style>
