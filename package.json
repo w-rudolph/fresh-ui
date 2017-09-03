@@ -1,7 +1,7 @@
 {
-  "name": "vue-demo",
+  "name": "fresh-ui",
   "version": "1.0.0",
-  "description": "A Vue.js project",
+  "description": "Vue components",
   "author": "wangrujiang <wangrujiang@100.me>",
   "private": true,
   "scripts": {
