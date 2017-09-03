@@ -4,7 +4,7 @@
     </div>
 </template>
 <script>
-import EventEmitter from '../../mixins/event_emitter';
+import EventEmitter from '../mixins/event_emitter';
 export default {
     name: 'DCollapse',
     mixins: [EventEmitter],

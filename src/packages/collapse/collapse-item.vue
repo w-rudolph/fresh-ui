@@ -18,7 +18,7 @@
 </template>
 <script>
 import DIcon from '../icon/icon';
-import EventEmitter from '../../mixins/event_emitter';
+import EventEmitter from '../mixins/event_emitter';
 
 export default {
     name: 'DCollapseItem',

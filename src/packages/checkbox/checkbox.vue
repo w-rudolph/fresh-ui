@@ -9,7 +9,7 @@
     </label>
 </template>
 <script>
-import EventEmitter from '../../mixins/event_emitter';
+import EventEmitter from '../mixins/event_emitter';
 export default {
     name: 'DCheckbox',
     props: {
