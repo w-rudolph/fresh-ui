@@ -8,6 +8,7 @@ import DCollapse from './collapse/collapse';
 import DCollapseItem from './collapse/collapse-item';
 import DCheckbox from './checkbox/checkbox';
 import DCheckboxGroup from './checkbox/checkbox-group';
+import DRadio from './radio/radio';
 
 const components = [
     DButton,
@@ -20,6 +21,7 @@ const components = [
     DCollapseItem,
     DCheckbox,
     DCheckboxGroup,
+    DRadio,
 ];
 
 const install = function (Vue, opts = {}) {
@@ -31,12 +33,11 @@ const install = function (Vue, opts = {}) {
     });
 };
 
-//浏览器环境
 if (typeof window !== 'undefined' && window.Vue) {
     install(window.Vue);
-};
+}
 
 export default {
-    install,       //导出所有组件
-    ...components, //提供单独导出组件
+    install,
+    ...components,
 }
