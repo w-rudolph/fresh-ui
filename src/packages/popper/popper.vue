@@ -1,15 +1,27 @@
 <template>
-    <div class="d-popper" v-show="showPopper">
-        <div class="d-popper__title">{{title}}</div>
-        <div class="d-popper__content">
-            <slot name="content"></slot>
+    <div class="d-popper-container">
+        <div :class="['d-popper', showPopper ? 'show' : '']" v-show="showPopper">
+            <div class="d-popper__title">
+                <slot name="title"></slot>
+                <template v-if="!$slots.title">
+                    {{title}}
+                </template>
+            </div>
+            <div class="d-popper__content">
+                <slot name="content"></slot>
+                <template v-if="!$slots.content">
+                    {{content}}
+                </template>
+            </div>
+            <i class="d-popper__arrow"></i>
         </div>
-        <i class="d-popper__arrow"></i>
+        <span class="d-popper__ref">
+            <slot></slot>
+        </span>
     </div>
 </template>
 <script>
 import Popper from 'popper.js';
-import '../utils/popper_directive';
 
 export default {
     name: 'DPopper',
@@ -42,9 +54,10 @@ export default {
     data() {
         return {
             reference: null,
+            popper: null,
             showPopper: false,
             timer: null,
-            popper: null
+            popperInstance: null
         }
     },
     watch: {
@@ -52,25 +65,24 @@ export default {
             this.createPopper();
         },
         showPopper() {
-            this.popper ? this.updatePopper() : this.createPopper();
+            this.popperInstance ? this.updatePopper() : this.createPopper();
         }
     },
     methods: {
         updatePopper() {
-            this.popper.update();
+            this.popperInstance.update();
         },
         createPopper() {
-            if (this.popper) {
-                this.popper.destroy();
+            if (this.popperInstance) {
+                this.popperInstance.destroy();
             }
-            const reference = this.reference;
-            const popper = this.$el;
-            const arrow = popper.querySelector('.d-popper__arrow');
+            const { popper, reference } = this;
+            const arrow = this.$el.querySelector('.d-popper__arrow');
             arrow.setAttribute('x-arrow', '');
             if (this.appendToBody) {
                 document.body.appendChild(popper);
             }
-            this.popper = new Popper(
+            this.popperInstance = new Popper(
                 reference,
                 popper,
                 {
@@ -95,14 +107,19 @@ export default {
             this.showPopper = !this.showPopper;
         },
         handleDocumentClick(e) {
-            if (!this.reference.contains(e.target) && !this.$el.contains(e.target) && this.showPopper) {
+            if (!this.reference.contains(e.target) && !this.popper.contains(e.target) && this.showPopper) {
                 this.showPopper = false;
             }
         }
     },
+    created() {
+        console.log(this.$slots.content)
+    },
     mounted() {
+        this.popper = this.$el.querySelector('.d-popper');
+        this.reference = this.$el.querySelector('.d-popper__ref');
         this.createPopper();
-        const { reference, trigger } = this;
+        const { reference, trigger, popper } = this;
         if (trigger === 'click') {
             reference.addEventListener('click', this.handleToggleClick);
             if (this.hideWhenClickOutside) {
@@ -112,12 +129,12 @@ export default {
         if (trigger === 'hover') {
             reference.addEventListener('mouseover', this.handleMouseEnter);
             reference.addEventListener('mouseleave', this.handleMouseLeave);
-            this.$el.addEventListener('mouseover', this.handleMouseEnter);
-            this.$el.addEventListener('mouseleave', this.handleMouseLeave);
+            popper.addEventListener('mouseover', this.handleMouseEnter);
+            popper.addEventListener('mouseleave', this.handleMouseLeave);
         }
     },
     destroyed() {
-        const { reference, trigger } = this;
+        const { reference, trigger, popper } = this;
         if (trigger === 'click') {
             reference.removeEventListener('click', this.handleToggleClick);
             if (this.hideWhenClickOutside) {
@@ -127,10 +144,10 @@ export default {
         if (trigger === 'hover') {
             reference.removeEventListener('mouseover', this.handleMouseEnter);
             reference.removeEventListener('mouseleave', this.handleMouseLeave);
-            this.$el.removeEventListener('mouseover', this.handleMouseEnter);
-            this.$el.removeEventListener('mouseleave', this.handleMouseLeave);
+            popper.removeEventListener('mouseover', this.handleMouseEnter);
+            popper.removeEventListener('mouseleave', this.handleMouseLeave);
         }
-        this.popper.destroy();
+        this.popperInstance.destroy();
     }
 }
 </script>
@@ -141,11 +158,15 @@ export default {
     min-width: 150px;
     border-radius: 2px;
     border: 1px solid #d1dbe5;
-    padding: 10px;
+    padding: 8px;
     z-index: 2000;
     font-size: 12px;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .12), 0 0 6px 0 rgba(0, 0, 0, .04);
-    margin-top: -10px;
+    margin-top: -8px;
+}
+
+.d-popper__ref {
+    display: inline-block;
 }
 
 .d-popper__arrow {
@@ -161,19 +182,19 @@ export default {
 }
 
 .d-popper[x-placement^=top] {
-    margin: 0 0 10px 0;
+    margin: 0 0 8px 0;
 }
 
 .d-popper[x-placement^=right] {
-    margin: 0 0 0 10px;
+    margin: 0 0 0 8px;
 }
 
 .d-popper[x-placement^=bottom] {
-    margin: 10px 0 0 0;
+    margin: 8px 0 0 0;
 }
 
 .d-popper[x-placement^=left] {
-    margin: 0 10px 0 0;
+    margin: 0 8px 0 0;
 }
 
 .d-popper[x-placement^=top] .d-popper__arrow {
