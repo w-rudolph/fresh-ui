@@ -1,7 +1,12 @@
 <template>
     <div :class="['d-input', , this.icon ? 'has-icon' : '']">
-        <input :class="['d-input__inner', this.size ? 'd-input--' + this.size : '']" :value="currentValue" :placeholder="placeholder" :disabled="disabled" @input="handleInputChange" @keyup.enter="handleInputKeyUp" :type="type">
-        <d-icon class="d-input__icon" v-if="this.icon" :name="icon"></d-icon>
+        <template v-if="type !== 'textarea'">
+            <input :class="['d-input__inner', this.size ? 'd-input__inner--' + this.size : '']" :value="currentValue" :placeholder="placeholder" :autocomplete="autocomplete" :disabled="disabled" @input="handleInputChange" @keyup.enter="handleInputKeyUp" :type="type">
+            <d-icon class="d-input__icon" v-if="this.icon" :name="icon"></d-icon>
+        </template>
+        <template v-else>
+            <textarea class="d-textarea__inner" :style="{'resize':resize}" :row="row" :value="currentValue" :placeholder="placeholder" :autocomplete="autocomplete" :disabled="disabled" @input="handleInputChange" @keyup.enter="handleInputKeyUp"></textarea>
+        </template>
     </div>
 </template>
 <script>
@@ -30,6 +35,18 @@ export default {
         icon: {
             type: String,
             default: ''
+        },
+        row: {
+            type: Number,
+            default: 2
+        },
+        resize: {
+            type: String,
+            default: ''
+        },
+        autocomplete: {
+            type: Boolean,
+            default: false
         }
     },
     data() {

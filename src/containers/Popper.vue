@@ -9,10 +9,10 @@
             <pre>(top|right|bottom|left)-end</pre>
 
             @trigger:
-            click, hover
+            <pre>click/hover</pre>
 
             @hideWhenClickOutside:
-            true/false
+            <pre>true/false</pre>
         </span>
         <d-popper :hideWhenClickOutside="true">
             <template slot="content">

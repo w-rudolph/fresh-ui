@@ -10,12 +10,18 @@
     <br>
     <d-input style="width:200px;" disabled placeholder="disabled"></d-input>
     <br>
-    <d-input style="width:200px;" icon="search"></d-input>
+    <d-input style="width:200px;" icon="ios-search-strong"></d-input>
+    <br>
+    <d-input type="textarea" v-model="txtValue" style="width:200px;"></d-input> {{txtValue}}
   </div>
 </template>
 
 <script>
 export default {
- 
+  data(){
+    return {
+      txtValue: '2222222222'
+    }
+  }
 }
 </script>
