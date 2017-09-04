@@ -3,6 +3,9 @@
     <h3>Radio 组件</h3>
     <br>
     <d-radio v-model="radio" v-for="r in radios" :label="r.id" :key="r.id">{{r.text}}</d-radio>
+    <br>
+    <d-radio disabled>aaa</d-radio>
+    <d-radio value="1" label="1" disabled>bbb</d-radio>
   </div>
 </template>
 

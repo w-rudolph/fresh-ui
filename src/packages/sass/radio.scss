@@ -44,7 +44,10 @@
         .d-radio__input{
             &.checked{
                 .d-radio__inner{
-                    background-color: #d1dbe5;
+                    border-color: #d1dbe5;
+                    &:after{
+                        background-color: #d1dbe5;
+                    }
                 }
             }
         }

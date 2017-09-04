@@ -27,7 +27,7 @@ export default {
     },
     computed: {
         checked() {
-            return this.label === this.value;
+            return this.label && this.label === this.value;
         }
     },
     watch: {
