@@ -1,9 +1,9 @@
 <template>
-    <div :class="'d-rate' + (disabled ? ' disabled' : '')">
+    <div :class="['d-rate', disabled ? 'disabled' : '']">
         <span v-for="idx in max" :key="idx" class="d-rate-item" @mouseover="handleMouseOver(idx)" @mouseleave="handleMouseLeave" @click="handleClick(idx)">
-            <DIcon :name="getComputedIconName(idx)" :class="getComputedIconClass(idx)"></DIcon>
+            <d-icon name="star" :class="['d-rate-item__icon', hoverIndex >= idx ? 'active' : '']"></d-icon>
         </span>
-        <span class="d-rate-item--text">{{hoverIndex}}</span>
+        <span class="d-rate-item__text">{{hoverIndex}}</span>
     </div>
 </template>
 <script>
@@ -38,17 +38,14 @@ export default {
     },
     watch: {
         value(val, oldVal) {
+            if (this.disabled) {
+                return;
+            }
             this.selectedValue = Math.min(val, this.max);
             this.hoverIndex = Math.min(val, this.max);
         }
     },
     methods: {
-        getComputedIconName(idx) {
-            return this.hoverIndex >= idx ? 'ios-star' : 'ios-star-outline';
-        },
-        getComputedIconClass(idx) {
-            return 'd-rate-icon' + (this.hoverIndex >= idx ? ' d-rate-icon--active' : '');
-        },
         handleMouseOver(idx) {
             if (this.disabled) {
                 return;
@@ -72,24 +69,3 @@ export default {
     }
 }
 </script>
-<style scoped>
-.d-rate,
-.d-rate-item {
-    display: inline-block;
-    user-select: none;
-    font-size: 20px;
-}
-
-.d-rate-item {
-    cursor: pointer;
-}
-
-.d-rate.disabled .d-rate-item {
-    cursor: default;
-}
-
-.d-rate-icon--hover,
-.d-rate-icon--active {
-    color: #f7ba2a;
-}
-</style>
