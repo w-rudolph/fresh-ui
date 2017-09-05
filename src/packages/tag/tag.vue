@@ -1,7 +1,7 @@
 <template>
-    <span :class="computedClass">
+    <span :class="computedClass" v-if="show">
         <slot></slot>
-        <DIcon v-if="closable" class="d-icon" name="close" @click="handleClick"/>
+        <DIcon class="d-icon" v-if="closable" name="close" @click="handleClick" />
     </span>
 </template>
 <script>
@@ -20,6 +20,11 @@ export default {
             default: false
         }
     },
+    data() {
+        return {
+            show: true,
+        };
+    },
     computed: {
         computedClass() {
             const type = this.type ? ' d-tag--' + this.type : '';
@@ -31,6 +36,7 @@ export default {
             if (!this.closable) {
                 return;
             }
+            this.show = false;
             this.$emit('icon-click', e);
         }
     }
