@@ -8,6 +8,7 @@ import Rate from '@/containers/Rate';
 import Collapse from '@/containers/Collapse';
 import ICon from '@/containers/ICon';
 import Popper from '@/containers/Popper';
+import Tooltip from '@/containers/Tooltip';
 
 export default [
     { path: "/", name: "home", component: Home },
@@ -19,4 +20,5 @@ export default [
     { path: "/rate", name: "rate", component: Rate },
     { path: "/collapse", name: "collapse", component: Collapse },
     { path: "/popper", name: "popper", component: Popper },
+    { path: "/tooltip", name: "tooltip", component: Tooltip },
 ];

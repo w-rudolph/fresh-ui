@@ -9,6 +9,7 @@ import DCollapseItem from './collapse/collapse-item';
 import DCheckbox from './checkbox/checkbox';
 import DCheckboxGroup from './checkbox/checkbox-group';
 import DRadio from './radio/radio';
+import DTooltip from './tooltip/tooltip';
 
 const components = [
     DButton,
@@ -22,6 +23,7 @@ const components = [
     DCheckbox,
     DCheckboxGroup,
     DRadio,
+    DTooltip,
 ];
 
 const install = function (Vue, opts = {}) {

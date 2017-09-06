@@ -25,7 +25,7 @@
         padding: 0 15px;
         height: 0;
         transform: scaleY(0);
-        transition: all 0.2s ease
+        transition: transform 0.2s ease-in-out;
     }
     &.open {
         &>.d-collapse-item__content{

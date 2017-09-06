@@ -1,24 +1,31 @@
 @import "transition";
 
-.d-popper-container{
+.d-tooltip-container{
     display: inline-block;
 }
-.d-popper{
+.d-tooltip{
     display: inline-block;
     background: #fff;
-    min-width: 150px;
     border-radius: 2px;
     border: 1px solid #d1dbe5;
-    padding: 8px;
+    padding: 6px;
     z-index: 2000;
     font-size: 12px;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .12), 0 0 6px 0 rgba(0, 0, 0, .04);
     margin-top: -8px;
     opacity: 0;
-
+    &.black{
+        background: #000;
+        border-color: #000;
+        color: #fff;
+        .d-tooltip__arrow{
+            background: #000;
+            border-color: #000;
+        }
+    }
     @extend %transition;
 
-    .d-popper__arrow {
+    .d-tooltip__arrow {
         position: absolute;
         width: 8px;
         height: 8px;
@@ -31,33 +38,33 @@
     }
     &[x-placement^=top]{
         margin: 0 0 8px 0;
-        .d-popper__arrow{
-            bottom: -5px;
+        .d-tooltip__arrow{
+            bottom: -4px;
             transform: rotate(45deg);
         }
     }
     &[x-placement^=right]{
         margin: 0 0 0 8px;
-        .d-popper__arrow {
-            left: -5px;
+        .d-tooltip__arrow {
+            left: -4px;
             transform: rotate(135deg);
         }
     }
     &[x-placement^=bottom]{
         margin: 8px 0 0 0;
-        .d-popper__arrow {
-            top: -5px;
+        .d-tooltip__arrow {
+            top: -4px;
             transform: rotate(-135deg);
         }
     }
     &[x-placement^=left]{
         margin: 0 8px 0 0;
-        .d-popper__arrow {
-            right: -5px;
+        .d-tooltip__arrow {
+            right: -4px;
             transform: rotate(-45deg);
         }
     }
 }
-.d-popper__ref{
+.d-tooltip__ref{
     display: inline-block;
 }
