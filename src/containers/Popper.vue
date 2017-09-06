@@ -27,7 +27,7 @@
             <d-button>hover</d-button>
         </d-popper>
         <br>
-        <d-popper trigger="hover" placement="top-end" title="title" content="content here">
+        <d-popper trigger="hover" :showArrow="false" placement="top-end" title="title" content="content here" :appendToBody="true">
             <a>hover me</a>
         </d-popper>
     </div>
