@@ -2,7 +2,7 @@
     <div class="container">
         <h3>Rate 组件</h3>
         <br>
-        <d-rate v-model="rate" @change="handleChange" :display-items="items"></d-rate>
+        <d-rate v-model="rate" @change="handleChange"></d-rate> {{txt}}
         <br>
         <d-rate v-model="rate" disabled></d-rate>
     </div>
@@ -18,9 +18,12 @@ export default {
         }
     },
     methods: {
-        handleChange(v) {
-            console.log(v);
+        handleChange(idx) {
+            this.txt = this.items[idx - 1];
         }
+    },
+    mounted() {
+        this.txt = this.items[this.rate - 1];
     }
 }
 </script>

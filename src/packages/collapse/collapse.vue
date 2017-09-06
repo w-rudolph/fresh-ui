@@ -32,10 +32,3 @@ export default {
     }
 }
 </script>
-<style scoped>
-.d-collapse {
-    border: 1px solid #dfe6ec;
-    border-bottom: none;
-    border-radius: 0;
-}
-</style>

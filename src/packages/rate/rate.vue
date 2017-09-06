@@ -3,7 +3,6 @@
         <span v-for="idx in max" :key="idx" class="d-rate-item" @mouseover="handleMouseOver(idx)" @mouseleave="handleMouseLeave" @click="handleClick(idx)">
             <d-icon name="star" :class="['d-rate-item__icon', hoverIndex >= idx ? 'active' : '']"></d-icon>
         </span>
-        <span class="d-rate-item__text">{{displayItems[hoverIndex-1]}}</span>
     </div>
 </template>
 <script>
@@ -28,12 +27,6 @@ export default {
         disabled: {
             type: Boolean,
             default: false
-        },
-        displayItems: {
-            type: Array,
-            default() {
-                return [1, 2, 3, 4, 5];
-            }
         }
     },
     data() {
@@ -57,12 +50,14 @@ export default {
                 return;
             }
             this.hoverIndex = idx;
+            this.$emit('change', idx);
         },
         handleMouseLeave() {
             if (this.disabled) {
                 return;
             }
             this.hoverIndex = this.selectedValue;
+            this.$emit('change', this.hoverIndex);
         },
         handleClick(idx) {
             if (this.disabled) {
