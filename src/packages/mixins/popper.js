@@ -53,7 +53,6 @@ export default {
             const popper = this.popper || this.$refs.popper
             const reference = this.reference || this.$refs.reference;
             const arrow = this.arrow || this.$refs.arrow;
-            console.log(arrow);
             if (this.appendToBody) {
                 document.body.appendChild(popper);
             }
@@ -66,10 +65,26 @@ export default {
                 {
                     placement: this.placement,
                     modifiers: {
-                        computeStyle: { gpuAcceleration: this.gpuAcceleration }
+                        computeStyle: { gpuAcceleration: this.gpuAcceleration },
+                        onCreate: {
+                            enabled: true,
+                            fn: data => this.resetTransformOrigin(data)
+                        },
                     }
                 }
             );
+        },
+        resetTransformOrigin(_popper) {
+            const placementMap = {
+                top: 'bottom',
+                bottom: 'top',
+                left: 'right',
+                right: 'left'
+            };
+            const placement = _popper.placement.split('-')[0];
+            const origin = placementMap[placement];
+            _popper.styles.transformOrigin = ['top', 'bottom'].indexOf(placement) > -1 ? `center ${origin}` : `${origin} center`;
+            return _popper;
         },
         updatePopper() {
             this.popperInstance.update();

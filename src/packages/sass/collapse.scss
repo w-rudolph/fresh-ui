@@ -25,7 +25,8 @@
         padding: 0 15px;
         height: 0;
         transform: scaleY(0);
-        transition: transform 0.2s ease-in-out;
+        transition: transform .2s cubic-bezier(0.075, 0.82, 0.165, 1);
+        transform-origin: top center;
     }
     &.open {
         &>.d-collapse-item__content{
