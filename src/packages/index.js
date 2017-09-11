@@ -10,6 +10,7 @@ import DCheckbox from './checkbox/checkbox';
 import DCheckboxGroup from './checkbox/checkbox-group';
 import DRadio from './radio/radio';
 import DTooltip from './tooltip/tooltip';
+import DDropdown from './dropdown/dropdown';
 
 const components = [
     DButton,
@@ -24,6 +25,7 @@ const components = [
     DCheckboxGroup,
     DRadio,
     DTooltip,
+    DDropdown,
 ];
 
 const install = function (Vue, opts = {}) {
