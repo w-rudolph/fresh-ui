@@ -12,10 +12,11 @@
 </template>
 <script>
 import Popper from '../mixins/popper.js';
+import EventEmitter from '../mixins/event_emitter.js';
 
 export default {
     name: 'DDropdown',
-    mixins: [Popper],
+    mixins: [Popper, EventEmitter],
     props: {
         trigger: {
             type: String,
@@ -41,6 +42,23 @@ export default {
             type: Boolean,
             default: true
         },
+        hideOnClick: {
+            type: Boolean,
+            default: false
+        },
     },
+    watch: {
+        showPopper(v) {
+            this.$emit('visible-change', v);
+        }
+    },
+    created() {
+        this.subscribe('dropdown.item.select', item => {
+            if (this.hideOnClick) {
+                this.showPopper = false;
+            }
+            this.$emit('select', item);
+        })
+    }
 }
 </script>

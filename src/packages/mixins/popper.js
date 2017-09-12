@@ -156,8 +156,6 @@ export default {
     },
     beforeDestroy() {
         this.offEvents();
-    },
-    destroyed() {
         this.destroyPopper();
     }
 }
