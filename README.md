@@ -1,6 +1,6 @@
 # Refresh UI
 
-> Try to write a vue components library
+> Try to start a vue components library
 
 ## Build Setup
 
