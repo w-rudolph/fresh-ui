@@ -10,13 +10,29 @@
 .d-dropdown-popper {
     display: inline-block;
     background: #fff;
-    min-width: 150px;
+    min-width: 100px;
     border-radius: 2px;
     border: 1px solid #d1dbe5;
-    padding: 8px;
     z-index: 2000;
     font-size: 12px;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .12), 0 0 6px 0 rgba(0, 0, 0, .04);
     opacity: 0;
+    padding: 6px 0;
+    margin: 5px 0;
     @extend %transition;
+}
+.d-dropdown__menu{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+.d-dropdown__menu-item{
+    padding: 0 10px;
+    margin: 0;
+    line-height: 1.8;
+    cursor: pointer;
+    &:hover{
+        background-color: #DCDEE4;
+        color: #485666;
+    }
 }

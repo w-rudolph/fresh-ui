@@ -5,12 +5,12 @@
             <d-dropdown placement="bottom">
                 <d-button type="link">dropdown <d-icon name="arrow-down-b"></d-icon></d-button>
                 <d-dropdown-menu slot="dropdown">
-                    <d-dropdown-menu-item>A</d-dropdown-menu-item>
-                    <d-dropdown-menu-item>B</d-dropdown-menu-item>
-                    <d-dropdown-menu-item>C</d-dropdown-menu-item>
-                    <d-dropdown-menu-item>D</d-dropdown-menu-item>
-                    <d-dropdown-menu-item>E</d-dropdown-menu-item>
-                    <d-dropdown-menu-item>F</d-dropdown-menu-item>
+                    <d-dropdown-item>A</d-dropdown-item>
+                    <d-dropdown-item>B</d-dropdown-item>
+                    <d-dropdown-item>C</d-dropdown-item>
+                    <d-dropdown-item>D</d-dropdown-item>
+                    <d-dropdown-item>E</d-dropdown-item>
+                    <d-dropdown-item>F</d-dropdown-item>
                 </d-dropdown-menu>
             </d-dropdown>
         </div>

@@ -12,7 +12,7 @@ import DRadio from './radio/radio';
 import DTooltip from './tooltip/tooltip';
 import DDropdown from './dropdown/dropdown';
 import DDropdownMenu from './dropdown/dropdown-menu';
-import DDropdownMenuItem from './dropdown/dropdown-menu-item';
+import DDropdownItem from './dropdown/dropdown-item';
 
 const components = [
     DButton,
@@ -29,7 +29,7 @@ const components = [
     DTooltip,
     DDropdown,
     DDropdownMenu,
-    DDropdownMenuItem,
+    DDropdownItem,
 ];
 
 const install = function (Vue, opts = {}) {
