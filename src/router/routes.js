@@ -10,6 +10,7 @@ import ICon from '@/containers/ICon';
 import Popper from '@/containers/Popper';
 import Tooltip from '@/containers/Tooltip';
 import DDropdown from '@/containers/Dropdown';
+import DTab from '@/containers/Tab';
 
 export default [
     { path: "/", name: "home", component: Home },
@@ -23,4 +24,5 @@ export default [
     { path: "/popper", name: "popper", component: Popper },
     { path: "/tooltip", name: "tooltip", component: Tooltip },
     { path: "/dropdown", name: "dropdown", component: DDropdown },
+    { path: "/tab", name: "tab", component: DTab },
 ];

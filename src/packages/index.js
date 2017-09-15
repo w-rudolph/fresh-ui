@@ -13,6 +13,8 @@ import DTooltip from './tooltip/tooltip';
 import DDropdown from './dropdown/dropdown';
 import DDropdownMenu from './dropdown/dropdown-menu';
 import DDropdownItem from './dropdown/dropdown-item';
+import DTab from './tab/tab';
+import DTabItem from './tab/tab-item';
 
 const components = [
     DButton,
@@ -30,6 +32,8 @@ const components = [
     DDropdown,
     DDropdownMenu,
     DDropdownItem,
+    DTab,
+    DTabItem,
 ];
 
 const install = function (Vue, opts = {}) {
