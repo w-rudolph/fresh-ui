@@ -1,12 +1,16 @@
 <template>
-    <div class="d-tab__item" v-show="visible">
-        <slot></slot>
-    </div>
+    <d-transition name="fade">
+        <div :class="['d-tab__item']" v-show="visible">
+            <slot></slot>
+        </div>
+    </d-transition>
 </template>
 <script>
+import DTransition from '../transition/transition.vue';
 
 export default {
     name: 'DTabItem',
+    components: { DTransition },
     props: {
         transition: {
             type: String,

@@ -23,16 +23,12 @@
         color: #1f2d3d;
         font-size: 13px;
         padding: 0 15px;
-        height: 0;
-        transform: scaleY(0);
-        transition: transform .2s cubic-bezier(0.075, 0.82, 0.165, 1);
-        transform-origin: top center;
+        display: none;
     }
-    &.open {
+    &.expand {
         &>.d-collapse-item__content{
+            display: block;
             padding: 10px 15px;
-            height: auto;
-            transform: scaleY(1);
         }
         &>.d-collapse-item__title{
             .d-collapse-item__arrow{
@@ -45,7 +41,7 @@
     .d-collapse-item__arrow{
         &:before{
             margin-right: 5px;
-            transition: all .2s ease;
+            transition: transform .2s ease;
             transform: rotate(0);
         }
     }

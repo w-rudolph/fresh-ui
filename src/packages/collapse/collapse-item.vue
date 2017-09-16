@@ -1,5 +1,5 @@
 <template>
-    <div :class="'d-collapse-item' + (expand ? ' open' : '') ">
+    <div :class="['d-collapse-item', expand ? 'expand' : '']">
         <div class="d-collapse-item__title" @click="handleItemClick">
             <d-icon name="chevron-right" class="d-collapse-item__arrow"></d-icon>
             <slot name="title"></slot>
@@ -7,28 +7,31 @@
                 {{title}}
             </template>
         </div>
-        <div ref="ct" class="d-collapse-item__content">
-            <slot></slot>
-            <slot name="content"></slot>
-            <template v-if="!$slots.content">
-                {{content}}
-            </template>
-        </div>
+        <d-transition name="slide">
+            <div class="d-collapse-item__content" v-show="expand">
+                <slot></slot>
+                <slot name="content"></slot>
+                <template v-if="!$slots.content">
+                    {{content}}
+                </template>
+            </div>
+        </d-transition>
     </div>
 </template>
 <script>
 import DIcon from '../icon/icon';
 import EventEmitter from '../mixins/event_emitter';
+import DTransition from '../transition/transition.vue';
 
 export default {
     name: 'DCollapseItem',
-    components: { DIcon },
+    components: { DIcon, DTransition },
     mixins: [EventEmitter],
     data() {
         return {
             expand: false,
             showContent: false,
-            timer: null
+            timer: null,
         }
     },
     props: {
@@ -39,7 +42,7 @@ export default {
         content: {
             type: String,
             default: '',
-        }
+        },
     },
     methods: {
         handleItemClick() {
@@ -52,7 +55,6 @@ export default {
         },
         showToggle() {
             this.expand = !this.expand;
-            const dir = this.expand ? 'slideUp' : 'slideDown';
             this.dispatch('DCollapse', 'item-click', this);
         },
     },

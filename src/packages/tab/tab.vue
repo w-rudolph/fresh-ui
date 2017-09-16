@@ -1,7 +1,7 @@
 <template>
     <div class="d-tab">
         <div class="d-tab__header">
-            <div class="d-tab__label" :class="[idx === currentIndex ? 'active' : '']" v-for="(item, idx) in tabLabelItems" @click="handleLabelClick(idx)">{{item}}</div>
+            <div class="d-tab__label" :class="[idx === currentIndex ? 'active' : '']" v-for="(item, idx) in tabLabelItems" :key="idx" @click="handleLabelClick(idx)">{{item}}</div>
         </div>
         <div class="d-tab__content">
             <slot></slot>

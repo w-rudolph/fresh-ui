@@ -12,6 +12,12 @@
         </d-collapse>
       </d-collapse-item>
     </d-collapse>
+    <hr>
+    <d-collapse>
+      <d-collapse-item v-for="(cl, idx) in collapseList" :key="idx" :title="cl.title">
+        <div v-html="cl.content"></div>
+      </d-collapse-item>
+    </d-collapse>
   </div>
 </template>
 
@@ -26,7 +32,12 @@ export default {
         },
         {
           title: 'collapse 2',
-          content: 'collapse content2<br>collapse content2<br>'
+          content: `collapse content2<br>collapse content2<br>
+          collapse content2<br>collapse content2<br>
+          collapse content2<br>collapse content2<br>
+          collapse content2<br>collapse content2<br>
+          collapse content2<br>collapse content2<br>
+          `
         },
         {
           title: 'collapse 2',
