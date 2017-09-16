@@ -22,7 +22,7 @@ export default {
         },
         name: {
             type: String,
-            default: 'slide'
+            default: ''
         }
     },
     methods: {

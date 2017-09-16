@@ -1,5 +1,5 @@
 <template>
-    <d-transition name="fade">
+    <d-transition :name="transition">
         <div :class="['d-tab__item']" v-show="visible">
             <slot></slot>
         </div>
