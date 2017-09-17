@@ -15,6 +15,7 @@ import DDropdownMenu from './dropdown/dropdown-menu';
 import DDropdownItem from './dropdown/dropdown-item';
 import DTab from './tab/tab';
 import DTabItem from './tab/tab-item';
+import DAside from './aside/aside';
 
 const components = [
     DButton,
@@ -34,6 +35,7 @@ const components = [
     DDropdownItem,
     DTab,
     DTabItem,
+    DAside
 ];
 
 const install = function (Vue, opts = {}) {
@@ -51,5 +53,24 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 export default {
     install,
-    ...components,
+
+    // components
+    DButton,
+    DInput,
+    DIcon,
+    DTag,
+    DRate,
+    DPopper,
+    DCollapse,
+    DCollapseItem,
+    DCheckbox,
+    DCheckboxGroup,
+    DRadio,
+    DTooltip,
+    DDropdown,
+    DDropdownMenu,
+    DDropdownItem,
+    DTab,
+    DTabItem,
+    DAside,
 }

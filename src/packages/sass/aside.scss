@@ -1,0 +1,67 @@
+.d-aside {
+    position: fixed;
+    background: #fff;
+    overflow: hidden;
+    z-index: 999;
+    padding: 10px;    
+    transition: all 0.3s ease-in-out;
+    &.left{
+        min-width: 200px;
+        height: 100%;
+        left: -100%;
+        top: 0;
+        bottom: 0;
+        box-shadow: 0 10px 10px 0 rgba(0,0,0,0.3);      
+        border-right: 1px solid #FCF5F5;
+        &.visible{
+            left: 0;
+        }
+    }
+    &.right{
+        min-width: 200px;
+        height: 100%;
+        right: -100%;
+        top: 0;
+        bottom: 0; 
+        box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+        border-left: 1px solid #FCF5F5;
+        &.visible{
+            right: 0;
+        }
+    }
+    &.top{
+        width: 100%;
+        min-height: 150px;
+        top: -100%;
+        right: 0;
+        left: 0;
+        box-shadow: 0 0 10px 0 rgba(0,0,0,0.3);
+        border-bottom: 1px solid #FCF5F5;
+        &.visible{
+            top: 0;
+        }
+    }
+    &.bottom{
+        width: 100%;
+        min-height: 150px;
+        bottom: -100%;
+        right: 0;
+        left: 0;
+        top: auto;
+        box-shadow: 10px 0 10px 0 rgba(0, 0, 0, 0.3);
+        border-top: 1px solid #FCF5F5;
+        &.visible{
+            bottom: 0;
+        }
+    }
+    .d-aside__icon{
+        position: absolute;
+        right: 8px;
+        top: 8px;
+        cursor: pointer;
+        color: #BFCBD9;
+        &:hover{
+            color: #27A4FD;
+        }
+    }
+}

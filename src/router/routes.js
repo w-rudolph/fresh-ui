@@ -9,8 +9,9 @@ import Collapse from '@/containers/Collapse';
 import ICon from '@/containers/ICon';
 import Popper from '@/containers/Popper';
 import Tooltip from '@/containers/Tooltip';
-import DDropdown from '@/containers/Dropdown';
-import DTab from '@/containers/Tab';
+import Dropdown from '@/containers/Dropdown';
+import Tab from '@/containers/Tab';
+import Aside from '@/containers/Aside';
 
 export default [
     { path: "/", name: "home", component: Home },
@@ -23,6 +24,7 @@ export default [
     { path: "/collapse", name: "collapse", component: Collapse },
     { path: "/popper", name: "popper", component: Popper },
     { path: "/tooltip", name: "tooltip", component: Tooltip },
-    { path: "/dropdown", name: "dropdown", component: DDropdown },
-    { path: "/tab", name: "tab", component: DTab },
+    { path: "/dropdown", name: "dropdown", component: Dropdown },
+    { path: "/tab", name: "tab", component: Tab },
+    { path: "/aside", name: "aside", component: Aside },
 ];
