@@ -12,6 +12,7 @@ import Tooltip from '@/containers/Tooltip';
 import Dropdown from '@/containers/Dropdown';
 import Tab from '@/containers/Tab';
 import Aside from '@/containers/Aside';
+import Dialog from '@/containers/Dialog';
 
 export default [
     { path: "/", name: "home", component: Home },
@@ -27,4 +28,5 @@ export default [
     { path: "/dropdown", name: "dropdown", component: Dropdown },
     { path: "/tab", name: "tab", component: Tab },
     { path: "/aside", name: "aside", component: Aside },
+    { path: "/dialog", name: "dialog", component: Dialog },
 ];

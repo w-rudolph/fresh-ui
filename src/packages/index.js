@@ -16,6 +16,7 @@ import DDropdownItem from './dropdown/dropdown-item';
 import DTab from './tab/tab';
 import DTabItem from './tab/tab-item';
 import DAside from './aside/aside';
+import DDialg from './dialog/dialog';
 
 const components = [
     DButton,
@@ -35,7 +36,8 @@ const components = [
     DDropdownItem,
     DTab,
     DTabItem,
-    DAside
+    DAside,
+    DDialg,
 ];
 
 const install = function (Vue, opts = {}) {
@@ -73,4 +75,5 @@ export default {
     DTab,
     DTabItem,
     DAside,
+    DDialg,
 }

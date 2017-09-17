@@ -11,6 +11,7 @@
 @import 'dropdown';
 @import 'tab';
 @import 'aside';
+@import 'dialog';
 
 *{
     box-sizing: border-box;
@@ -18,4 +19,14 @@
 
 body{
     font: 14px/1.5 "Helvetica Neue",Helvetica,Arial,"Microsoft Yahei","Hiragino Sans GB","Heiti SC","WenQuanYi Micro Hei",sans-serif;    
+}
+
+.v-modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: .5;
+    background: #000;
 }
