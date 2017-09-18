@@ -48,7 +48,7 @@ const install = function (Vue, opts = {}) {
     components.forEach(component => {
         Vue.component(component.name, component);
     });
-    Message.binding(Vue.prototype);
+    Message.$mount(Vue.prototype);
 };
 
 if (typeof window !== 'undefined' && window.Vue) {

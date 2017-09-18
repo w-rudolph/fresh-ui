@@ -11,7 +11,7 @@ export default class Message {
     static success = message => Message.create(message, 'success');
     static warning = message => Message.create(message, 'warning');
     static danger = message => Message.create(message, 'danger');
-    static binding = obj => {
+    static $mount = obj => {
         obj.$message = options => new Message(options);
         ['info', 'success', 'warning', 'danger'].forEach(i => obj.$message[i] = Message[i])
     };
