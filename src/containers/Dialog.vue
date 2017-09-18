@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" style="height:1600px">
         <h3>Dialog 组件</h3>
         <hr>
         <d-dialog :visible.sync="visible" :body-scroll-lock="false">
@@ -12,7 +12,7 @@
                 <button @click="show2">show</button>
             </div>
         </d-dialog>
-         <d-dialog :visible.sync="visible2" size="full">
+        <d-dialog :visible.sync="visible2" size="full">
             <div>Full dialog</div>
         </d-dialog>
         <button @click="show">show</button>
@@ -21,6 +21,7 @@
 </template>
 
 <script>
+
 export default {
     data() {
         return {
@@ -36,12 +37,12 @@ export default {
         show() {
             this.visible = true;
         },
-        show1(){
+        show1() {
             this.visible1 = true;
         },
-        show2(){
+        show2() {
             this.visible2 = true;
         }
-    }
+    },
 }
 </script>
