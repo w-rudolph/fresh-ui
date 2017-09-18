@@ -1,4 +1,4 @@
-import { addClass } from './dom.js';
+import { addClass, removeClass } from './dom.js';
 
 export default class PopupManager {
     static zIndex = 2000;
@@ -6,7 +6,7 @@ export default class PopupManager {
     static modalStack = [];
     static modal = null;
 
-    static nextZindex() {
+    static nextZIndex() {
         return PopupManager.zIndex++;
     }
 
@@ -20,36 +20,44 @@ export default class PopupManager {
         return length > 0 ? PopupManager.instances[length - 1] : null;
     }
 
-    static openInstance(instance) {
-
+    static register(instance) {
         if (PopupManager.getInstance(instance)) {
             return;
         }
-        if (PopupManager.instances.length === 0) {
+        if (instance.modal) {
+            const length = PopupManager.modalStack.push(PopupManager.nextZIndex());
             PopupManager.openModal();
+            PopupManager.setModalZIndex(PopupManager.modalStack[length - 1]);
         }
-        const length = PopupManager.modalStack.push(PopupManager.nextZindex());
-        PopupManager.setModalZindex(PopupManager.modalStack[length - 1]);
-        instance.style.zIndex = PopupManager.nextZindex();
+        if (instance.bodyScrollLock) {
+            addClass(document.body, 'body-scroll-lock');
+        }
+        instance.$el.style.zIndex = PopupManager.nextZIndex();
         PopupManager.instances.push(instance);
-
     }
 
-    static closeInstance(instance) {
+    static unregister(instance) {
         const index = PopupManager.instances.indexOf(instance);
         if (index === -1) {
             return;
         }
-        instance.style.zIndex = null;
+        instance.$el.style.zIndex = null;
         PopupManager.instances.splice(index, 1);
-        if (PopupManager.instances.length === 0) {
+        const instancesWithModal = PopupManager.instances.filter(i => i.modal === true);
+        const instanceWithScrollLock = PopupManager.instances.filter(i => i.bodyScrollLock === true);
+        if (instanceWithScrollLock.length === 0) {
+            removeClass(document.body, 'body-scroll-lock');
+        }
+        if (instancesWithModal.length === 0) {
             PopupManager.closeModal();
             PopupManager.modalStack = [];
             return;
         }
-        PopupManager.modalStack.pop();
-        const currentZIndex = PopupManager.modalStack[PopupManager.modalStack.length - 1];
-        PopupManager.setModalZindex(currentZIndex);
+        if (instance.modal) {
+            PopupManager.modalStack.pop();
+            const currentZIndex = PopupManager.modalStack[PopupManager.modalStack.length - 1];
+            PopupManager.setModalZIndex(currentZIndex);
+        }
     }
 
     static createModal() {
@@ -57,9 +65,15 @@ export default class PopupManager {
         addClass(modal, 'v-modal');
         document.body.appendChild(modal);
         PopupManager.modal = modal;
+        modal.addEventListener('click', e => {
+            const topInstance = PopupManager.getTopInstance();
+            if (topInstance && topInstance.modal && topInstance.closeOnClickModal) {
+                topInstance.close();
+            }
+        })
     }
 
-    static setModalZindex(index) {
+    static setModalZIndex(index) {
         PopupManager.modal.style.zIndex = index;
     }
 

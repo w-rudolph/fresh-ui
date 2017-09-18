@@ -2,7 +2,7 @@
     <div class="container">
         <h3>Dialog 组件</h3>
         <hr>
-        <d-dialog :visible.sync="visible">
+        <d-dialog :visible.sync="visible" :body-scroll-lock="false">
             <div style="width:200px;height:300px;background:#fff">
                 <button @click="show1">show</button>
             </div>
