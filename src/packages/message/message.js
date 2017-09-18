@@ -5,13 +5,27 @@ const MessageConstructor = Vue.extend(MessageComponent);
 
 export default class Message {
     static instances = [];
+    
+    static create = (message, type) => new Message({ message, type });
+    static info = message => Message.create(message, 'info');
+    static success = message => Message.create(message, 'success');
+    static warning = message => Message.create(message, 'warning');
+    static danger = message => Message.create(message, 'danger');
+    static binding = obj => {
+        obj.$message = options => new Message(options);
+        ['info', 'success', 'warning', 'danger'].forEach(i => obj.$message[i] = Message[i])
+    };
+
     constructor(options) {
-        const instance = new MessageConstructor(options);
+        if (typeof options === 'string') {
+            options = {
+                message: options
+            };
+        }
+        const instance = new MessageConstructor({ data: options });
         instance.$mount();
         this.instance = instance;
-    }
 
-    show() {
         const el = this.instance.$el;
         el.style.zIndex = PopupManager.nextZIndex();
         document.body.appendChild(el);
@@ -27,4 +41,3 @@ export default class Message {
         }
     }
 }
-

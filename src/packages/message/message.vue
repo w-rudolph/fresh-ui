@@ -1,9 +1,10 @@
 <template>
     <transition name="d-message-slide">
         <div class="d-message" @mouseenter="clearTimer" @mouseleave="scheduleClose" v-show="visible">
-            <d-icon :class="['d-message__icon', this.type || '']" :name="getTypeName"></d-icon>
+            <d-icon :class="['d-message__icon', this.type || '']" :name="typeName"></d-icon>
             <div class="d-message__content">
-                HelloHelloH
+                <slot name="message"></slot>
+                <template v-if="!$slots.message">{{message}}</template>
             </div>
             <d-icon v-if="showClose" class="d-message__close" name="close" @click="close"></d-icon>
         </div>
@@ -32,7 +33,7 @@ export default {
         }
     },
     computed: {
-        getTypeName() {
+        typeName() {
             return this.type_maps[this.type] || 'info';
         }
     },
@@ -40,8 +41,10 @@ export default {
         close() {
             this.visible = false;
             this.$el.addEventListener('transitionend', _ => {
+                if (this.onClose) {
+                    this.onClose();
+                }
                 this.$el.remove();
-                console.log('done');
             })
         },
         show() {
@@ -58,6 +61,11 @@ export default {
         clearTimer() {
             clearTimeout(this.timer);
             this.timer = null
+        }
+    },
+    created() {
+        if (this.message.hasOwnProperty('componentOptions')) { //VNode
+            this.$slots.message = [this.message];
         }
     }
 }

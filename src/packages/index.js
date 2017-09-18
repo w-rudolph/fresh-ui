@@ -17,6 +17,7 @@ import DTab from './tab/tab';
 import DTabItem from './tab/tab-item';
 import DAside from './aside/aside';
 import DDialg from './dialog/dialog';
+import Message from './message/message.js';
 
 const components = [
     DButton,
@@ -47,6 +48,7 @@ const install = function (Vue, opts = {}) {
     components.forEach(component => {
         Vue.component(component.name, component);
     });
+    Message.binding(Vue.prototype);
 };
 
 if (typeof window !== 'undefined' && window.Vue) {
