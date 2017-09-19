@@ -1,0 +1,108 @@
+.d-message-box__wrapper{
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    overflow: hidden;
+}
+.d-message-box{
+    position: absolute;
+    left: 50%;
+    top: 15%;
+    transform: translateX(-50%);
+    background: #fff;
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.3);
+    box-sizing: border-box;
+    margin-bottom: 50px;
+    overflow: hidden;
+    width: 420px;
+}
+
+.d-message-box__icon{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 37px;
+    height: 37px;
+    padding-top: 8px;
+    text-align: center;
+    &.info{
+        color: $infoColor;
+    }
+    &.error{
+        color: $dangerColor;
+    }
+    &.warning{
+        color: $warningColor;
+    }
+    &.success{
+        color: $successColor;
+    }
+}
+.d-message-box__content{
+    margin: 30px 20px;
+    padding: 8px 0;
+    height: 37px;
+}
+
+.d-message-box__header{
+    position: relative;
+    padding: 12px 20px 0;
+}
+
+.d-message-box__title{
+    padding-left: 0;
+    margin-bottom: 0;
+    font-size: 16px;
+    font-weight: 700;
+    height: 18px;
+    color: #333;
+}
+
+.d-message-box__close {
+    position: absolute;
+    top: 9px;
+    right: 12px;
+    cursor: pointer;
+    color: #bfcbd9;
+    &:hover{
+        color: #27A4FD;
+    }
+}
+
+.scroll-lock--messageBox{
+    overflow: hidden !important;
+}
+
+.message-box-fade-enter-active {
+    animation: fade-in .3s;
+  }
+
+.message-box-fade-leave-active {
+    animation: fade-out .3s;
+}
+
+@keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translate3d(0, -20px, 0);
+    }
+    to {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes fade-out {
+    from {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      opacity: 0;
+      transform: translate3d(0, -20px, 0);
+    }
+}

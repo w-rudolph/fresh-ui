@@ -22,5 +22,10 @@ import Popup from '../mixins/popup.js';
 export default {
     name: 'DDialog',
     mixins: [Popup],
+    data() {
+        return {
+            bodyScrollLockClass: 'scroll-lock--dialog'
+        }
+    }
 }
 </script>

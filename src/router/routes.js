@@ -14,6 +14,7 @@ import Tab from '@/containers/Tab';
 import Aside from '@/containers/Aside';
 import Dialog from '@/containers/Dialog';
 import Message from '@/containers/Message';
+import MessageBox from '@/containers/MessageBox';
 
 export default [
     { path: "/", name: "home", component: Home },
@@ -31,4 +32,5 @@ export default [
     { path: "/aside", name: "aside", component: Aside },
     { path: "/dialog", name: "dialog", component: Dialog },
     { path: "/message", name: "message", component: Message },
+    { path: "/message-box", name: "message-box", component: MessageBox },
 ];

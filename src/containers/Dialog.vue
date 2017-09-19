@@ -6,11 +6,11 @@
             <div style="width:200px;height:300px;background:#fff">
                 <button @click="show1">show</button>
             </div>
-        </d-dialog>
-        <d-dialog :visible.sync="visible1" size="large" title="dialog title">
-            <div style="width:200px;height:300px;background:#fff">
-                <button @click="show2">show</button>
-            </div>
+            <d-dialog :visible.sync="visible1" size="large" title="dialog title" :append-to-body="true">
+                <div style="width:200px;height:300px;background:#fff">
+                    <button @click="show2">show</button>
+                </div>
+            </d-dialog>
         </d-dialog>
         <d-dialog :visible.sync="visible2" size="full">
             <div>Full dialog</div>

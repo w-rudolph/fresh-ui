@@ -30,7 +30,7 @@ export default class PopupManager {
             PopupManager.setModalZIndex(PopupManager.modalStack[length - 1]);
         }
         if (instance.bodyScrollLock) {
-            addClass(document.body, 'body-scroll-lock');
+            addClass(document.body, instance.bodyScrollLockClass || 'body-scroll-lock');
         }
         instance.$el.style.zIndex = PopupManager.nextZIndex();
         PopupManager.instances.push(instance);
@@ -46,7 +46,7 @@ export default class PopupManager {
         const instancesWithModal = PopupManager.instances.filter(i => i.modal === true);
         const instanceWithScrollLock = PopupManager.instances.filter(i => i.bodyScrollLock === true);
         if (instanceWithScrollLock.length === 0) {
-            removeClass(document.body, 'body-scroll-lock');
+            removeClass(document.body, instance.bodyScrollLockClass || 'body-scroll-lock');
         }
         if (instancesWithModal.length === 0) {
             PopupManager.closeModal();

@@ -18,6 +18,7 @@ import DTabItem from './tab/tab-item';
 import DAside from './aside/aside';
 import DDialg from './dialog/dialog';
 import Message from './message/message.js';
+import MessageBox from './message-box//message-box.js';
 
 const components = [
     DButton,
@@ -49,6 +50,7 @@ const install = function (Vue, opts = {}) {
         Vue.component(component.name, component);
     });
     Message.$mount(Vue.prototype);
+    MessageBox.$mount(Vue.prototype);
 };
 
 if (typeof window !== 'undefined' && window.Vue) {

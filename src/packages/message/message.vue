@@ -40,12 +40,12 @@ export default {
     methods: {
         close() {
             this.visible = false;
-            this.$el.addEventListener('transitionend', _ => {
+            setTimeout(_ => {
                 if (this.onClose) {
                     this.onClose();
                 }
                 this.$el.remove();
-            })
+            }, 300);
         },
         show() {
             this.visible = true;

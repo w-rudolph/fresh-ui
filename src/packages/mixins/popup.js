@@ -7,6 +7,10 @@ export default {
             type: Boolean,
             default: false
         },
+        appendToBody: {
+            type: Boolean,
+            default: false
+        },
         closeOnClickModal: {
             type: Boolean,
             default: true
@@ -47,15 +51,16 @@ export default {
         }
     },
     mounted() {
+        if (this.appendToBody) {
+            document.body.appendChild(this.$el);
+        }
+
         if (this.closeOnClickModal) {
             this.$el.addEventListener('click', e => {
                 if (e.target === this.$el && PopupManager.modal) {
                     PopupManager.modal.click();
                 }
             });
-        }
-        if (this.visible) {
-            this.updatePopupManager(true);
         }
     }
 }
