@@ -1,15 +1,21 @@
 <template>
     <transition name="message-box-fade">
         <div class="d-message-box__wrapper" v-show="visible">
-            <div class="d-message-box">
+            <div :class="['d-message-box', type]">
                 <div class="d-message-box__header">
                     <div class="d-message-box__title">{{title}}</div>
-                    <d-icon v-if="showClose" class="d-message-box__close" name="close" @click="close"></d-icon>
+                    <d-icon v-if="showClose" class="d-message-box__close" name="close" @click="handleClose('cancel')"></d-icon>
                 </div>
                 <div class="d-message-box__content">
                     <slot name="message"></slot>
-                    {{closeOnClickModal}}
                     <template v-if="!$slots.message">{{message}}</template>
+                    <template v-if="type === 'prompt'">
+                        <d-input v-model="value" class="d-message-box__input"></d-input>
+                    </template>
+                </div>
+                <div class="d-message-box__footer">
+                    <d-button type="default" v-if="cancelText" @click="handleClose('cancel')">{{cancelText}}</d-button>
+                    <d-button type="primary" class="confirm_btn" v-if="confirmText" @click="handleClose('confirm')">{{confirmText}}</d-button>
                 </div>
             </div>
         </div>
@@ -17,6 +23,8 @@
 </template>
 <script>
 import DIcon from '../icon/icon';
+import DButton from '../button/button';
+import DInput from '../input/input';
 import Popup from '../mixins/popup.js';
 
 export default {
@@ -25,28 +33,45 @@ export default {
     props: {
         title: '',
         message: '',
-        visible: true,
-        showClose: true
+        type: '',
+        cancelText: '',
+        confirmText: '',
+        visible: false,
+        showClose: true,
+        beforeClose: null,
+        callback: null
     },
     data() {
         return {
-            bodyScrollLockClass: 'scroll-lock--messageBox'
+            value: '',
+            bodyScrollLockClass: 'scroll-lock--messageBox',
         }
     },
     methods: {
-        close() {
+        close(action) {
             this.visible = false;
             this.updatePopupManager(false);
             setTimeout(_ => {
-                if (this.onClose) {
-                    this.onClose();
+                if (typeof this.callback === 'function') {
+                    this.callback(action);
                 }
                 this.$el.remove();
-            }, 300);
+            }, 200);
+        },
+        handleClose(action) {
+            const data = this.type === 'prompt' ? { action, value: this.value } : action;
+            if (typeof this.beforeClose === 'function') {
+                this.beforeClose(data, this.close);
+            } else {
+                this.close(data)
+            }
         },
         show() {
             this.visible = true;
             this.updatePopupManager(true);
+        },
+        handleSubmit() {
+
         }
     },
     created() {
@@ -54,5 +79,8 @@ export default {
             this.$slots.message = [this.message];
         }
     },
+    mounted() {
+
+    }
 }
 </script>

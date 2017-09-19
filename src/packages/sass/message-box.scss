@@ -62,6 +62,14 @@
     color: #333;
 }
 
+.d-message-box__footer{
+    padding: 20px;
+    text-align: right;
+    .confirm_btn{
+        margin-left: 10px;
+    }
+}
+
 .d-message-box__close {
     position: absolute;
     top: 9px;
@@ -73,6 +81,9 @@
     }
 }
 
+.d-message-box__input{
+    margin-top: 5px;
+}
 .scroll-lock--messageBox{
     overflow: hidden !important;
 }

@@ -6,13 +6,25 @@ const MessageBoxConstructor = Vue.extend(MessageBoxComponent);
 export default class MessageBox {
     static instances = [];
 
-    static create = (message, type) => new MessageBox({ message, type });
-    static alert = (message) => MessageBox.create(message, 'info');
-    static prompt = message => MessageBox.create(message, 'success');
-    static cinfirm = message => MessageBox.create(message, 'warning');
+    static create = (message, title, options, type) => {
+        if (typeof options.callback === 'function') {
+            return new MessageBox({ message, title, type, ...options });
+        } else {
+            return new Promise((resolve, reject) => {
+                new MessageBox({
+                    message, title, type, ...options, callback(action) {
+                        return (action === 'confirm' || action.action === 'confirm') ? resolve(action) : reject(action);
+                    }
+                })
+            })
+        }
+    };
+    static alert = (message, title, options) => MessageBox.create(message, title, options, 'alert');
+    static prompt = (message, title, options) => MessageBox.create(message, title, options, 'prompt');
+    static confirm = (message, title, options) => MessageBox.create(message, title, options, 'confirm');
     static $mount = obj => {
         obj.$messageBox = options => new MessageBox(options);
-        ['alert', 'prompt', 'cinfirm'].forEach(i => obj[i] = MessageBox[i])
+        ['alert', 'prompt', 'confirm'].forEach(i => obj['$' + i] = MessageBox[i])
     };
 
     constructor(options) {
@@ -25,6 +37,8 @@ export default class MessageBox {
             propsData: {
                 title: '',
                 message: '',
+                confirmText: '',
+                cancelText: '',
                 showClose: true,
                 closeOnClickModal: false,
                 ...options,

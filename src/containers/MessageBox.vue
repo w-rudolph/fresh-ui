@@ -18,9 +18,23 @@ export default {
     },
     methods: {
         show() {
-            new MessageBox({
-                title: 'title',
-                message: 'content'
+            this.$prompt('请输入邮箱地址', '提示', {
+                confirmText: '确定',
+                cancelText: '取消',
+                // callback(action) {
+                //     console.log(action);
+                // }
+                beforeClose: ({ value, action }, done) => {
+                    if (value === '' && action === 'confirm') {
+                        this.$message.error('邮箱地址不正确！');
+                    } else {
+                        done({ value, action });
+                    }
+                }
+            }).then(data => {
+                console.log('then,', data);
+            }).catch(data => {
+                console.log('catch,', data);
             })
         },
     },

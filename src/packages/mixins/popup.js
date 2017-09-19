@@ -62,5 +62,9 @@ export default {
                 }
             });
         }
+
+        if (this.visible) {
+            this.updatePopupManager(true);
+        }
     }
 }

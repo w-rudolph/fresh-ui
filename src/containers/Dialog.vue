@@ -25,7 +25,7 @@ export default {
     data() {
         return {
             visible: false,
-            visible1: false,
+            visible1: true,
             visible2: false,
         }
     },
