@@ -1,6 +1,6 @@
 <template>
-    <div class="d-dialog__wrapper" v-show="visible">
-        <transition>
+    <transition name="dialog-fade">
+        <div class="d-dialog__wrapper" v-show="visible">
             <div :class="['d-dialog', size ? 'd-dialog--'+size : '']">
                 <div class="d-dialog__header">
                     <div class="d-dialog__title">{{title}}</div>
@@ -12,8 +12,9 @@
                 <div class="d-dialog__footer">
                 </div>
             </div>
-        </transition>
-    </div>
+
+        </div>
+    </transition>
 </template>
 
 <script>

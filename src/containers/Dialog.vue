@@ -16,7 +16,6 @@
             <div>Full dialog</div>
         </d-dialog>
         <button @click="show">show</button>
-        <button @click="close">close</button>
     </div>
 </template>
 
@@ -26,14 +25,11 @@ export default {
     data() {
         return {
             visible: false,
-            visible1: true,
+            visible1: false,
             visible2: false,
         }
     },
     methods: {
-        close() {
-            this.visible = false;
-        },
         show() {
             this.visible = true;
         },

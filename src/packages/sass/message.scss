@@ -8,7 +8,7 @@
     top: 20px;
     transform: translateX(-50%);
     background-color: #fff;
-    transition: opacity .3s,transform .4s;
+    transition: opacity, transform .3s ease;
     overflow: hidden;
 }
 
@@ -50,13 +50,8 @@
     }
 }
 
-.d-message-slide-enter-active{
-    opacity: 1;
-    transition: transform .25s ease-in;
-    transform: translate(-50%, -100px);
-}
-
-.d-message-slide-leave-active{
+.message-slide-enter-active,
+.message-slide-leave-active{
     opacity: 0;
     transform: translate(-50%, -100px);
 }

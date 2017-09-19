@@ -1,5 +1,5 @@
 <template>
-    <transition name="d-message-slide">
+    <transition name="message-slide">
         <div class="d-message" @mouseenter="clearTimer" @mouseleave="scheduleClose" v-show="visible">
             <d-icon :class="['d-message__icon', this.type || '']" :name="typeName"></d-icon>
             <div class="d-message__content">
