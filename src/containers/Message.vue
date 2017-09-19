@@ -2,14 +2,14 @@
     <div class="container">
         <h3>Message 组件</h3>
         <hr>
-        <d-button @click="show">Show message</d-button>
-        <pre>
-            * this.$message<br>
-            * this.$message.info <br>
-            * this.$message.success<br>
-            * this.$message.warning<br>
-            * this.$message.danger<br>
-        </pre>
+        <d-button @click="show('info')">info</d-button>
+        <d-button @click="show('success')">success</d-button>
+        <d-button @click="show('warning')">warning</d-button>
+        <d-button @click="show('error')">danger</d-button>
+        <br><br>
+        <label for="">closable:</label>
+        <d-button @click="show1('error')">error</d-button>
+
     </div>
 </template>
 
@@ -23,24 +23,15 @@ export default {
         }
     },
     methods: {
-        show() {
-            // const h = this.$createElement;
-            // const msg = new Message({
-            //     showClose: true,
-            //     type: 'error',
-            //     message: '哈哈哈哈2'
-            // });
-            // this.$message({
-            //     showClose: true,
-            //     type: 'error',
-            //     onClose(){
-            //         console.log('close！');
-            //     },
-            //     message: '哈哈哈哈2'
-            // });
-
-            //  this.$message('哈哈哈哈哈哈！')
-            this.$message.info('a')
+        show(type) {
+            this.$message[type](`${type} message`)
+        },  
+        show1(type) {
+            this.$message({
+                type,
+                message: `${type} message`,
+                showClose: true
+            })
         }
     },
 }
