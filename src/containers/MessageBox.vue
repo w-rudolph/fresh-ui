@@ -4,10 +4,13 @@
         <hr>
         <d-button @click="showBasic">basic</d-button>
         <d-button @click="show">prompt</d-button>
+        <br><br>
+        <d-button @click="showVNodeMessage">VNode Message</d-button>
     </div>
 </template>
 
 <script>
+import Vue from 'vue';
 import MessageBox from '../packages/message-box/message-box.js';
 
 export default {
@@ -49,6 +52,21 @@ export default {
                 console.log('catch,', data);
             })
         },
+
+        showVNodeMessage() {
+            const h = this.$createElement;
+            // const cpt = h('div', { style: { 'color': '#f00' } }, '哈哈哈');
+            const cpt = h({
+                template: '<div style="color: #f00">哈哈哈哈</div>'
+            });
+            this.$confirm(cpt, '提示', {
+                confirmText: '确定',
+                cancelText: '取消',
+                callback(action) {
+                    this.$message(action);
+                }
+            });
+        }
     },
 }
 </script>
