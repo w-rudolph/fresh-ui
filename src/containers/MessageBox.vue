@@ -23,6 +23,7 @@ export default {
                 message: 'Basic message box',
                 confirmText: '确定',
                 cancelText: '取消',
+                bodyScrollLock: false,
                 callback(action) {
                     this.$message(action);
                 }

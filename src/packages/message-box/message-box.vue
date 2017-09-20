@@ -26,6 +26,7 @@ import DIcon from '../icon/icon';
 import DButton from '../button/button';
 import DInput from '../input/input';
 import Popup from '../mixins/popup.js';
+import { addClass, removeClass } from '../utils/dom.js';
 
 export default {
     mixins: [Popup],
@@ -44,7 +45,6 @@ export default {
     data() {
         return {
             value: '',
-            bodyScrollLockClass: 'scroll-lock--messageBox',
         }
     },
     methods: {
@@ -56,6 +56,7 @@ export default {
                     this.callback(action);
                 }
                 this.$el.remove();
+                this.toggleBodyScrollClass(false);
             }, 200);
         },
         handleClose(action) {
@@ -63,15 +64,18 @@ export default {
             if (typeof this.beforeClose === 'function') {
                 this.beforeClose(data, this.close);
             } else {
-                this.close(data)
+                this.close(data);
             }
         },
         show() {
             this.visible = true;
             this.updatePopupManager(true);
+            this.toggleBodyScrollClass(true);
         },
-        handleSubmit() {
-
+        toggleBodyScrollClass(flag) {
+            if (this.bodyScrollLock) {
+                (flag ? addClass : removeClass)(document.body, 'body-scroll-lock--messageBox');
+            }
         }
     },
     created() {

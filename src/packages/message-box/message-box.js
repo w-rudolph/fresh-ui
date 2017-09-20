@@ -40,6 +40,7 @@ export default class MessageBox {
                 confirmText: '',
                 cancelText: '',
                 showClose: true,
+                bodyScrollLock: true,
                 closeOnClickModal: false,
                 ...options,
             }
