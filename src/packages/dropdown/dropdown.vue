@@ -36,7 +36,7 @@ export default {
         },
         transition: {
             type: String,
-            default: 'slide'
+            default: 'dropdown-slide'
         },
         hideWhenClickOutside: {
             type: Boolean,

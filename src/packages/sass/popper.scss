@@ -1,4 +1,5 @@
 @import "transition";
+@include transition-fade('popper-fade');
 
 .d-popper-container{
     display: inline-block;
@@ -14,9 +15,6 @@
     font-size: 12px;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .12), 0 0 6px 0 rgba(0, 0, 0, .04);
     margin-top: -8px;
-    opacity: 0;
-
-    @extend %transition;
 
     .d-popper__arrow {
         position: absolute;

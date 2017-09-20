@@ -43,7 +43,7 @@ export default {
         },
         transition: {
             type: String,
-            default: 'fade',
+            default: 'popper-fade',
         }
     },
     data() {

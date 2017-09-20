@@ -8,6 +8,10 @@ export default {
         trigger: {
             type: String,
             default: 'hover'
+        },
+        transition: {
+            type: String,
+            default: 'tooltip-fade',
         }
     },
     data() {

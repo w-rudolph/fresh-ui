@@ -1,21 +1,65 @@
-%transition{
-    &.show{
-        opacity: 1;
+@mixin transition-fade($prefix: 'fade', $px: '-20px') {
+
+    .#{$prefix}-enter-active {
+        animation: #{$prefix}-in .3s;
     }
-    &.fade-enter-active, &.fade-leave-active{
-        opacity: 1;
-        transition: opacity .3s linear;
+    
+    .#{$prefix}-leave-active {
+        animation: #{$prefix}-out .3s;
     }
-    &.fade-enter, &.fade-leave-to{
-        opacity: 0 
+    
+    @keyframes #{$prefix}-in {
+        from {
+          opacity: 0;
+          transform: translate3d(0, #{$px}, 0);
+        }
+        to {
+          opacity: 1;
+          transform: translate3d(0, 0, 0);
+        }
     }
-    &.slide-enter-active, &.slide-leave-active{
-        opacity: 1;
-        transform: scaleY(1);
-        transition: transform .2s cubic-bezier(0.075, 0.82, 0.165, 1);
-    }
-    &.slide-enter, &.slide-leave-to{
-        opacity: 0;
-        transform: scaleY(0);
+    
+    @keyframes #{$prefix}-out {
+        from {
+          opacity: 1;
+          transform: translate3d(0, 0, 0);
+        }
+        to {
+          opacity: 0;
+          transform: translate3d(0, #{$px}, 0);
+        }
     }
 }
+@mixin transition-slide($prefix: 'slide') {
+    
+        .#{$prefix}-enter-active {
+            animation: #{$prefix}-down .3s;
+        }
+        
+        .#{$prefix}-leave-active {
+            animation: #{$prefix}-up .3s;
+        }
+        
+        @keyframes #{$prefix}-down {
+            from {
+                opacity: 0;
+                transform: scaleY(0);
+              }
+            to {
+                opacity: 1;
+                transform: scaleY(1);
+            }
+        }
+        
+        @keyframes #{$prefix}-up {
+             from {
+                opacity: 1;
+                transform: scaleY(1);
+              }
+            
+            to {
+                opacity: 0;
+                transform: scaleY(0);
+            }
+        }
+    }

@@ -1,4 +1,5 @@
 @import "transition";
+@include transition-fade('tooltip-fade');
 
 .d-tooltip-container{
     display: inline-block;
@@ -13,7 +14,6 @@
     font-size: 12px;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, .12), 0 0 6px 0 rgba(0, 0, 0, .04);
     margin-top: -8px;
-    opacity: 0;
     &.black{
         background: #000;
         border-color: #000;
@@ -23,8 +23,6 @@
             border-color: #000;
         }
     }
-    @extend %transition;
-
     .d-tooltip__arrow {
         position: absolute;
         width: 8px;

@@ -27,10 +27,10 @@
             <d-button>hover</d-button>
         </d-popper>
         <br><br>
-        <d-popper trigger="hover" transition="slide" :show-arrow="true" placement="top-end" title="title" content="content here" :appendToBody="true">
+        <d-popper trigger="hover" :show-arrow="true" placement="top-end" title="title" content="content here" :appendToBody="true">
             <a>hover me</a>
         </d-popper>
-        <d-popper trigger="click" transition="slide" :show-arrow="true" placement="bottom" title="title" content="content here" :appendToBody="true">
+        <d-popper trigger="click" :show-arrow="true" placement="bottom" title="title" content="content here" :appendToBody="true">
             <d-button>click me</d-button>
         </d-popper>
     </div>

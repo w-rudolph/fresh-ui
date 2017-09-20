@@ -1,3 +1,10 @@
+@import "transition";
+@include transition-fade('tab-fade', '5px');
+
+.tab-fade-leave-active {
+    animation: tab-fade-out 0;
+}
+
 .d-tab__header{
     border-bottom: 1px solid #D7E2EC;
 }
@@ -11,7 +18,6 @@
     color: #8391a5;
     position: relative;
     cursor: pointer;
-
 }
 
 .d-tab__label.active {
@@ -22,11 +28,9 @@
 .d-tab__content {
     padding: 5px;
 }
-
 .d-tab__item{
-    // opacity: 0;
-    // transition: opacity 0.2s ease-in-out;
-    // &.active{
-    //     opacity: 1;
-    // }
+    visibility: hidden;
+    &.active{
+        visibility: visible;
+    }
 }
