@@ -15,7 +15,7 @@ npm run dev
 npm run build
 
 ```
-Components basic-finished as bellow:
+Components basic-finished as bellows:
 ```
     Button
     Input
@@ -23,19 +23,14 @@ Components basic-finished as bellow:
     Tag
     Rate
     Popper
-    Collapse
-    CollapseItem
-    Checkbox
-    CheckboxGroup
-    Radio
     Tooltip
+    Collapse
+    Checkbox
+    Radio
     Dropdown
-    DropdownMenu
-    DropdownItem
     Tab
-    TabItem
-    Asid
-    Dialg
+    Aside
+    Dialog
     Message
     MessageBox
     Notification

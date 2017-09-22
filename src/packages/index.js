@@ -16,7 +16,7 @@ import DDropdownItem from './dropdown/dropdown-item';
 import DTab from './tab/tab';
 import DTabItem from './tab/tab-item';
 import DAside from './aside/aside';
-import DDialg from './dialog/dialog';
+import DDialog from './dialog/dialog';
 import Message from './message/message.js';
 import MessageBox from './message-box/message-box.js';
 import Notification from './notification/notification.js';
@@ -40,7 +40,7 @@ const components = [
     DTab,
     DTabItem,
     DAside,
-    DDialg,
+    DDialog,
 ];
 
 const install = function (Vue, opts = {}) {
@@ -69,19 +69,19 @@ export default {
     DTag,
     DRate,
     DPopper,
+    DTooltip,
     DCollapse,
     DCollapseItem,
     DCheckbox,
     DCheckboxGroup,
     DRadio,
-    DTooltip,
     DDropdown,
     DDropdownMenu,
     DDropdownItem,
     DTab,
     DTabItem,
     DAside,
-    DDialg,
+    DDialog,
     Message,
     MessageBox,
     Notification
