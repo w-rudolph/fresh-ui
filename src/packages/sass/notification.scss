@@ -1,0 +1,65 @@
+.d-notification__container{
+    position: fixed;
+    top: 24px;
+    right: 0;
+    width: 340px;
+    margin-right: 24px;
+}
+
+.d-notification{
+    margin-bottom: 10px;
+    padding: 16px;
+    border-radius: 4px;
+    box-shadow: 0 1px 6px rgba(0,0,0,.2);
+    background: #fff;
+    line-height: 1;
+    position: relative;
+    overflow: hidden;
+}
+
+.d-notification__close {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    cursor: pointer;
+    color: #bfcbd9;
+    &:hover{
+        color: #27A4FD;
+    }
+}
+
+.d-notification__title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
+}
+
+.d-notification__content{
+    margin-top: 10px;
+}
+
+.notification-slide-enter-active {
+    animation: slide-in .3s ease-in-out;
+  }
+
+.notification-slide-leave-active {
+    animation: slide-out .3s ease-in-out;
+}
+
+@keyframes slide-in {
+    from {
+      transform: translate3d(100%, 0, 0);
+    }
+    to {
+      transform: translate3d(0, 0, 0);
+    }
+}
+
+@keyframes slide-out {
+    from {
+      transform: translate3d(0, 0, 0);
+    }
+    to {
+      transform: translate3d(100%, 0, 0);
+    }
+}

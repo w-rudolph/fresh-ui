@@ -18,7 +18,8 @@ import DTabItem from './tab/tab-item';
 import DAside from './aside/aside';
 import DDialg from './dialog/dialog';
 import Message from './message/message.js';
-import MessageBox from './message-box//message-box.js';
+import MessageBox from './message-box/message-box.js';
+import Notification from './notification/notification.js';
 
 const components = [
     DButton,
@@ -51,6 +52,7 @@ const install = function (Vue, opts = {}) {
     });
     Message.$mount(Vue.prototype);
     MessageBox.$mount(Vue.prototype);
+    Notification.$mount(Vue.prototype);
 };
 
 if (typeof window !== 'undefined' && window.Vue) {
@@ -80,4 +82,7 @@ export default {
     DTabItem,
     DAside,
     DDialg,
+    Message,
+    MessageBox,
+    Notification
 }

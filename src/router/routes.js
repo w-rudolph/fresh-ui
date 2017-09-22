@@ -15,6 +15,7 @@ import Aside from '@/containers/Aside';
 import Dialog from '@/containers/Dialog';
 import Message from '@/containers/Message';
 import MessageBox from '@/containers/MessageBox';
+import Notification from '@/containers/Notification';
 
 export default [
     { path: "/", name: "home", component: Home },
@@ -33,4 +34,5 @@ export default [
     { path: "/dialog", name: "dialog", component: Dialog },
     { path: "/message", name: "message", component: Message },
     { path: "/message-box", name: "message-box", component: MessageBox },
+    { path: "/notification", name: "notification", component: Notification },
 ];
