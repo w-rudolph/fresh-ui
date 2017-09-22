@@ -13,3 +13,30 @@ npm run dev
 
 # build for production with minification
 npm run build
+
+```
+Components basic-finished as bellow:
+```
+    Button,
+    Input,
+    Icon,
+    Tag,
+    Rate,
+    Popper,
+    Collapse,
+    CollapseItem,
+    Checkbox,
+    CheckboxGroup,
+    Radio,
+    Tooltip,
+    Dropdown,
+    DropdownMenu,
+    DropdownItem,
+    Tab,
+    TabItem,
+    Aside,
+    Dialg,
+    Message,
+    MessageBox,
+    Notification
+```
