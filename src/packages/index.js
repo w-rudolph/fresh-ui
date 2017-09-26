@@ -1,5 +1,7 @@
 import DButton from './button/button';
 import DInput from './input/input';
+import DSelect from './select/select';
+import DSelectOption from './select/select-option';
 import DIcon from './icon/icon';
 import DTag from './tag/tag';
 import DRate from './rate/rate';
@@ -24,6 +26,8 @@ import Notification from './notification/notification.js';
 const components = [
     DButton,
     DInput,
+    DSelect,
+    DSelectOption,
     DIcon,
     DTag,
     DRate,
@@ -65,6 +69,8 @@ export default {
     // components
     DButton,
     DInput,
+    DSelect,
+    DSelectOption,
     DIcon,
     DTag,
     DRate,
