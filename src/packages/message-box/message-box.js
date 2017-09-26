@@ -4,7 +4,6 @@ import MessageBoxComponent from './message-box.vue';
 const MessageBoxConstructor = Vue.extend(MessageBoxComponent);
 
 export default class MessageBox {
-    static instances = [];
 
     static create = (message, title, options, type) => {
         if (typeof options.callback === 'function') {
@@ -51,13 +50,5 @@ export default class MessageBox {
         el.style.zIndex = PopupManager.nextZIndex();
         document.body.appendChild(el);
         this.instance.show();
-    }
-
-    close() {
-        const idx = MessageBox.instances.indexOf(this.instance);
-        if (idx > -1) {
-            MessageBox.instances.splice(idx, 1);
-            this.instance.close();
-        }
     }
 }

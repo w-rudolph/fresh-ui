@@ -44,6 +44,7 @@ export default {
                             this.$message.info('Email Address: ' + value);
                         }
                         done({ value, action });
+                        // this.showBasic();
                     }
                 }
             }).then(data => {
