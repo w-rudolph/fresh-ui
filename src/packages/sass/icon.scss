@@ -1,10 +1,10 @@
 .d-icon-load-a,
-.d-icon-load-b,
 .d-icon-load-c {
 	display: inline-block;
     animation: fa-spin 2s infinite steps(8);
 }
 .d-icon-load-b{
+	display: inline-block;
 	animation: fa-spin 2s infinite linear;
 }
 @keyframes fa-spin {
