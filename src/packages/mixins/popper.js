@@ -170,6 +170,8 @@ export default {
         },
         destroyPopper() {
             this.popperInstance.destroy();
+            this.popperInstance.popper.remove();
+            this.popperInstance = null;
         }
     },
     mounted() {

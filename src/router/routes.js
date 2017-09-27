@@ -8,7 +8,6 @@ import Tag from '@/containers/Tag';
 import Icon from '@/containers/icon';
 import Rate from '@/containers/Rate';
 import Collapse from '@/containers/Collapse';
-import ICon from '@/containers/ICon';
 import Popper from '@/containers/Popper';
 import Tooltip from '@/containers/Tooltip';
 import Dropdown from '@/containers/Dropdown';
