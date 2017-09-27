@@ -46,6 +46,21 @@
             }
         }
     }
+    &--small{
+        .d-select-placeholder{
+            font-size: 12px;
+        }
+    }
+    &--large{
+        .d-select-placeholder{
+            font-size: 16px;
+        }
+        .d-select-tags{
+            min-height: 40px;
+            font-size: 16px;
+            padding: 6px 12px;
+        }
+    }
 }
 .d-select-arrow,
 .d-select-clear {
@@ -125,4 +140,17 @@
         margin: 3px 4px 2px 0;
         padding: 4px
     }
+}
+
+.d-select-placeholder{
+    font-size: 14px;
+    padding: 4px 0;
+    color: #243242;
+    outline: none;
+    background-color: #fff;
+    background-image: none;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    user-select: none;
 }

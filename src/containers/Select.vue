@@ -30,7 +30,7 @@
             </d-select-group>
         </d-select>
         <h2>Disabled</h2>
-        <d-select v-model="city" :disabled="disabled" size="small" style="width: 200px" clearable>
+        <d-select v-model="city" :disabled="disabled" size="large" style="width: 200px" clearable>
             <d-select-option value="上海">上海</d-select-option>
             <d-select-option value="浙江">浙江</d-select-option>
             <d-select-option value="宁波">宁波</d-select-option>
@@ -41,7 +41,7 @@
 
         <h2>Multiple</h2>
         {{cities}}<br>
-        <d-select v-model="cities" size="small" style="width: 200px" multiple :disabled="disabled">
+        <d-select v-model="cities" size="large" style="width: 200px" multiple :disabled="disabled">
             <d-select-option value="上海">上海</d-select-option>
             <d-select-option value="浙江">浙江</d-select-option>
             <d-select-option value="宁波">宁波</d-select-option>

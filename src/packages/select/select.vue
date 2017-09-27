@@ -3,7 +3,8 @@
         <div ref="reference" class="d-select-reference" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave">
             <template v-if="multiple">
                 <div class="d-select-tags">
-                    <d-tag closable type="info" :disabled="disabled" v-for="(item, index) in select_value" :key="index" @close="handleTagClose(item, $event)">{{item}}</d-tag>
+                    <d-tag closable type="info" :disabled="disabled" v-for="item in select_value" :key="item" @close="handleTagClose(item, $event)">{{item}}</d-tag>
+                    <input readonly v-if="!select_value.length" :placeholder="placeholder" class="d-select-placeholder"></input>
                 </div>
             </template>
             <template v-else>
