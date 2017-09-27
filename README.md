@@ -19,6 +19,7 @@ Components basic-finished as bellows:
 ```
     Button
     Input
+    Select
     Icon
     Tag
     Rate
