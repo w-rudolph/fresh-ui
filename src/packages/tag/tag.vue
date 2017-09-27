@@ -18,6 +18,10 @@ export default {
         closable: {
             type: Boolean,
             default: false
+        },
+        disabled: {
+            type: Boolean,
+            default: false
         }
     },
     data() {
@@ -33,11 +37,11 @@ export default {
     },
     methods: {
         handleClick(e) {
-            if (!this.closable) {
+            if (!this.closable || this.disabled) {
                 return;
             }
             this.show = false;
-            this.$emit('icon-click', e);
+            this.$emit('close', e);
         }
     }
 }

@@ -5,6 +5,7 @@
 </template>
 <script>
 import EventEmitter from '../mixins/event_emitter.js';
+import { isArray } from '../utils/type.js';
 
 export default {
     name: 'DSelectOption',
@@ -27,10 +28,19 @@ export default {
     },
     created() {
         this.subscribe('select.item.select', value => {
-            if (this.value === value) {
-                this.active = true;
+            if (isArray(value)) {
+                if (value.indexOf(this.value) === -1) {
+                    this.active = false;
+                } else {
+                    this.active = true;
+                }
+
             } else {
-                this.active = false;
+                if (this.value === value) {
+                    this.active = true;
+                } else {
+                    this.active = false;
+                }
             }
         });
     }

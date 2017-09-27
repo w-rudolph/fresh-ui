@@ -21,6 +21,30 @@
         .d-select-clear{
             cursor: not-allowed;
         }
+        .d-select-tags{
+            background-color: #EDF0F6;
+            border-color: #D0D9E3;
+            color: #BABABA;
+            box-shadow: none;
+            cursor: not-allowed;
+        }
+    }
+    
+    &.multiple{
+        .d-select-item.active{
+            color: #2D8CF0;
+            background: #fff;
+            &:after {
+                display: block;
+                font-family: Ionicons;
+                font-weight: 800;
+                line-height: 1;
+                font-size: 24px;
+                content: "\F3FD";
+                float: right;
+                color: #2D8CF0;
+            }
+        }
     }
 }
 .d-select-arrow,
@@ -79,4 +103,26 @@
     font-size: 12px;
     color: #999;
     line-height: 1.5;
+}
+
+.d-select-tags{
+    display: block;
+    width: 100%;
+    min-height: 34px;
+    padding: 4px 12px;
+    font-size: 14px;
+    color: #243242;
+    outline: none;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #bfcbd9;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    cursor: pointer;
+    .d-tag{
+        display: inline-block;
+        margin: 3px 4px 2px 0;
+        padding: 4px
+    }
 }

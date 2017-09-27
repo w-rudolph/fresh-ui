@@ -1,7 +1,14 @@
 <template>
-    <div :class="['d-select', showPopper ? 'expand' : '', size ? 'd-select--'+size : '',  disabled ? 'disabled' : '']">
+    <div :class="['d-select', showPopper ? 'expand' : '', size ? 'd-select--'+size : '',  disabled ? 'disabled' : '', multiple ? 'multiple' : '']">
         <div ref="reference" class="d-select-reference" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave">
-            <d-input :placeholder="placeholder" :disabled="disabled" :size="size" v-model="select_value" readonly></d-input>
+            <template v-if="multiple">
+                <div class="d-select-tags">
+                    <d-tag closable type="info" :disabled="disabled" v-for="(item, index) in select_value" :key="index" @close="handleTagClose(item, $event)">{{item}}</d-tag>
+                </div>
+            </template>
+            <template v-else>
+                <d-input :placeholder="placeholder" :disabled="disabled" :size="size" v-model="select_value" readonly></d-input>
+            </template>
             <d-icon name="arrow-down-b" v-show="!displayClearBtn" class="d-select-arrow"></d-icon>
             <d-icon name="ios-close" v-if="displayClearBtn" class="d-select-clear" @click="onClear"></d-icon>
         </div>
@@ -19,6 +26,7 @@ import Popper from '../mixins/popper.js';
 import EventEmitter from '../mixins/event_emitter.js';
 import DInput from '../input/input';
 import DIcon from '../icon/icon';
+import DTag from '../tag/tag';
 
 export default {
     name: 'DSelect',
@@ -33,9 +41,13 @@ export default {
             type: String,
             default: 'bottom',
         },
+        multiple: {
+            type: Boolean,
+            default: false
+        },
         value: {
-            type: String | Number | Array,
-            default: '',
+            type: this.multiple ? Array : String | Number,
+            default: this.multiple ? [] : '',
         },
         placeholder: {
             type: String,
@@ -60,18 +72,22 @@ export default {
     },
     data() {
         return {
-            select_value: '',
-            showClear: false
+            select_value: this.multiple ? [] : '',
+            showClear: false,
+            hideOnClick: this.multiple ? false : true
         }
     },
     watch: {
         value(value) {
             this.broadcastChildren(value);
+        },
+        select_value() {
+            this.updatePopper(false);
         }
     },
     computed: {
         displayClearBtn() {
-            return this.showClear && this.select_value && !this.disabled;
+            return this.showClear && this.select_value.length && !this.disabled;
         }
     },
     methods: {
@@ -79,14 +95,16 @@ export default {
             if (this.disabled) {
                 return;
             }
-            this.select_value = value;
+            if (this.select_value !== value) {
+                this.select_value = value;
+            }
             this.broadcast('DSelectOption', 'select.item.select', value);
         },
         onClear(e) {
             e.preventDefault();
             e.stopPropagation();
-            this.select_value = '';
-            this.handleChange('');
+            this.select_value = this.multiple ? [] : '';
+            this.handleChange(this.select_value);
         },
         handleChange(value) {
             if (this.disabled) {
@@ -104,18 +122,40 @@ export default {
             if (this.clearable) {
                 this.showClear = false;
             }
+        },
+        handleTagClose(item, e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const index = this.select_value.indexOf(item);
+            if (index > -1) {
+                this.select_value.splice(index, 1);
+            }
         }
     },
     created() {
         this.subscribe('select.item.select', value => {
-            this.showPopper = false;
-            if (this.select_value !== value) {
-                this.handleChange(value);
-                this.broadcastChildren(value);
+            if (this.hideOnClick) {
+                this.showPopper = false;
+            }
+            if (this.multiple) {
+                const index = this.select_value.indexOf(value);
+                if (index === -1) {
+                    this.select_value.push(value);
+                } else {
+                    this.select_value.splice(index, 1);
+                }
+                this.handleChange(this.select_value);
+                this.broadcastChildren(this.select_value);
+            } else {
+                if (this.select_value !== value) {
+                    this.handleChange(value);
+                    this.broadcastChildren(value);
+                }
             }
         })
     },
     mounted() {
+        this.select_value = this.value;
         this.broadcastChildren(this.value);
     }
 }

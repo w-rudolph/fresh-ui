@@ -158,8 +158,10 @@ export default {
             }
             this.popperInstance.destroy();
         },
-        updatePopper() {
-            this.updatePopperIndex();
+        updatePopper(updateIndex = true) {
+            if (updateIndex) {
+                this.updatePopperIndex();
+            }
             this.popperInstance.update();
         },
         updatePopperIndex() {

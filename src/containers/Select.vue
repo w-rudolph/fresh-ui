@@ -38,6 +38,16 @@
             <d-select-option value="杭州">杭州</d-select-option>
         </d-select>
         <d-button @click="disabled = !disabled">toggle</d-button>
+
+        <h2>Multiple</h2>
+        {{cities}}<br>
+        <d-select v-model="cities" size="small" style="width: 200px" multiple :disabled="disabled">
+            <d-select-option value="上海">上海</d-select-option>
+            <d-select-option value="浙江">浙江</d-select-option>
+            <d-select-option value="宁波">宁波</d-select-option>
+            <d-select-option value="北京">北京</d-select-option>
+            <d-select-option value="杭州">杭州</d-select-option>
+        </d-select>
     </div>
 </template>
 
@@ -45,8 +55,9 @@
 export default {
     data() {
         return {
-            city: '',
-            disabled: true
+            city: '上海',
+            disabled: true,
+            cities: ["上海", "北京"]
         }
     }
 }
