@@ -1,9 +1,9 @@
 <template>
-    <div :class="['d-select', showPopper ? 'expand' : '', clearable ? 'clearable' : '']">
-        <div ref="reference" class="d-select-reference">
-            <d-input :placeholder="placeholder" v-model="select_value" readonly></d-input>
-            <d-icon name="arrow-down-b" class="d-select-arrow"></d-icon>
-            <d-icon name="ios-close" v-if="clearable" class="d-select-clear" @click="onClear"></d-icon>
+    <div :class="['d-select', showPopper ? 'expand' : '', size ? 'd-select--'+size : '',  disabled ? 'disabled' : '']">
+        <div ref="reference" class="d-select-reference" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave">
+            <d-input :placeholder="placeholder" :disabled="disabled" :size="size" v-model="select_value" readonly></d-input>
+            <d-icon name="arrow-down-b" v-show="!displayClearBtn" class="d-select-arrow"></d-icon>
+            <d-icon name="ios-close" v-if="displayClearBtn" class="d-select-clear" @click="onClear"></d-icon>
         </div>
         <transition name="dropdown-slide">
             <div ref="popper" class="d-select-dropdown" v-show="showPopper">
@@ -34,7 +34,7 @@ export default {
             default: 'bottom',
         },
         value: {
-            type: String | Number,
+            type: String | Number | Array,
             default: '',
         },
         placeholder: {
@@ -49,34 +49,68 @@ export default {
             type: Boolean,
             default: true
         },
+        size: {
+            type: String,
+            default: ''
+        },
+        disabled: {
+            type: Boolean,
+            default: false
+        }
     },
     data() {
         return {
-            select_value: this.value,
+            select_value: '',
+            showClear: false
         }
     },
     watch: {
-        select_value(value) {
+        value(value) {
             this.broadcastChildren(value);
+        }
+    },
+    computed: {
+        displayClearBtn() {
+            return this.showClear && this.select_value && !this.disabled;
         }
     },
     methods: {
         broadcastChildren(value) {
+            if (this.disabled) {
+                return;
+            }
+            this.select_value = value;
             this.broadcast('DSelectOption', 'select.item.select', value);
         },
         onClear(e) {
             e.preventDefault();
             e.stopPropagation();
             this.select_value = '';
+            this.handleChange('');
+        },
+        handleChange(value) {
+            if (this.disabled) {
+                return;
+            }
+            this.$emit('change', value);
+            this.$emit('input', value);
+        },
+        onMouseEnter() {
+            if (this.clearable) {
+                this.showClear = true;
+            }
+        },
+        onMouseLeave() {
+            if (this.clearable) {
+                this.showClear = false;
+            }
         }
     },
     created() {
         this.subscribe('select.item.select', value => {
             this.showPopper = false;
             if (this.select_value !== value) {
-                this.select_value = value;
-                this.$emit('select', value);
-                this.$emit('input', value);
+                this.handleChange(value);
                 this.broadcastChildren(value);
             }
         })

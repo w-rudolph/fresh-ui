@@ -1,4 +1,5 @@
 import Popper from 'popper.js';
+import PopupManager from '../utils/popup-manager.js';
 
 export default {
     props: {
@@ -26,6 +27,10 @@ export default {
             default: true
         },
         gpuAcceleration: {
+            type: Boolean,
+            default: false
+        },
+        disabled: {
             type: Boolean,
             default: false
         }
@@ -73,6 +78,7 @@ export default {
                     }
                 }
             );
+            this.updatePopperIndex();
         },
         resetTransformOrigin(_popper) {
             const placementMap = {
@@ -90,15 +96,24 @@ export default {
             this.showPopper = !this.showPopper;
         },
         handleMouseEnter() {
+            if (this.disabled) {
+                return;
+            }
             clearTimeout(this.timer);
             this.showPopper = true;
         },
         handleMouseLeave() {
+            if (this.disabled) {
+                return;
+            }
             this.timer = setTimeout(_ => {
                 this.showPopper = false;
             }, 200);
         },
         handleToggleClick() {
+            if (this.disabled) {
+                return;
+            }
             this.showPopper = !this.showPopper;
         },
         handleDocumentClick(e) {
@@ -144,7 +159,12 @@ export default {
             this.popperInstance.destroy();
         },
         updatePopper() {
+            this.updatePopperIndex();
             this.popperInstance.update();
+        },
+        updatePopperIndex() {
+            const popper = this.popper || this.$refs.popper;
+            popper.style.zIndex = PopupManager.nextZIndex();
         },
         destroyPopper() {
             this.popperInstance.destroy();

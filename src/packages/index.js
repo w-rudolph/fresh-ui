@@ -2,6 +2,7 @@ import DButton from './button/button';
 import DInput from './input/input';
 import DSelect from './select/select';
 import DSelectOption from './select/select-option';
+import DSelectGroup from './select/select-group';
 import DIcon from './icon/icon';
 import DTag from './tag/tag';
 import DRate from './rate/rate';
@@ -28,6 +29,7 @@ const components = [
     DInput,
     DSelect,
     DSelectOption,
+    DSelectGroup,
     DIcon,
     DTag,
     DRate,
@@ -71,6 +73,7 @@ export default {
     DInput,
     DSelect,
     DSelectOption,
+    DSelectGroup,
     DIcon,
     DTag,
     DRate,
