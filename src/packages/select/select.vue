@@ -79,6 +79,9 @@ export default {
     },
     watch: {
         value(value) {
+            if (this.disabled) {
+                return;
+            }
             this.broadcastChildren(value);
         },
         select_value() {
@@ -92,9 +95,6 @@ export default {
     },
     methods: {
         broadcastChildren(value) {
-            if (this.disabled) {
-                return;
-            }
             if (this.select_value !== value) {
                 this.select_value = value;
             }

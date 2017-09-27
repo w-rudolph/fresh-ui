@@ -70,13 +70,12 @@ export default {
                 {
                     placement: this.placement,
                     modifiers: {
-                        computeStyle: { gpuAcceleration: this.gpuAcceleration },
-                        onCreate: {
-                            enabled: true,
-                            fn: data => this.resetTransformOrigin(data)
-                        },
+                        computeStyle: { gpuAcceleration: this.gpuAcceleration }
+                    },
+                    onUpdate: popper => {
+                        this.resetTransformOrigin(popper);
                     }
-                }
+                },
             );
             this.updatePopperIndex();
         },
@@ -89,8 +88,7 @@ export default {
             };
             const placement = _popper.placement.split('-')[0];
             const origin = placementMap[placement];
-            _popper.styles.transformOrigin = ['top', 'bottom'].indexOf(placement) > -1 ? `center ${origin}` : `${origin} center`;
-            return _popper;
+            this.popperInstance.popper.style.transformOrigin = ['top', 'bottom'].indexOf(placement) > -1 ? `center ${origin}` : `${origin} center`;
         },
         popperToggle() {
             this.showPopper = !this.showPopper;
