@@ -95,5 +95,8 @@
                 border-color: #D0D9E3;
             }
         }
+        &.auto-size{
+            overflow: hidden;
+        }
     }
 }

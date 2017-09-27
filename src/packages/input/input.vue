@@ -5,7 +5,7 @@
             <d-icon class="d-input__icon" v-if="this.icon" :name="icon"></d-icon>
         </template>
         <template v-else>
-            <textarea class="d-textarea__inner" :style="{'resize':resize}" :row="row" :value="currentValue" :placeholder="placeholder" :autocomplete="autocomplete" :disabled="disabled" @input="handleInputChange" @keyup.enter="handleInputKeyUp"></textarea>
+            <textarea :class="['d-textarea__inner', autoSize ? 'auto-size' : '']" :style="{'resize':resize}" :row="row" :value="currentValue" :placeholder="placeholder" :autocomplete="autocomplete" :disabled="disabled" @input="handleInputChange" @keyup.enter="handleInputKeyUp"></textarea>
         </template>
     </div>
 </template>
@@ -51,6 +51,10 @@ export default {
         autocomplete: {
             type: Boolean,
             default: false
+        },
+        autoSize: {
+            type: Boolean,
+            default: false
         }
     },
     data() {
@@ -65,6 +69,9 @@ export default {
     },
     methods: {
         handleInputChange(e) {
+            if (this.type === 'textarea' && this.autoSize) {
+                this.resizeHeight(e);
+            }
             const value = e.target.value;
             this.$emit('input', value, e);
             if (this.currentValue === value) {
@@ -78,6 +85,11 @@ export default {
         },
         setCurrentValue(val) {
             this.currentValue = val;
+        },
+        resizeHeight(e) {
+            const border = 1;
+            e.target.style.height = 'auto';
+            e.target.style.height = e.target.scrollHeight + 2 * border + 'px';
         }
     }
 }

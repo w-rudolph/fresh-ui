@@ -12,7 +12,7 @@
     <br>
     <d-input style="width:200px;" icon="ios-search-strong"></d-input>
     <br>
-    <d-input type="textarea" v-model="txtValue" style="width:200px;"></d-input> {{txtValue}}
+    <d-input type="textarea" auto-size v-model="txtValue" style="width:300px;"></d-input>
   </div>
 </template>
 
