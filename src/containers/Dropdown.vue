@@ -2,7 +2,6 @@
     <div>
         <h1>Dropdown</h1>
         <div>
-            {{show ? 'show' : 'hide'}}
             <d-dropdown placement="bottom" :hide-on-click="true" @select="handleSelect" @visible-change="visibleChange">
                 <d-button type="link">dropdown
                     <d-icon name="arrow-down-b"></d-icon>
