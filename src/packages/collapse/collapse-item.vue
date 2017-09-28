@@ -7,7 +7,7 @@
                 {{title}}
             </template>
         </div>
-        <d-transition name="slide">
+        <collapse-transition>
             <div class="d-collapse-item__content" v-show="expand">
                 <slot></slot>
                 <slot name="content"></slot>
@@ -15,17 +15,17 @@
                     {{content}}
                 </template>
             </div>
-        </d-transition>
+        </collapse-transition>
     </div>
 </template>
 <script>
 import DIcon from '../icon/icon';
 import EventEmitter from '../mixins/event_emitter';
-import DTransition from '../transition/transition.vue';
+import CollapseTransition from '../transition/collapse-transition.vue';
 
 export default {
     name: 'DCollapseItem',
-    components: { DIcon, DTransition },
+    components: { DIcon, CollapseTransition },
     mixins: [EventEmitter],
     data() {
         return {
