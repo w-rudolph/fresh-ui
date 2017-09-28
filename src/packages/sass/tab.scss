@@ -11,6 +11,7 @@
 
 .d-tab__label {
     padding: 8px 15px;
+    margin-bottom: -1px;
     box-sizing: border-box;
     display: inline-block;
     list-style: none;
@@ -27,10 +28,19 @@
 
 .d-tab__content {
     padding: 5px;
+    overflow: hidden;
 }
 .d-tab__item{
     visibility: hidden;
+    float: left;
     &.active{
         visibility: visible;
+    }
+}
+.d-tab.card{
+    .d-tab__label.active{
+        border-radius: 4px 4px 0 0;
+        border: 1px solid #d9d9d9;
+        border-bottom: 1px solid #fff;           
     }
 }

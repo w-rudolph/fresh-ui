@@ -1,5 +1,5 @@
 <template>
-    <div class="d-tab">
+    <div :class="['d-tab', type ? type : '']">
         <div class="d-tab__header">
             <div class="d-tab__label" :class="[idx === currentIndex ? 'active' : '']" v-for="(item, idx) in tabLabelItems" :key="idx" @click="handleLabelClick(idx)">{{item}}</div>
         </div>
@@ -16,6 +16,10 @@ export default {
         activeIndex: {
             type: Number,
             default: 0,
+        },
+        type: {
+            type: String,
+            default: ''
         }
     },
     data() {
