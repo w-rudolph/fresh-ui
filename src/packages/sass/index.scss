@@ -40,3 +40,6 @@ body{
 .body-scroll-lock{
     overflow: hidden !important;
 }
+.collapse-transition{
+    transition: height 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+}

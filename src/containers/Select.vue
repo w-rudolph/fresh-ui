@@ -52,7 +52,7 @@
         <h2>Custom</h2>
         {{selects}}<br>
         <d-select v-model="selects" style="width: 300px" multiple>
-            <d-select-option v-for="item in cities1" :value="item.value">
+            <d-select-option v-for="item in cities1" :key="item.value" :value="item.value">
                 <span>{{ item.label }} - {{ item.value }}</span>
             </d-select-option>
         </d-select>

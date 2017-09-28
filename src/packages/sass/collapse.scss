@@ -23,7 +23,6 @@
         color: #1f2d3d;
         font-size: 13px;
         padding: 0 15px;
-        
     }
     &.expand {
         &>.d-collapse-item__content{
@@ -41,7 +40,7 @@
     .d-collapse-item__arrow{
         &:before{
             margin-right: 5px;
-            transition: transform .2s ease;
+            transition: transform .3s ease;
             transform: rotate(0);
         }
     }
