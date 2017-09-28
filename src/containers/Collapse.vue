@@ -2,12 +2,12 @@
   <div class="container">
     <h3>Collapse 组件</h3>
     <hr>
-    <d-collapse accordion>
+    <d-collapse accordion  active-index="4">
       <d-collapse-item v-for="(cl, idx) in collapseList" :key="idx" :title="cl.title">
         <div v-html="cl.content"></div>
       </d-collapse-item>
       <d-collapse-item title="nested">
-        <d-collapse>
+        <d-collapse active-index="0">
           <d-collapse-item title="sub">sub content</d-collapse-item>
         </d-collapse>
       </d-collapse-item>

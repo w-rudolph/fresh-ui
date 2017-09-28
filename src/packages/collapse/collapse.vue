@@ -13,6 +13,15 @@ export default {
             type: Boolean,
             default: false,
         },
+        activeIndex: {
+            type: Number | String,
+            default: ''
+        }
+    },
+    watch: {
+        activeIndex(index) {
+            this.updateChildExpand(index);
+        }
     },
     computed: {
         children() {
@@ -25,10 +34,18 @@ export default {
                 this.broadcast('DCollapseItem', 'sibling-item-click', vnode);
             }
         },
-
+        updateChildExpand(index) {
+            const child = this.children[index];
+            if (child) {
+                child.showToggle();
+            }
+        }
+    },
+    created() {
+        this.subscribe('item-click', this.handleChildClick);
     },
     mounted() {
-        this.subscribe('item-click', this.handleChildClick);
+        this.updateChildExpand(this.activeIndex);
     }
 }
 </script>
