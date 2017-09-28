@@ -48,6 +48,14 @@
             <d-select-option value="北京">北京</d-select-option>
             <d-select-option value="杭州">杭州</d-select-option>
         </d-select>
+
+        <h2>Custom</h2>
+        {{selects}}<br>
+        <d-select v-model="selects" style="width: 300px" multiple>
+            <d-select-option v-for="item in cities1" :value="item.value">
+                <span>{{ item.label }} - {{ item.value }}</span>
+            </d-select-option>
+        </d-select>
     </div>
 </template>
 
@@ -57,7 +65,27 @@ export default {
         return {
             city: '上海',
             disabled: true,
-            cities: ["上海", "北京"]
+            cities: ["上海", "北京"],
+            selects: [],
+            cities1: [{
+                value: 'Beijing',
+                label: '北京'
+            }, {
+                value: 'Shanghai',
+                label: '上海'
+            }, {
+                value: 'Nanjing',
+                label: '南京'
+            }, {
+                value: 'Chengdu',
+                label: '成都'
+            }, {
+                value: 'Shenzhen',
+                label: '深圳'
+            }, {
+                value: 'Guangzhou',
+                label: '广州'
+            }],
         }
     }
 }
