@@ -60,7 +60,7 @@ export default {
             this.dispatch('DTable', 'table.columns.update', copyData);
         },
         handleResize() {
-            console.log(1);
+            console.log('resize');
         }
     },
     mounted() {

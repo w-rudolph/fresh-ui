@@ -42,8 +42,13 @@ export default {
             return this.$children.filter(child => child.$options.name === 'DTableColumn');
         }
     },
-    mounted() {
-        this.updateTableCoulumns(this._tableColumns);
+    watch: {
+        tableColumns(v){
+            console.log(v);
+        },
+       ['$children'](){
+            console.log('chi');
+        }
     },
     methods: {
         getTableCoulumns() {
@@ -59,7 +64,6 @@ export default {
                     _uid: column._uid
                 }
             });
-            console.log(columnsData);
             this.tableWidth = this.tableColumns.map(column => column.autoWidth).reduce((a, b) => addInt(a, b), 0);
         },
         getColumnWidth(width) {
@@ -72,6 +76,9 @@ export default {
     created() {
         this.subscribe('table.columns.update', data => {
             this.updateTableCoulumns(data)
+        })
+        this.$nextTick(_ => {
+            this.updateTableCoulumns(this._tableColumns);
         })
     }
 }

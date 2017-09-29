@@ -3,18 +3,9 @@
         <h3>Table 组件</h3>
         <br>
         <h4>Basic</h4>
-        <d-table :data="tableData">
-            <d-table-column label="ID" prop="id" width="80"></d-table-column>
-            <d-table-column label="名字" prop="name"></d-table-column>
-            <d-table-column label="年龄" prop="age"></d-table-column>
-            <d-table-column label="性别" prop="sex"></d-table-column>
-            <d-table-column label="婚姻状况" prop="status"></d-table-column>
-            <d-table-column label="婚姻状况" prop="status"></d-table-column>
-            <d-table-column label="婚姻状况" prop="status"></d-table-column>
-            <d-table-column label="婚姻状况" prop="status"></d-table-column>
-            <d-table-column label="婚姻状况" prop="status"></d-table-column>
-            <d-table-column label="婚姻状况" width="120" prop="status"></d-table-column>
-            <d-table-column label="婚姻状况" width="120" prop="status"></d-table-column>
+        <d-button @click="toggleShow">toggle</d-button>
+        <d-table :data="tableData" ref="table">
+            <d-table-column v-if="column.show" v-for="column in columns" :key="column.label" :label="column.label" :prop="column.prop" :width="column.width"></d-table-column>
             <d-table-column label="操作" width="120"></d-table-column>
         </d-table>
     </div>
@@ -24,6 +15,23 @@
 export default {
     data() {
         return {
+            columns: [
+                {
+                    label: 'ID', prop: 'id', width: 80, show: false,
+                },
+                {
+                    label: '名字', prop: 'name', show: true
+                },
+                {
+                    label: '年龄', prop: 'age', show: true
+                },
+                {
+                    label: '性别', prop: 'sex', show: true
+                },
+                {
+                    label: '婚姻状况', prop: 'status', show: true
+                }
+            ],
             tableData: [{
                 name: 'aaaa',
                 id: 'a',
@@ -44,7 +52,14 @@ export default {
                 age: 26,
                 sex: '女',
                 status: '未婚'
-            }]
+            }],
+        }
+    },
+    methods: {
+        toggleShow() {
+            this.columns[0].show = !this.columns[0].show;
+            // console.log(this.columns);
+            // console.log(this.$refs.table);
         }
     }
 }

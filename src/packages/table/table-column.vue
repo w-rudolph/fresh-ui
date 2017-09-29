@@ -4,8 +4,11 @@
     </div>
 </template>
 <script>
+import EventEmitter from '../mixins/event_emitter.js';
+
 export default {
     name: 'DTableColumn',
+    mixins: [EventEmitter],
     props: {
         label: {
             type: String,
@@ -16,7 +19,7 @@ export default {
             default: '',
         },
         width: {
-            type: String,
+            type: String | Number,
             default: ''
         }
     },
@@ -24,6 +27,11 @@ export default {
         return {
 
         }
-    }
+    },
+    // created() {
+    //     this.$nextTick(_ => {
+    //         this.dispatch('DTable', 'table.columns.update');
+    //     })
+    // }
 }
 </script>
