@@ -1,4 +1,5 @@
 import DButton from './button/button';
+import DButtonGroup from './button/button-group';
 import DInput from './input/input';
 import DSelect from './select/select';
 import DSelectOption from './select/select-option';
@@ -26,6 +27,7 @@ import Notification from './notification/notification.js';
 
 const components = [
     DButton,
+    DButtonGroup,
     DInput,
     DSelect,
     DSelectOption,
@@ -70,6 +72,7 @@ export default {
 
     // components
     DButton,
+    DButtonGroup,
     DInput,
     DSelect,
     DSelectOption,
