@@ -19,6 +19,8 @@ import DDropdownMenu from './dropdown/dropdown-menu';
 import DDropdownItem from './dropdown/dropdown-item';
 import DTab from './tab/tab';
 import DTabItem from './tab/tab-item';
+import DTable from './table/table';
+import DTableColumn from './table/table-column';
 import DAside from './aside/aside';
 import DDialog from './dialog/dialog';
 import Message from './message/message.js';
@@ -47,6 +49,8 @@ const components = [
     DDropdownItem,
     DTab,
     DTabItem,
+    DTable,
+    DTableColumn,
     DAside,
     DDialog,
 ];
@@ -92,6 +96,8 @@ export default {
     DDropdownItem,
     DTab,
     DTabItem,
+    DTable,
+    DTableColumn,
     DAside,
     DDialog,
     Message,

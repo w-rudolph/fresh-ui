@@ -12,6 +12,7 @@ import Popper from '@/containers/Popper';
 import Tooltip from '@/containers/Tooltip';
 import Dropdown from '@/containers/Dropdown';
 import Tab from '@/containers/Tab';
+import Table from '@/containers/Table';
 import Aside from '@/containers/Aside';
 import Dialog from '@/containers/Dialog';
 import Message from '@/containers/Message';
@@ -33,6 +34,7 @@ export default [
     { path: "/tooltip", name: "tooltip", component: Tooltip },
     { path: "/dropdown", name: "dropdown", component: Dropdown },
     { path: "/tab", name: "tab", component: Tab },
+    { path: "/table", name: "table", component: Table },
     { path: "/aside", name: "aside", component: Aside },
     { path: "/dialog", name: "dialog", component: Dialog },
     { path: "/message", name: "message", component: Message },

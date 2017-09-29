@@ -1,0 +1,26 @@
+.d-table{
+    border: 1px solid #dfe6ec;
+    overflow: auto;
+}
+
+.d-table table{
+    width: 100%;
+    table-layout:fixed
+}
+
+.d-table th {
+    background-color: #eef1f6;
+    text-align: left;
+    border-bottom: 1px solid #dfe6ec;
+}
+
+.d-table__cell{
+    display: inline-block;
+    padding: 8px 16px;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    vertical-align: middle;
+    word-break: break-all;
+}
