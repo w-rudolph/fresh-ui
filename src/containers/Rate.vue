@@ -2,8 +2,10 @@
     <div class="container">
         <h3>Rate 组件</h3>
         <br>
+        <h4>basic</h4>
         <d-rate v-model="rate" @change="handleChange"></d-rate> {{txt}}
         <br>
+        <h4>disabled</h4>
         <d-rate v-model="rate" disabled></d-rate>
     </div>
 </template>

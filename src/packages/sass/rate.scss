@@ -1,15 +1,23 @@
 .d-rate{
+    display: inline-block;
     .d-rate-item {
         display: inline-block;
         user-select: none;
         position: relative;
+        padding: 2px;
         cursor: pointer;
+        &.hover{
+            .d-rate-item__icon{
+                color: #f7ba2a;
+                transform: scale(1.2);
+            }
+        }
     }
     .d-rate-item__icon {
         font-size: 20px;
         color: #adafb3;
+        display: inline-block;
         transition: all 0.2s cubic-bezier(0.075, 0.82, 0.165, 1);
-        &:hover,
         &.active{
             color: #f7ba2a;
         }
@@ -17,11 +25,6 @@
     &.disabled{
         .d-rate-item{
             cursor: default;
-        }
-        .d-rate-item__icon{
-            &:not(.active):hover{
-                color: #adafb3;
-            }
         }
     }
 }

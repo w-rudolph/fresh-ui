@@ -1,12 +1,13 @@
 <template>
     <div :class="['d-rate', disabled ? 'disabled' : '']">
-        <span v-for="idx in max" :key="idx" class="d-rate-item" @mouseover="handleMouseOver(idx)" @mouseleave="handleMouseLeave" @click="handleClick(idx)">
+        <span v-for="idx in max" :key="idx" class="d-rate-item" @mouseenter="handleMouseEnter(idx,$event)" @mouseleave="handleMouseLeave($event)" @click="handleClick(idx)">
             <d-icon name="star" :class="['d-rate-item__icon', hoverIndex >= idx ? 'active' : '']"></d-icon>
         </span>
     </div>
 </template>
 <script>
 import DIcon from '../icon/icon';
+import { addClass, removeClass } from '../utils/dom.js';
 
 export default {
     name: 'DRate',
@@ -19,10 +20,6 @@ export default {
         max: {
             type: Number,
             default: 5
-        },
-        size: {
-            type: String,
-            default: 'lg'
         },
         disabled: {
             type: Boolean,
@@ -45,17 +42,19 @@ export default {
         }
     },
     methods: {
-        handleMouseOver(idx) {
+        handleMouseEnter(idx, e) {
             if (this.disabled) {
                 return;
             }
+            addClass(e.target, 'hover');
             this.hoverIndex = idx;
             this.$emit('change', idx);
         },
-        handleMouseLeave() {
+        handleMouseLeave(e) {
             if (this.disabled) {
                 return;
             }
+            removeClass(e.target, 'hover');
             this.hoverIndex = this.selectedValue;
             this.$emit('change', this.hoverIndex);
         },
