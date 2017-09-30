@@ -14,7 +14,7 @@ export default {
         return {
             columns: [
                 {
-                    label: 'ID', prop: 'id', width: 80, visible: true, render(row) {
+                    label: 'ID', prop: 'id', width: 60, visible: true, render(row) {
                         return row.id + '!';
                     }
                 },
@@ -28,37 +28,7 @@ export default {
                     label: '性别', prop: 'sex'
                 },
                 {
-                    label: '名字', prop: 'name'
-                },
-                {
-                    label: '年龄', prop: 'age'
-                },
-                {
-                    label: '性别', prop: 'sex'
-                },
-                {
-                    label: '婚姻状况', prop: 'status'
-                },
-                {
-                    label: '年龄', prop: 'age'
-                },
-                {
-                    label: '性别', prop: 'sex'
-                },
-                {
-                    label: '名字', prop: 'name'
-                },
-                {
-                    label: '年龄', prop: 'age'
-                },
-                {
-                    label: '性别', prop: 'sex'
-                },
-                {
-                    label: '婚姻状况', prop: 'status'
-                },
-                {
-                    label: '操作', width: 180, render(row) {
+                    label: '操作', width: 140, render(row) {
                         return '<a>操作</a>'
                     }
                 }

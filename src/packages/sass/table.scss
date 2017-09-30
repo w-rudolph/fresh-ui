@@ -1,6 +1,5 @@
 .d-table{
     border: 1px solid #dfe6ec;
-    overflow: auto;
 }
 
 .d-table table{
@@ -23,4 +22,12 @@
     white-space: normal;
     vertical-align: middle;
     word-break: break-all;
+}
+
+.d-table__body-wrapper{
+    overflow: auto;
+}
+
+.d-table__header-wrapper{
+    overflow: hidden;
 }

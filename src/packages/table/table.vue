@@ -1,8 +1,14 @@
 <template>
     <div class="d-table">
-        <d-table-head :store="store"></d-table-head>
-        <d-table-body :store="store"></d-table-body>
-        <d-table-footer></d-table-footer>
+        <div class="d-table__header-wrapper" ref="header">
+            <d-table-head :store="store"></d-table-head>
+        </div>
+        <div class="d-table__body-wrapper" @scroll="handleBodyScroll" :style="{height: store.tableHeight + 'px'}">
+            <d-table-body :store="store"></d-table-body>
+        </div>
+        <div class="d-table__footer-wrapper">
+            <d-table-footer></d-table-footer>
+        </div>
     </div>
 </template>
 <script>
@@ -10,7 +16,6 @@ import DTableHead from './table-head.vue';
 import DTableBody from './table-body.vue';
 import DTableFooter from './table-footer.vue';
 import EventEmitter from '../mixins/event_emitter.js';
-import { addInt, extend, deepCopy } from '../utils/util';
 import { guid } from '../utils/guid.js';
 
 export default {
@@ -30,9 +35,12 @@ export default {
                 return [];
             }
         },
-        minRowWidth: {
+        defaultCellWidth: {
             type: Number,
             default: 80
+        },
+        tableHeight: {
+            type: [Number, String],
         }
     },
     data() {
@@ -41,14 +49,14 @@ export default {
                 columns: [],
                 tableData: [],
                 visibleColumns: [],
-                minRowWidth: 0
+                tableHeight: this.tableHeight,
+                defaultCellWidth: this.defaultCellWidth,
             }
         }
     },
     watch: {
         columns(v) {
             this.initStore();
-            this.broadcast('DTableHead', 'table.columns.widthUpdate', null);
         },
         tableData() {
             this.initStore();
@@ -57,9 +65,9 @@ export default {
     methods: {
         initStore() {
             this.store = {
+                ...this.store,
                 columns: this.columns,
                 tableData: this.tableData,
-                minRowWidth: this.minRowWidth
             };
             this.store.columns.forEach(column => {
                 column._uid = guid();
@@ -69,26 +77,12 @@ export default {
             })
             this.store.visibleColumns = this.columns.filter(column => column.visible === true);
         },
-        updateStore(columns) {
-            const cols = deepCopy(this.store.visibleColumns);
-            cols.forEach((col, index) => {
-                let column = columns[index];
-                if (column.autoWidth < this.minRowWidth) {
-                    column.autoWidth = this.minRowWidth;
-                }
-                extend(col, column);
-            });
-            this.store = {
-                ...this.store,
-                visibleColumns: cols
-            };
+        handleBodyScroll(event) {
+            this.$refs.header.scrollLeft = event.target.scrollLeft;
         }
     },
     created() {
         this.initStore();
-        this.subscribe('table.columns.update', columns => {
-            this.updateStore(columns);
-        })
     }
 }
 </script>

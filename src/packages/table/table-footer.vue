@@ -1,7 +1,6 @@
 <template>
-    <div class="d-table__footer-wrapper">
-        <table class="d-table__footer"></table>
-    </div>
+    <table class="d-table__footer">
+    </table>
 </template>
 <script>
 export default {
