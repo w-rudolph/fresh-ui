@@ -28,10 +28,8 @@ export default {
 
         }
     },
-    // created() {
-    //     this.$nextTick(_ => {
-    //         this.dispatch('DTable', 'table.columns.update');
-    //     })
-    // }
+    mounted() {
+        this.dispatch('DTable', 'table.columns.add', this);
+    }
 }
 </script>

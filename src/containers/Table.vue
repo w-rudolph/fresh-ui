@@ -4,10 +4,7 @@
         <br>
         <h4>Basic</h4>
         <d-button @click="toggleShow">toggle</d-button>
-        <d-table :data="tableData" ref="table">
-            <d-table-column v-if="column.show" v-for="column in columns" :key="column.label" :label="column.label" :prop="column.prop" :width="column.width"></d-table-column>
-            <d-table-column label="操作" width="120"></d-table-column>
-        </d-table>
+        <d-table :table-data="tableData" :columns="columns"></d-table>
     </div>
 </template>
 
@@ -17,19 +14,53 @@ export default {
         return {
             columns: [
                 {
-                    label: 'ID', prop: 'id', width: 80, show: false,
+                    label: 'ID', prop: 'id', width: 80, visible: true, render(row) {
+                        return row.id + '!';
+                    }
                 },
                 {
-                    label: '名字', prop: 'name', show: true
+                    label: '名字', prop: 'name'
                 },
                 {
-                    label: '年龄', prop: 'age', show: true
+                    label: '年龄', prop: 'age'
                 },
                 {
-                    label: '性别', prop: 'sex', show: true
+                    label: '性别', prop: 'sex'
                 },
                 {
-                    label: '婚姻状况', prop: 'status', show: true
+                    label: '名字', prop: 'name'
+                },
+                {
+                    label: '年龄', prop: 'age'
+                },
+                {
+                    label: '性别', prop: 'sex'
+                },
+                {
+                    label: '婚姻状况', prop: 'status'
+                },
+                {
+                    label: '年龄', prop: 'age'
+                },
+                {
+                    label: '性别', prop: 'sex'
+                },
+                {
+                    label: '名字', prop: 'name'
+                },
+                {
+                    label: '年龄', prop: 'age'
+                },
+                {
+                    label: '性别', prop: 'sex'
+                },
+                {
+                    label: '婚姻状况', prop: 'status'
+                },
+                {
+                    label: '操作', width: 180, render(row) {
+                        return '<a>操作</a>'
+                    }
                 }
             ],
             tableData: [{
@@ -57,9 +88,12 @@ export default {
     },
     methods: {
         toggleShow() {
-            this.columns[0].show = !this.columns[0].show;
-            // console.log(this.columns);
-            // console.log(this.$refs.table);
+            this.columns = this.columns.map((col, index) => {
+                if (index === 0) {
+                    col.visible = !col.visible;
+                }
+                return col;
+            })
         }
     }
 }

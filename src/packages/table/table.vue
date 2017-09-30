@@ -1,10 +1,7 @@
 <template>
     <div class="d-table">
-        <div class="d-table__columns" v-show="false">
-            <slot></slot>
-        </div>
-        <d-table-head :table-columns="tableColumns" :table-width="tableWidth"></d-table-head>
-        <d-table-body :table-columns="tableColumns" :table-width="tableWidth" :data="data"></d-table-body>
+        <d-table-head :store="store"></d-table-head>
+        <d-table-body :store="store"></d-table-body>
         <d-table-footer></d-table-footer>
     </div>
 </template>
@@ -13,14 +10,21 @@ import DTableHead from './table-head.vue';
 import DTableBody from './table-body.vue';
 import DTableFooter from './table-footer.vue';
 import EventEmitter from '../mixins/event_emitter.js';
-import { addInt } from '../utils/util';
+import { addInt, extend, deepCopy } from '../utils/util';
+import { guid } from '../utils/guid.js';
 
 export default {
     name: 'DTable',
     components: { DTableHead, DTableBody, DTableFooter },
     mixins: [EventEmitter],
     props: {
-        data: {
+        tableData: {
+            type: Array,
+            default() {
+                return [];
+            }
+        },
+        columns: {
             type: Array,
             default() {
                 return [];
@@ -33,52 +37,57 @@ export default {
     },
     data() {
         return {
-            tableColumns: [],
-            tableWidth: ''
-        }
-    },
-    computed: {
-        _tableColumns() {
-            return this.$children.filter(child => child.$options.name === 'DTableColumn');
+            store: {
+                columns: [],
+                tableData: [],
+                visibleColumns: [],
+                minRowWidth: 0
+            }
         }
     },
     watch: {
-        tableColumns(v){
-            console.log(v);
+        columns(v) {
+            this.initStore();
+            this.broadcast('DTableHead', 'table.columns.widthUpdate', null);
         },
-       ['$children'](){
-            console.log('chi');
+        tableData() {
+            this.initStore();
         }
     },
     methods: {
-        getTableCoulumns() {
-            return this.$children.map(child => child.prop);
-        },
-        updateTableCoulumns(columnsData) {
-            this.tableColumns = columnsData.map(column => {
-                return {
-                    label: column.label,
-                    prop: column.prop,
-                    width: this.getColumnWidth(column.width),
-                    autoWidth: +this.getColumnWidth(column.autoWidth) || 0,
-                    _uid: column._uid
+        initStore() {
+            this.store = {
+                columns: this.columns,
+                tableData: this.tableData,
+                minRowWidth: this.minRowWidth
+            };
+            this.store.columns.forEach(column => {
+                column._uid = guid();
+                if (typeof column.visible === 'undefined') {
+                    column.visible = true;
                 }
-            });
-            this.tableWidth = this.tableColumns.map(column => column.autoWidth).reduce((a, b) => addInt(a, b), 0);
+            })
+            this.store.visibleColumns = this.columns.filter(column => column.visible === true);
         },
-        getColumnWidth(width) {
-            if (width && width < this.minRowWidth) {
-                return this.minRowWidth;
-            }
-            return width;
+        updateStore(columns) {
+            const cols = deepCopy(this.store.visibleColumns);
+            cols.forEach((col, index) => {
+                let column = columns[index];
+                if (column.autoWidth < this.minRowWidth) {
+                    column.autoWidth = this.minRowWidth;
+                }
+                extend(col, column);
+            });
+            this.store = {
+                ...this.store,
+                visibleColumns: cols
+            };
         }
     },
     created() {
-        this.subscribe('table.columns.update', data => {
-            this.updateTableCoulumns(data)
-        })
-        this.$nextTick(_ => {
-            this.updateTableCoulumns(this._tableColumns);
+        this.initStore();
+        this.subscribe('table.columns.update', columns => {
+            this.updateStore(columns);
         })
     }
 }
