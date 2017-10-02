@@ -4,7 +4,7 @@
         <br>
         <h4>Basic</h4>
         <d-button @click="toggleShow">toggle</d-button>
-        <d-table :table-data="tableData" :columns="columns" :table-height="200"></d-table>
+        <d-table :table-data="tableData" :columns="columns" :table-height="200" border stripe></d-table>
     </div>
 </template>
 
@@ -14,12 +14,12 @@ export default {
         return {
             columns: [
                 {
-                    label: 'ID', prop: 'id', width: 60, visible: true, render(row) {
+                    label: 'ID', prop: 'id', width: 70, visible: true, render(row) {
                         return row.id + '!';
                     }
                 },
                 {
-                    label: '名字', prop: 'name', width:200
+                    label: '名字', prop: 'name', width:120
                 },
                 {
                     label: '年龄', prop: 'age'
@@ -76,7 +76,7 @@ export default {
                 }
             ],
             tableData: [{
-                name: '上海壹佰米网络科技有限公司（调拨遗漏）ss',
+                name: 'aaaaaaaa',
                 id: 'a',
                 age: 21,
                 sex: '男',
