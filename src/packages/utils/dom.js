@@ -18,9 +18,35 @@ const getStyle = function (el, attr) {
     }
 }
 
+const getScrollbarWidth = function () {
+    const oDiv = document.createElement("div");
+    oDiv.style.cssText = "position:absolute; top:-1000px; width:100px; height:100px; overflow:hidden;";
+    const noScroll = document.body.appendChild(oDiv).clientWidth;
+    oDiv.style.overflowY = "scroll";
+    const scroll = oDiv.clientWidth;
+    document.body.removeChild(oDiv);
+    return noScroll - scroll;
+}
+
+const hasScroll = function (el, dir = "vertical") {
+    const scroll = {
+        vertical: false,
+        horizontal: false
+    };
+    if (el.scrollHeight > el.clientHeight) {
+        scroll.vertical = true;
+    }
+    if (el.scrollWidth > el.clientWidth) {
+        scroll.horizontal = true;
+    }
+    return scroll;
+}
+
 export {
     addClass,
     removeClass,
     toggleClass,
-    getStyle
+    getStyle,
+    getScrollbarWidth,
+    hasScroll
 }

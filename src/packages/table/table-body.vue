@@ -1,7 +1,7 @@
 <template>
     <table class="d-table__body" cellspacing="0" cellpadding="0" border="0">
         <colgroup>
-            <col v-for="column in store.visibleColumns" :key="column.prop" :width="column.width ||  store.defaultCellWidth">
+            <col v-for="(width, index) in store.columnWidths" :key="index" :width="width">
         </colgroup>
         <tr v-for="(row, index) in store.tableData" :key="index">
             <td v-for="column in store.visibleColumns" :key="column.prop" :class="['d-table__column-' + column.prop]">
@@ -30,9 +30,9 @@ export default {
         renderCell(row, column) {
             const findColumn = this.store.columns.find(col => col._uid === column._uid);
             if (typeof findColumn.render === 'function') {
-                return findColumn.render(row)
+                return findColumn.render(row);
             }
-            return row[findColumn.prop]
+            return row[findColumn.prop];
         }
     }
 }

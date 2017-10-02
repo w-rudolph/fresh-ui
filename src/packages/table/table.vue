@@ -1,12 +1,12 @@
 <template>
     <div class="d-table">
         <div class="d-table__header-wrapper" ref="header">
-            <d-table-head :store="store"></d-table-head>
+            <d-table-head :store="store" :style="{width: store.tableWidth + 'px'}"></d-table-head>
         </div>
-        <div class="d-table__body-wrapper" @scroll="handleBodyScroll" :style="{height: store.tableHeight + 'px'}">
-            <d-table-body :store="store"></d-table-body>
+        <div class="d-table__body-wrapper" @scroll="handleBodyScroll" ref="body" :style="{height: store.tableHeight + 'px'}">
+            <d-table-body :store="store" :style="{width: store.tableBodyWidth + 'px'}"></d-table-body>
         </div>
-        <div class="d-table__footer-wrapper">
+        <div class="d-table__footer-wrapper" ref="footer">
             <d-table-footer></d-table-footer>
         </div>
     </div>
@@ -17,6 +17,7 @@ import DTableBody from './table-body.vue';
 import DTableFooter from './table-footer.vue';
 import EventEmitter from '../mixins/event_emitter.js';
 import { guid } from '../utils/guid.js';
+import { getScrollbarWidth, hasScroll } from '../utils/dom.js';
 
 export default {
     name: 'DTable',
@@ -47,8 +48,16 @@ export default {
         return {
             store: {
                 columns: [],
-                tableData: [],
+                tableData: this.tableData,
+                scrollbarWidth: getScrollbarWidth(),
+                tableWidth: '',
+                tableBodyWidth: '',
                 visibleColumns: [],
+                columnWidths: [],
+                bodyScroll: {
+                    vertical: false,
+                    horizontal: false
+                },
                 tableHeight: this.tableHeight,
                 defaultCellWidth: this.defaultCellWidth,
             }
@@ -57,6 +66,7 @@ export default {
     watch: {
         columns(v) {
             this.initStore();
+            this.$nextTick(this.setTableWidth);
         },
         tableData() {
             this.initStore();
@@ -64,25 +74,70 @@ export default {
     },
     methods: {
         initStore() {
-            this.store = {
-                ...this.store,
-                columns: this.columns,
-                tableData: this.tableData,
-            };
-            this.store.columns.forEach(column => {
-                column._uid = guid();
-                if (typeof column.visible === 'undefined') {
-                    column.visible = true;
+            const columns = this.columns.map(column => {
+                return {
+                    ...column,
+                    _uid: guid(),
+                    visible: column.visible === undefined ? true : column.visible
                 }
             })
-            this.store.visibleColumns = this.columns.filter(column => column.visible === true);
+            const visibleColumns = columns.filter(column => column.visible === true);
+            this.store = {
+                ...this.store,
+                columns,
+                visibleColumns,
+            };
         },
         handleBodyScroll(event) {
             this.$refs.header.scrollLeft = event.target.scrollLeft;
+        },
+        setTableWidth() {
+            const { bodyScroll, scrollbarWidth, visibleColumns } = this.store;
+            const width = this.$el.clientWidth;
+            this.store = {
+                ...this.store,
+                tableWidth: width,
+                columnWidths: [],
+                tableBodyWidth: bodyScroll.vertical ? width - scrollbarWidth : width,
+            };
+            this.$nextTick(() => {
+                const $tds = this.$refs.body.querySelector('tr').children;
+                const columnWidths = [];
+                for (let i = 0; i < $tds.length; i++) {
+                    let width = $tds[i].offsetWidth;
+                    if (width < this.store.defaultCellWidth) {
+                        width = this.store.defaultCellWidth;
+                    }
+                    columnWidths.push(width)
+                }
+                this.store = {
+                    ...this.store,
+                    columnWidths
+                }
+            });
+        },
+        setScrollState() {
+            const bodyScroll = hasScroll(this.$refs.body);
+            this.store.bodyScroll = bodyScroll;
+            console.log(JSON.stringify(this.store.bodyScroll))
         }
+    },
+    mounted() {
+        this.$nextTick(() => {
+            this.setScrollState();
+            this.setTableWidth();
+        })
+        window.EL = this.$refs.body;
     },
     created() {
         this.initStore();
+        window.onresize = () => {
+            if (this.timer) {
+                clearTimeout(this.timer);
+                this.timer = null;
+            }
+            this.timer = setTimeout(this.setTableWidth, 200)
+        }
     }
 }
 </script>

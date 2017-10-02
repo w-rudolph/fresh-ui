@@ -12,7 +12,11 @@
     text-align: left;
     border-bottom: 1px solid #dfe6ec;
 }
-
+.d-table tr{
+    &:hover{
+        background-color: #eef1f6;
+    }
+}
 .d-table__cell{
     display: inline-block;
     padding: 8px 16px;
