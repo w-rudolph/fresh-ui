@@ -3,11 +3,13 @@
         <colgroup>
             <col v-for="(width, index) in store.columnWidths" :key="index" :width="width">
         </colgroup>
-        <tr v-for="(row, index) in store.tableData" :key="index">
-            <td v-for="column in store.visibleColumns" :key="column.prop" :class="['d-table__column-' + column.prop]">
-                <div class="d-table__cell" v-html="renderCell(row, column)"></div>
-            </td>
-        </tr>
+        <tbody>
+            <tr v-for="(row, index) in store.tableData" :key="index">
+                <td v-for="column in store.visibleColumns" :key="column.prop" :class="['d-table__column-' + column.prop]">
+                    <div class="d-table__cell" v-html="renderCell(row, column)"></div>
+                </td>
+            </tr>
+        </tbody>
     </table>
 </template>
 <script>

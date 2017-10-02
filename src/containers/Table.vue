@@ -19,7 +19,7 @@ export default {
                     }
                 },
                 {
-                    label: '名字', prop: 'name'
+                    label: '名字', prop: 'name', width:200
                 },
                 {
                     label: '年龄', prop: 'age'
@@ -76,7 +76,7 @@ export default {
                 }
             ],
             tableData: [{
-                name: 'aaaa',
+                name: '上海壹佰米网络科技有限公司（调拨遗漏）ss',
                 id: 'a',
                 age: 21,
                 sex: '男',

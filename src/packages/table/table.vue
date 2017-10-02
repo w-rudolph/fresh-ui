@@ -1,6 +1,6 @@
 <template>
-    <div class="d-table">
-        <div class="d-table__header-wrapper" ref="header">
+    <div :class="['d-table', stripe ? 'stripe' : '', border ? 'border' : '']">
+        <div class="d-table__header-wrapper" ref="header" v-if="showHeader">
             <d-table-head :store="store" :style="{width: store.tableWidth + 'px'}"></d-table-head>
         </div>
         <div class="d-table__body-wrapper" @scroll="handleBodyScroll" ref="body" :style="{height: store.tableHeight + 'px'}">
@@ -49,6 +49,18 @@ export default {
         emptyText: {
             type: String,
             default: '暂无数据'
+        },
+        stripe: {
+            type: Boolean,
+            default: false
+        },
+        border: {
+            type: Boolean,
+            default: false
+        },
+        showHeader: {
+            type: Boolean,
+            default: true
         }
     },
     data() {
@@ -97,6 +109,9 @@ export default {
             };
         },
         handleBodyScroll(event) {
+            if (!this.showHeader) {
+                return;
+            }
             this.$refs.header.scrollLeft = event.target.scrollLeft;
         },
         setTableWidth() {
@@ -116,7 +131,10 @@ export default {
                 const columnWidths = [];
                 const $tds = $tr.children;
                 for (let i = 0; i < $tds.length; i++) {
-                    let width = $tds[i].offsetWidth;
+                    let width = this.columns[i].width;
+                    if (!width) {
+                        width = $tds[i].offsetWidth;
+                    }
                     if (width < this.store.defaultCellWidth) {
                         width = this.store.defaultCellWidth;
                     }

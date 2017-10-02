@@ -1,5 +1,35 @@
 .d-table{
     border: 1px solid #dfe6ec;
+    &.stripe{
+        tbody {
+            tr{
+                &:nth-child(even){
+                    background: #FAFAFA;
+                }
+                &:hover{
+                    background-color: #eef1f6;
+                }
+            }
+        }
+        
+    }
+    &.border{
+        td, th{
+            border-right: 1px solid #dfe6ec;
+        }
+        tr th:last-child,
+        tr td:last-child{
+            border-right: none; 
+        }
+    }
+    tr{
+        &:hover{
+            background-color: #eef1f6;
+        }
+        td{
+            border-bottom: 1px solid #dfe6ec;
+        }
+    }
 }
 
 .d-table table{
@@ -12,11 +42,7 @@
     text-align: left;
     border-bottom: 1px solid #dfe6ec;
 }
-.d-table tr{
-    &:hover{
-        background-color: #eef1f6;
-    }
-}
+
 .d-table__cell{
     display: inline-block;
     padding: 8px 16px;
