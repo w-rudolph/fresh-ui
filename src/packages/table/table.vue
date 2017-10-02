@@ -18,14 +18,12 @@
 import DTableHead from './table-head.vue';
 import DTableBody from './table-body.vue';
 import DTableFooter from './table-footer.vue';
-import EventEmitter from '../mixins/event_emitter.js';
 import { guid } from '../utils/guid.js';
 import { getScrollbarWidth, hasScroll } from '../utils/dom.js';
 
 export default {
     name: 'DTable',
     components: { DTableHead, DTableBody, DTableFooter },
-    mixins: [EventEmitter],
     props: {
         tableData: {
             type: Array,
@@ -149,7 +147,6 @@ export default {
         setScrollState() {
             const bodyScroll = hasScroll(this.$refs.body);
             this.store.bodyScroll = bodyScroll;
-            console.log(JSON.stringify(this.store.bodyScroll))
         }
     },
     mounted() {
