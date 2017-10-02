@@ -4,7 +4,10 @@
             <d-table-head :store="store" :style="{width: store.tableWidth + 'px'}"></d-table-head>
         </div>
         <div class="d-table__body-wrapper" @scroll="handleBodyScroll" ref="body" :style="{height: store.tableHeight + 'px'}">
-            <d-table-body :store="store" :style="{width: store.tableBodyWidth + 'px'}"></d-table-body>
+            <d-table-body v-if="this.store.tableData.length" :store="store" :style="{width: store.tableBodyWidth + 'px'}"></d-table-body>
+            <div class="d-table__empty" v-if="!this.store.tableData.length">
+                <span class="d-table__empty--text">{{this.store.emptyText}}</span>
+            </div>
         </div>
         <div class="d-table__footer-wrapper" ref="footer">
             <d-table-footer></d-table-footer>
@@ -42,6 +45,10 @@ export default {
         },
         tableHeight: {
             type: [Number, String],
+        },
+        emptyText: {
+            type: String,
+            default: '暂无数据'
         }
     },
     data() {
@@ -59,6 +66,7 @@ export default {
                     horizontal: false
                 },
                 tableHeight: this.tableHeight,
+                emptyText: this.emptyText,
                 defaultCellWidth: this.defaultCellWidth,
             }
         }
@@ -101,8 +109,12 @@ export default {
                 tableBodyWidth: bodyScroll.vertical ? width - scrollbarWidth : width,
             };
             this.$nextTick(() => {
-                const $tds = this.$refs.body.querySelector('tr').children;
+                if (!this.store.tableData.length) {
+                    return;
+                }
+                const $tr = this.$refs.body.querySelector('tr');
                 const columnWidths = [];
+                const $tds = $tr.children;
                 for (let i = 0; i < $tds.length; i++) {
                     let width = $tds[i].offsetWidth;
                     if (width < this.store.defaultCellWidth) {

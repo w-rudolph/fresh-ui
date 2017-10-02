@@ -35,3 +35,15 @@
 .d-table__header-wrapper{
     overflow: hidden;
 }
+
+.d-table__empty{
+    position: relative;
+    height: 100%;
+    .d-table__empty--text{
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%,-50%);
+        color: #677A88;
+    }
+}
