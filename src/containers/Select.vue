@@ -56,6 +56,7 @@
                 <span>{{ item.label }} - {{ item.value }}</span>
             </d-select-option>
         </d-select>
+        <br><br>
     </div>
 </template>
 

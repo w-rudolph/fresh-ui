@@ -2,7 +2,7 @@
     <div :class="['d-input', , this.icon ? 'has-icon' : '']">
         <template v-if="type !== 'textarea'">
             <input :class="['d-input__inner', this.size ? 'd-input__inner--' + this.size : '']" :value="currentValue" :placeholder="placeholder" :autocomplete="autocomplete" :disabled="disabled" :readonly="readonly" @input="handleInputChange" @keyup.enter="handleInputKeyUp" :type="type">
-            <d-icon class="d-input__icon" v-if="this.icon" :name="icon"></d-icon>
+            <d-icon class="d-input__icon" v-if="this.icon" :name="icon" @click="handleIconClick"></d-icon>
         </template>
         <template v-else>
             <textarea :class="['d-textarea__inner', autoSize ? 'auto-size' : '']" :style="{'resize':resize}" :row="row" :value="currentValue" :placeholder="placeholder" :autocomplete="autocomplete" :disabled="disabled" @input="handleInputChange" @keyup.enter="handleInputKeyUp"></textarea>
@@ -90,6 +90,9 @@ export default {
             const border = 1;
             e.target.style.height = 'auto';
             e.target.style.height = e.target.scrollHeight + 2 * border + 'px';
+        },
+        handleIconClick() {
+            this.$emit('icon-click', this);
         }
     }
 }

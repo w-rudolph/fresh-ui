@@ -48,12 +48,13 @@
     }
     .d-input__icon{
         position: absolute;
+        top: 50%;
         right: 0;
-        top: 0;
-        padding-top: 5px;
-        height: 34px;
-        width: 34px;
-        text-align: center;
+        line-height: 1;
+        color: #80848f;
+        cursor: pointer;
+        transition: all .2s ease-in-out;
+        transform: translate(-50%, -50%);
         font-size: 18px;
         color: #bfcbd9;
         cursor: pointer;
