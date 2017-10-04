@@ -90,7 +90,8 @@ export default {
                 tableHeight: this.tableHeight,
                 emptyText: this.emptyText,
                 defaultCellWidth: this.defaultCellWidth,
-            }
+            },
+            timer: null,
         }
     },
     watch: {
@@ -144,9 +145,11 @@ export default {
         },
         setTableWidth() {
             const { bodyScroll, scrollbarWidth, visibleColumns, columns } = this.store;
-            let width = this.$el.clientWidth;
+            let width;
             if (columns.filter(column => column.width).length === columns.length) {
                 width = columns.map(column => column.width).reduce((a, b) => a + b, 0);
+            } else {
+                width = this.$el.clientWidth;
             }
             this.store = {
                 ...this.store,
@@ -198,13 +201,13 @@ export default {
     },
     created() {
         this.initStore();
-        window.onresize = () => {
+        window.addEventListener('resize', () => {
             if (this.timer) {
                 clearTimeout(this.timer);
                 this.timer = null;
             }
             this.timer = setTimeout(this.setTableWidth, 200)
-        }
+        });
     }
 }
 </script>
