@@ -30,6 +30,7 @@ Components basic-finished as bellows:
     Radio
     Dropdown
     Tab
+    Table
     Aside
     Dialog
     Message
