@@ -3,8 +3,8 @@
         <colgroup>
             <col v-for="(width, index) in columnWidths" :key="index" :width="getColumnWidth(width, index)">
         </colgroup>
-        <tbody>
-            <tr v-for="(row, index) in store.tableData" :key="index">
+        <tbody ref="tbody">
+            <tr class="d-table__row" v-for="(row, index) in store.tableData" :key="index" @mouseenter="handleMouseEvent(index, 'enter')" @mouseleave="handleMouseEvent(index, 'leave')">
                 <td v-for="column in columns" :key="column.prop" :class="['d-table__column-' + column.prop]">
                     <div class="d-table__cell" v-html="renderCell(row, column)"></div>
                 </td>
@@ -13,8 +13,12 @@
     </table>
 </template>
 <script>
+import EventEmitter from '../mixins/event_emitter.js';
+import { addClass, removeClass } from '../utils/dom.js';
+
 export default {
     name: 'DTableBody',
+    mixins: [EventEmitter],
     props: {
         store: {
             type: Object,
@@ -58,7 +62,20 @@ export default {
                 width -= this.store.scrollbarWidth;
             }
             return width;
+        },
+        handleMouseEvent(index, type) {
+            this.dispatch('DTable', 'table.row.hover', { type, index });
         }
+    },
+    created() {
+        this.subscribe('table.row.hover', ({ type, index }) => {
+            const $trs = this.$refs.tbody.querySelectorAll('tr');
+            if (type === 'enter') {
+                addClass($trs[index], 'hover');
+            } else {
+                removeClass($trs[index], 'hover');
+            }
+        })
     }
 }
 </script>

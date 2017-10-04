@@ -26,10 +26,12 @@ import DTableBody from './table-body.vue';
 import DTableFooter from './table-footer.vue';
 import DTableFixed from './table-fixed.vue';
 import { guid } from '../utils/guid.js';
-import { getScrollbarWidth, hasScroll, getStyle } from '../utils/dom.js';
+import { getScrollbarWidth, hasScroll } from '../utils/dom.js';
+import EventEmitter from '../mixins/event_emitter.js';
 
 export default {
     name: 'DTable',
+    mixins: [EventEmitter],
     components: { DTableHead, DTableBody, DTableFooter, DTableFixed },
     props: {
         tableData: {
@@ -208,6 +210,9 @@ export default {
             }
             this.timer = setTimeout(this.setTableWidth, 200)
         });
+        this.subscribe('table.row.hover', data => {
+            this.broadcast('DTableBody', 'table.row.hover', data);
+        })
     }
 }
 </script>
