@@ -1,16 +1,22 @@
 <template>
     <div :class="['d-table', stripe ? 'stripe' : '', border ? 'border' : '']">
-        <div class="d-table__header-wrapper" ref="header" v-if="showHeader">
-            <d-table-head :store="store" :style="{width: store.tableWidth + 'px'}"></d-table-head>
+        <div class="d-table__header-wrapper" ref="header" v-if="store.showHeader">
+            <d-table-head :store="store" :style="{width: store.tableWidth + 'px'}" :columns="store.visibleColumns" :columnWidths="store.columnWidths"></d-table-head>
         </div>
         <div class="d-table__body-wrapper" @scroll="handleBodyScroll" ref="body" :style="{height: store.tableHeight + 'px'}">
-            <d-table-body v-if="this.store.tableData.length" :store="store" :style="{width: store.tableBodyWidth + 'px'}"></d-table-body>
+            <d-table-body v-if="this.store.tableData.length" :store="store" :columns="store.visibleColumns" :columnWidths="store.columnWidths" :style="{width: store.tableBodyWidth + 'px'}"></d-table-body>
             <div class="d-table__empty" v-if="!this.store.tableData.length">
                 <span class="d-table__empty--text">{{this.store.emptyText}}</span>
             </div>
         </div>
         <div class="d-table__footer-wrapper" ref="footer">
-            <d-table-footer></d-table-footer>
+            <d-table-footer :store="store"></d-table-footer>
+        </div>
+        <div class="d-table__fixed-left-wrapper" v-if="store.leftFixedColumns.length">
+            <d-table-fixed :store="store" ref="fixedLeft"></d-table-fixed>
+        </div>
+        <div class="d-table__fixed-right-wrapper" v-if="store.rightFixedColumns.length">
+            <d-table-fixed :store="store" direction="right" ref="fixedRight"></d-table-fixed>
         </div>
     </div>
 </template>
@@ -18,12 +24,13 @@
 import DTableHead from './table-head.vue';
 import DTableBody from './table-body.vue';
 import DTableFooter from './table-footer.vue';
+import DTableFixed from './table-fixed.vue';
 import { guid } from '../utils/guid.js';
-import { getScrollbarWidth, hasScroll } from '../utils/dom.js';
+import { getScrollbarWidth, hasScroll, getStyle } from '../utils/dom.js';
 
 export default {
     name: 'DTable',
-    components: { DTableHead, DTableBody, DTableFooter },
+    components: { DTableHead, DTableBody, DTableFooter, DTableFixed },
     props: {
         tableData: {
             type: Array,
@@ -66,10 +73,15 @@ export default {
             store: {
                 columns: [],
                 tableData: this.tableData,
+                showHeader: this.showHeader,
                 scrollbarWidth: getScrollbarWidth(),
                 tableWidth: '',
                 tableBodyWidth: '',
+                notFixedColumns: [],
                 visibleColumns: [],
+                rVisibleColumns: [],
+                leftFixedColumns: [],
+                rightFixedColumns: [],
                 columnWidths: [],
                 bodyScroll: {
                     vertical: false,
@@ -99,49 +111,77 @@ export default {
                     visible: column.visible === undefined ? true : column.visible
                 }
             })
-            const visibleColumns = columns.filter(column => column.visible === true);
+            const notFixedColumns = columns.filter(column => column.visible === true && !column.fixed);
+            const leftFixedColumns = columns.filter(column => column.fixed && column.fixed === 'left');
+            const rightFixedColumns = columns.filter(column => column.fixed && column.fixed === 'right');
+            const visibleColumns = leftFixedColumns.concat(notFixedColumns, rightFixedColumns);
+            const rVisibleColumns = rightFixedColumns.concat(notFixedColumns, leftFixedColumns);
             this.store = {
                 ...this.store,
                 columns,
+                notFixedColumns,
                 visibleColumns,
+                rVisibleColumns,
+                leftFixedColumns,
+                rightFixedColumns
             };
         },
         handleBodyScroll(event) {
+            if (this.store.leftFixedColumns.length) {
+                this.$refs.fixedLeft.doScroll(event.target.scrollTop);
+            }
+            if (this.store.rightFixedColumns.length) {
+                this.$refs.fixedRight.doScroll(event.target.scrollTop);
+
+            }
             if (!this.showHeader) {
                 return;
             }
             this.$refs.header.scrollLeft = event.target.scrollLeft;
         },
+        getAjuastWidth(width) {
+            return width < this.store.defaultCellWidth ? this.store.defaultCellWidth : width;
+        },
         setTableWidth() {
-            const { bodyScroll, scrollbarWidth, visibleColumns } = this.store;
-            const width = this.$el.clientWidth;
+            const { bodyScroll, scrollbarWidth, visibleColumns, columns } = this.store;
+            let width = this.$el.clientWidth;
+            if (columns.filter(column => column.width).length === columns.length) {
+                width = columns.map(column => column.width).reduce((a, b) => a + b, 0);
+            }
             this.store = {
                 ...this.store,
                 tableWidth: width,
                 columnWidths: [],
                 tableBodyWidth: bodyScroll.vertical ? width - scrollbarWidth : width,
             };
+            console.log(this.store.tableWidth)
             this.$nextTick(() => {
                 if (!this.store.tableData.length) {
                     return;
                 }
-                const $tr = this.$refs.body.querySelector('tr');
                 const columnWidths = [];
-                const $tds = $tr.children;
-                for (let i = 0; i < $tds.length; i++) {
+                const length = this.columns.length;
+                const columnsWithWidth = this.columns.filter(column => column.width);
+                const rest = length - columnsWithWidth.length;
+                const countWidth = columnsWithWidth.map(column => this.getAjuastWidth(column.width)).reduce((a, b) => a + b, 0);
+                for (let i = 0; i < length; i++) {
                     let width = this.columns[i].width;
-                    if (!width) {
-                        width = $tds[i].offsetWidth;
+                    if (!width && rest) {
+                        width = Math.floor((this.store.tableBodyWidth - countWidth) / rest);
                     }
-                    if (width < this.store.defaultCellWidth) {
-                        width = this.store.defaultCellWidth;
+                    width = this.getAjuastWidth(width);
+                    if (i === length - 1 && bodyScroll.vertical) {
+                        width += this.store.scrollbarWidth;
                     }
-                    columnWidths.push(width)
+                    columnWidths.push(width);
                 }
                 this.store = {
                     ...this.store,
                     columnWidths
-                }
+                };
+                this.$nextTick(() => {
+                    this.setScrollState();
+                })
             });
         },
         setScrollState() {

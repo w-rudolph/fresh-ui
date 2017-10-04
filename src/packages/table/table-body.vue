@@ -1,11 +1,11 @@
 <template>
     <table class="d-table__body" cellspacing="0" cellpadding="0" border="0">
         <colgroup>
-            <col v-for="(width, index) in store.columnWidths" :key="index" :width="width">
+            <col v-for="(width, index) in columnWidths" :key="index" :width="getColumnWidth(width, index)">
         </colgroup>
         <tbody>
             <tr v-for="(row, index) in store.tableData" :key="index">
-                <td v-for="column in store.visibleColumns" :key="column.prop" :class="['d-table__column-' + column.prop]">
+                <td v-for="column in columns" :key="column.prop" :class="['d-table__column-' + column.prop]">
                     <div class="d-table__cell" v-html="renderCell(row, column)"></div>
                 </td>
             </tr>
@@ -19,8 +19,24 @@ export default {
         store: {
             type: Object,
             default() {
+                return {};
+            }
+        },
+        columns: {
+            type: Array,
+            default() {
                 return []
             }
+        },
+        columnWidths: {
+            type: Array,
+            default() {
+                return []
+            }
+        },
+        ajustLastCellWidth: {
+            type: Boolean,
+            default: true
         }
     },
     data() {
@@ -35,6 +51,13 @@ export default {
                 return findColumn.render(row);
             }
             return row[findColumn.prop];
+        },
+        getColumnWidth(width, index) {
+            const { bodyScroll, columnWidths } = this.store;
+            if (index === columnWidths.length - 1 && bodyScroll.vertical && this.ajustLastCellWidth) {
+                width -= this.store.scrollbarWidth;
+            }
+            return width;
         }
     }
 }

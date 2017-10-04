@@ -1,5 +1,7 @@
 .d-table{
+    position: relative;
     border: 1px solid #dfe6ec;
+    width: 100%;
     &.stripe{
         tbody {
             tr{
@@ -34,7 +36,6 @@
 }
 
 .d-table table{
-    width: 100%;
     table-layout:fixed
 }
 
@@ -72,5 +73,25 @@
         top: 50%;
         transform: translate(-50%,-50%);
         color: #677A88;
+    }
+}
+.d-table__fixed-left-wrapper,
+.d-table__fixed-right-wrapper{
+    position: absolute;
+    top: 0;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(7, 7, 7, 0.12);
+}
+.d-table__fixed-left-wrapper{
+    left: 0;
+}
+.d-table__fixed-right-wrapper{
+    right: 0;
+}
+
+.d-table__fixed{
+    .d-table__body-wrapper{
+        overflow: hidden;
     }
 }

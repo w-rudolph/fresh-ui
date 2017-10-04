@@ -3,7 +3,8 @@
         <h3>Table 组件</h3>
         <br>
         <h4>Basic</h4>
-        <d-button @click="toggleShow">toggle</d-button>
+        <d-table :table-data="tableData" :columns="columns1" :table-height="200" border stripe></d-table>
+        <h4>Complex</h4>
         <d-table :table-data="tableData" :columns="columns" :table-height="200" border stripe></d-table>
     </div>
 </template>
@@ -12,14 +13,30 @@
 export default {
     data() {
         return {
-            columns: [
+            columns1: [
                 {
                     label: 'ID', prop: 'id', width: 70, visible: true, render(row) {
                         return row.id + '!';
                     }
                 },
                 {
-                    label: '名字', prop: 'name', width:120
+                    label: '名字', prop: 'name'
+                },
+                {
+                    label: '年龄', prop: 'age'
+                },
+                {
+                    label: '性别', prop: 'sex', width: 80
+                },
+            ],
+            columns: [
+                {
+                    label: 'ID', prop: 'id', width: 70, fixed: 'left', visible: true, render(row) {
+                        return row.id + '!';
+                    }
+                },
+                {
+                    label: '名字', prop: 'name', fixed: 'left', width: 120
                 },
                 {
                     label: '年龄', prop: 'age'
@@ -61,6 +78,12 @@ export default {
                     label: '性别', prop: 'sex'
                 },
                 {
+                    label: '年龄', prop: 'age'
+                },
+                {
+                    label: '性别', prop: 'sex'
+                },
+                {
                     label: '名字', prop: 'name'
                 },
                 {
@@ -70,7 +93,22 @@ export default {
                     label: '性别', prop: 'sex'
                 },
                 {
-                    label: '操作', width: 140, render(h, row) {
+                    label: '年龄', prop: 'age'
+                },
+                {
+                    label: '性别', prop: 'sex'
+                },
+                {
+                    label: '名字', fixed: 'right', prop: 'name'
+                },
+                {
+                    label: '年龄', prop: 'age'
+                },
+                {
+                    label: '性别', prop: 'sex'
+                },
+                {
+                    label: '操作', fixed: 'right', width: 140, render(h, row) {
                         return '<a>操作</a>'
                     }
                 }
