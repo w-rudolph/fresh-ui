@@ -4,9 +4,8 @@
     width: 100%;
     &.stripe{
         tbody {
-            tr{
-                transition: background-color 0.3s ease-in-out;
-                &:nth-child(even){
+            .d-table__row{
+                &.even{
                     background: #FAFAFA;
                 }
                 &.hover{
@@ -14,7 +13,7 @@
                 }
             }
         }
-        
+
     }
     &.border{
         td, th{
@@ -54,6 +53,17 @@
     white-space: normal;
     vertical-align: middle;
     word-break: break-all;
+    &.expand-cell{
+        cursor: pointer;
+        .expand-icon{
+            display: inline-block;
+            transition: transform 0.2s ease-in-out;
+            transform: rotate(0);
+            &.expand{
+                transform: rotate(90deg);
+            }
+        }
+    }
 }
 
 .d-table__body-wrapper{

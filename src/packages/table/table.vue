@@ -26,6 +26,7 @@ import DTableBody from './table-body.vue';
 import DTableFooter from './table-footer.vue';
 import DTableFixed from './table-fixed.vue';
 import { guid } from '../utils/guid.js';
+import { deepCopy } from '../utils/util.js';
 import { getScrollbarWidth, hasScroll } from '../utils/dom.js';
 import EventEmitter from '../mixins/event_emitter.js';
 
@@ -73,8 +74,9 @@ export default {
     data() {
         return {
             store: {
+                stripe: this.stripe,
                 columns: [],
-                tableData: this.tableData,
+                tableData: deepCopy(this.tableData),
                 showHeader: this.showHeader,
                 scrollbarWidth: getScrollbarWidth(),
                 tableWidth: '',
@@ -159,7 +161,6 @@ export default {
                 columnWidths: [],
                 tableBodyWidth: bodyScroll.vertical ? width - scrollbarWidth : width,
             };
-            console.log(this.store.tableWidth)
             this.$nextTick(() => {
                 if (!this.store.tableData.length) {
                     return;

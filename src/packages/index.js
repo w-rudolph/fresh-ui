@@ -20,6 +20,7 @@ import DDropdownItem from './dropdown/dropdown-item';
 import DTab from './tab/tab';
 import DTabItem from './tab/tab-item';
 import DTable from './table/table';
+import DRender from './base/render';
 import DTableColumn from './table/table-column';
 import DAside from './aside/aside';
 import DDialog from './dialog/dialog';
@@ -50,6 +51,7 @@ const components = [
     DTab,
     DTabItem,
     DTable,
+    DRender,
     DTableColumn,
     DAside,
     DDialog,
@@ -97,6 +99,7 @@ export default {
     DTab,
     DTabItem,
     DTable,
+    DRender,
     DTableColumn,
     DAside,
     DDialog,

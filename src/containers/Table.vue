@@ -15,8 +15,22 @@ export default {
         return {
             columns1: [
                 {
-                    label: 'ID', prop: 'id', width: 70, visible: true, render(row) {
-                        return row.id + '!';
+                    type: 'expand',
+                    label: '',
+                    width: 50,
+                    render(h, row) {
+                        return h({
+                            template: `<div style="padding:10px;">
+                            <strong>姓名: ${row.name}</strong>&nbsp;&nbsp;
+                            <strong>性别: ${row.sex}</strong>&nbsp;&nbsp;
+                            <strong>年龄: ${row.age}</strong></div>
+                            `
+                        })
+                    }
+                },
+                {
+                    label: 'ID', prop: 'id', width: 70, visible: true, render(h, row) {
+                        return h('span', row.id);
                     }
                 },
                 {
@@ -31,7 +45,7 @@ export default {
             ],
             columns: [
                 {
-                    label: 'ID', prop: 'id', width: 70, fixed: 'left', visible: true, render(row) {
+                    label: 'ID', prop: 'id', width: 70, fixed: 'left', visible: true, render(h, row) {
                         return row.id + '!';
                     }
                 },
@@ -109,7 +123,7 @@ export default {
                 },
                 {
                     label: '操作', fixed: 'right', width: 140, render(h, row) {
-                        return '<a>操作</a>'
+                        return h('a', '操作')
                     }
                 }
             ],
