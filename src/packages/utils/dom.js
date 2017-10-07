@@ -28,11 +28,14 @@ const getScrollbarWidth = function () {
     return noScroll - scroll;
 }
 
-const hasScroll = function (el, dir = "vertical") {
+const hasScroll = function (el) {
     const scroll = {
         vertical: false,
         horizontal: false
     };
+    if (typeof el === 'undefined') {
+        return scroll;
+    }
     if (el.scrollHeight > el.clientHeight) {
         scroll.vertical = true;
     }
