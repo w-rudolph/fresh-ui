@@ -3,9 +3,20 @@
         <h3>Table 组件</h3>
         <br>
         <h4>Basic</h4>
-        <d-table :table-data="tableData" :columns="columns1" :table-height="200" border stripe></d-table>
-        <h4>Complex</h4>
-        <d-table :table-data="tableData" :columns="columns" :table-height="200" border stripe></d-table>
+        <d-table :table-data="tableData" :columns="cols"></d-table>
+        <h4>Border</h4>
+        <d-table :table-data="tableData" :columns="cols" border></d-table>
+        <h4>Stripe</h4>
+        <d-table :table-data="tableData" :columns="cols" stripe></d-table>
+        <h4>Expand</h4>
+        <d-table :table-data="tableData" :columns="columns0"></d-table>
+        <h4>Selection</h4>
+        <d-table :table-data="tableData" @selection-change="handleSelectionChange" :columns="columns1"></d-table>
+        <h4>Fixed Header</h4>
+        <d-table :table-data="tableData" :columns="columns2" :table-height="200"></d-table>
+        <h4>Fixed Header and some columns</h4>
+        <d-table :table-data="tableData" :columns="columns3" :table-height="200"></d-table>
+        <div style="width:100%;height:200px;"></div>
     </div>
 </template>
 
@@ -13,7 +24,18 @@
 export default {
     data() {
         return {
-            columns1: [
+            cols: [
+                {
+                    label: '名字', prop: 'name'
+                },
+                {
+                    label: '年龄', prop: 'age'
+                },
+                {
+                    label: '性别', prop: 'sex', width: 80
+                },
+            ],
+            columns0: [
                 {
                     type: 'expand',
                     label: '',
@@ -43,7 +65,41 @@ export default {
                     label: '性别', prop: 'sex', width: 80
                 },
             ],
-            columns: [
+            columns1: [
+                {
+                    type: 'selection',
+                    width: 50,
+                    render(h, row) {
+                        h('d-checkbox')
+                    }
+                },
+                {
+                    label: 'ID', prop: 'id', width: 70, visible: true, render(h, row) {
+                        return h('span', row.id);
+                    }
+                },
+                {
+                    label: '名字', prop: 'name'
+                },
+                {
+                    label: '年龄', prop: 'age'
+                },
+                {
+                    label: '性别', prop: 'sex', width: 80
+                },
+            ],
+            columns2: [
+                {
+                    label: '名字', prop: 'name', width: 120
+                },
+                {
+                    label: '年龄', prop: 'age'
+                },
+                {
+                    label: '性别', prop: 'sex'
+                }
+            ],
+            columns3: [
                 {
                     label: 'ID', prop: 'id', width: 70, fixed: 'left', visible: true, render(h, row) {
                         return row.id + '!';
@@ -186,6 +242,9 @@ export default {
                 }
                 return col;
             })
+        },
+        handleSelectionChange(rows) {
+            console.log(rows);
         }
     }
 }

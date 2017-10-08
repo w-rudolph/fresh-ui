@@ -94,6 +94,7 @@ export default {
                 tableHeight: this.tableHeight,
                 emptyText: this.emptyText,
                 defaultCellWidth: this.defaultCellWidth,
+                selectAll: false,
             },
             timer: null,
         }
@@ -121,8 +122,26 @@ export default {
             const rightFixedColumns = columns.filter(column => column.fixed && column.fixed === 'right');
             const visibleColumns = leftFixedColumns.concat(notFixedColumns, rightFixedColumns);
             const rVisibleColumns = rightFixedColumns.concat(notFixedColumns, leftFixedColumns);
+            let tableData = this.store.tableData;
+            if (columns.find(column => column.type === 'selection')) {
+                tableData = tableData.map(data => {
+                    return {
+                        ...data,
+                        checked: data.checked ? data.checked : false
+                    };
+                })
+            }
+            if (columns.find(column => column.type === 'expand')) {
+                tableData = tableData.map(data => {
+                    return {
+                        ...data,
+                        expand: data.expand ? data.expand : false
+                    };
+                })
+            }
             this.store = {
                 ...this.store,
+                tableData,
                 columns,
                 notFixedColumns,
                 visibleColumns,
@@ -193,6 +212,50 @@ export default {
         setScrollState() {
             const bodyScroll = hasScroll(this.$refs.body);
             this.store.bodyScroll = bodyScroll;
+        },
+        handleSelectAll() {
+            const { tableData, selectAll } = this.store;
+            const selectedRows = tableData.filter(data => data.checked === true);
+            this.store = {
+                ...this.store,
+                tableData: tableData.map(row => {
+                    return {
+                        ...row,
+                        checked: selectAll ? true : (selectedRows.length === tableData.length) ? false : row.checked
+                    }
+                })
+            };
+        },
+        handleSelectRows(row) {
+            if (this.timer) {
+                clearTimeout(this.timer);
+                this.timer = null;
+            }
+            const selectedRows = this.store.tableData.filter(data => data.checked === true);
+            if (selectedRows.length !== this.store.tableData.length && this.store.selectAll) {
+                this.store = {
+                    ...this.store,
+                    selectAll: false
+                };
+            }
+            if (selectedRows.length === this.store.tableData.length && !this.store.selectAll) {
+                this.store = {
+                    ...this.store,
+                    selectAll: true
+                };
+            }
+
+            this.timer = setTimeout(() => {
+
+                this.$emit('selection-change',
+                    deepCopy(this.store.tableData.filter(data => data.checked === true).map(row => {
+                        return {
+                            ...row,
+                            expand: undefined,
+                            checked: undefined
+                        }
+                    })));
+            }, 200);
         }
     },
     mounted() {
@@ -214,6 +277,8 @@ export default {
         this.subscribe('table.row.hover', data => {
             this.broadcast('DTableBody', 'table.row.hover', data);
         })
+        this.subscribe('table.row.select', row => this.handleSelectRows(row));
+        this.subscribe('table.row.selectAll', this.handleSelectAll)
     }
 }
 </script>

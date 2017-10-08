@@ -35,6 +35,7 @@ export default {
     watch: {
         value(v) {
             this.setCurrentValue(v);
+            this.$emit('change', v);
         }
     },
     methods: {
@@ -53,7 +54,6 @@ export default {
             }
             this.currentValue = v;
             this.$emit('input', v);
-
         }
     },
     created() {

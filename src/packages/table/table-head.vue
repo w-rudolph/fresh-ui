@@ -5,15 +5,21 @@
         </colgroup>
         <tr>
             <th v-for="column in columns" :key="column.prop" :class="['d-table__column-' + column.prop]">
-                <div class="d-table__cell">{{column.label}}</div>
+                <div v-if="column.type === 'selection'" class="d-table__cell">
+                    <d-checkbox v-model="store.selectAll" @change="handleSelectAll"></d-checkbox>
+                </div>
+                <div v-else class="d-table__cell">{{column.label}}</div>
             </th>
         </tr>
     </table>
 </template>
 <script>
-
+import EventEmitter from '../mixins/event_emitter.js';
+import DCheckbox from '../checkbox/checkbox';
 export default {
     name: 'DTableHead',
+    components: { DCheckbox },
+    mixins: [EventEmitter],
     props: {
         store: {
             type: Object,
@@ -45,6 +51,9 @@ export default {
                 width += this.store.scrollbarWidth;
             }
             return width;
+        },
+        handleSelectAll() {
+            this.dispatch('DTable', 'table.row.selectAll')
         }
     }
 }

@@ -10,6 +10,9 @@
                         <div class="d-table__cell expand-cell" v-if="column.type === 'expand'" @click="toggleExpand(row,$event)">
                             <d-icon name="ios-arrow-right" :class="['expand-icon', !!row.expand ? 'expand' : '']"></d-icon>
                         </div>
+                        <div class="d-table__cell selection-cell" v-else-if="column.type === 'selection'">
+                            <d-checkbox v-model="row.checked" @change="handleSelectionChange(row)"></d-checkbox>
+                        </div>
                         <d-render class="d-table__cell" v-else :render="() => renderCell(row, column)"></d-render>
                     </td>
                 </tr>
@@ -26,10 +29,12 @@
 import EventEmitter from '../mixins/event_emitter.js';
 import { addClass, removeClass, insertAfter } from '../utils/dom.js';
 import DRender from '../base/render.vue';
+import DIcon from '../icon/icon.vue';
+import DCheckbox from '../checkbox/checkbox.vue';
 
 export default {
     name: 'DTableBody',
-    components: { DRender },
+    components: { DRender, DCheckbox },
     mixins: [EventEmitter],
     props: {
         store: {
@@ -79,7 +84,7 @@ export default {
             this.dispatch('DTable', 'table.row.hover', { type, index });
         },
         toggleExpand(row, e) {
-            this.$set(row, 'expand', !row.expand);
+            row.expand = !row.expand;
         },
         renderExpandRow(row) {
             const column = this.columns.find(column => column.type === 'expand');
@@ -87,6 +92,9 @@ export default {
                 return column.render(this.$createElement, row);
             }
             return row[column.prop];
+        },
+        handleSelectionChange(row) {
+            this.dispatch('DTable', 'table.row.select', row);
         }
     },
     created() {
