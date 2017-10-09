@@ -1,6 +1,7 @@
 import Home from '@/containers/Home';
 import Button from '@/containers/Button';
 import Input from '@/containers/Input';
+import InputNumber from '@/containers/InputNumber';
 import Select from '@/containers/Select';
 import Radio from '@/containers/Radio';
 import Checkbox from '@/containers/Checkbox';
@@ -23,6 +24,7 @@ export default [
     { path: "/", name: "home", component: Home },
     { path: "/button", name: "button", component: Button },
     { path: "/input", name: "input", component: Input },
+    { path: "/input-number", name: "input-number", component: InputNumber },
     { path: "/select", name: "select", component: Select },
     { path: "/radio", name: "radio", component: Radio },
     { path: "/checkbox", name: "checkbox", component: Checkbox },

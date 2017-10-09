@@ -19,6 +19,7 @@ Components basic-finished as bellows:
 ```
     Button
     Input
+    InputNumber
     Select
     Icon
     Tag

@@ -1,6 +1,7 @@
 import DButton from './button/button';
 import DButtonGroup from './button/button-group';
 import DInput from './input/input';
+import DInputNumber from './input-number/input-number';
 import DSelect from './select/select';
 import DSelectOption from './select/select-option';
 import DSelectGroup from './select/select-group';
@@ -32,6 +33,7 @@ const components = [
     DButton,
     DButtonGroup,
     DInput,
+    DInputNumber,
     DSelect,
     DSelectOption,
     DSelectGroup,
@@ -80,6 +82,7 @@ export default {
     DButton,
     DButtonGroup,
     DInput,
+    DInputNumber,
     DSelect,
     DSelectOption,
     DSelectGroup,
