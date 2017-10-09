@@ -38,3 +38,6 @@ Components basic-finished as bellows:
     MessageBox
     Notification
 ```
+
+## License
+[MIT](http://opensource.org/licenses/MIT)
