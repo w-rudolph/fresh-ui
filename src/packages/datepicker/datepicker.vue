@@ -2,7 +2,7 @@
     <div class="d-datepicker">
         <div class="d-datepicker-panel">
             <div class="d-datepicker-pannel__header">
-                <span class="left-year-btn" @click="handleYearBtnClick()">
+                <span class="left-year-btn" @click="handleYearBtnClick(-1)">
                     <d-icon name="ios-arrow-left"></d-icon>
                     <d-icon name="ios-arrow-left"></d-icon>
                 </span>
@@ -119,7 +119,7 @@ export default {
         },
         handleYearBtnClick(diff = -1) {
             if (this.currentType === 'year') {
-                diff = 10;
+                diff = diff * 10;
             }
             const date = Calender.getYearDate(new Date(this.currentValue), diff);
             this.setCurrentValue(date);
