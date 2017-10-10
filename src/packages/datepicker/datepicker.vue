@@ -2,25 +2,25 @@
     <div class="d-datepicker">
         <div class="d-datepicker-panel">
             <div class="d-datepicker-pannel__header">
-                <span class="left-year-btn" @click="handleYearClick(-1)">
+                <span class="left-year-btn" @click="handleYearBtnClick()">
                     <d-icon name="ios-arrow-left"></d-icon>
                     <d-icon name="ios-arrow-left"></d-icon>
                 </span>
-                <span class="left-month-btn" @click="handleMonthClick(-1)">
+                <span class="left-month-btn" @click="handleMonthBtnClick()" v-if="isShowTable('date')">
                     <d-icon name="ios-arrow-left"></d-icon>
                 </span>
-                <span class="year-picker">{{getFormatYear(displayYearMonth.year)}}</span>
-                <span class="month-picker">{{getFormatMonth(displayYearMonth.month)}}</span>
-                <span class="right-year-btn" @click="handleYearClick(1)">
+                <span class="year-picker" @click="showPicker('year')">{{getFormatYear(displayYearMonth.year)}}</span>
+                <span class="month-picker" @click="showPicker('month')" v-if="isShowTable('date')">{{getFormatMonth(displayYearMonth.month)}}</span>
+                <span class="right-year-btn" @click="handleYearBtnClick(1)">
                     <d-icon name="ios-arrow-right"></d-icon>
                     <d-icon name="ios-arrow-right"></d-icon>
                 </span>
-                <span class="right-month-btn" @click="handleMonthClick(1)">
+                <span class="right-month-btn" @click="handleMonthBtnClick(1)" v-if="isShowTable('date')">
                     <d-icon name="ios-arrow-right"></d-icon>
                 </span>
             </div>
             <div class="d-datepicker-pannel__body">
-                <table class="d-datepicker-table" v-show="showTable('date')">
+                <table class="d-datepicker-table" v-show="isShowTable('date')">
                     <thead>
                         <tr>
                             <th v-for="week in weeks" :key="week">{{week}}</th>
@@ -32,11 +32,19 @@
                         </tr>
                     </tbody>
                 </table>
-                <table class="d-datepicker-year-table" v-show="showTable('year')">
-
+                <table class="d-datepicker-year-table" v-show="isShowTable('year')">
+                    <tbody>
+                        <tr v-for="(year, i) in displayYears" :key="i">
+                            <td v-for="j in 4" :key="j" :class="[year[j - 1].class, getComputedClass(year[j-1], 'year')]" @click="handleYearCellClick(year[j-1])">{{year[j-1].year}}</td>
+                        </tr>
+                    </tbody>
                 </table>
-                <table class="d-datepicker-month-table" v-show="showTable('month')">
-
+                <table class="d-datepicker-month-table" v-show="isShowTable('month')">
+                    <tbody>
+                        <tr v-for="(month, i) in displayMonths" :key="i">
+                            <td v-for="(t, j) in 4" :key="t" :class="['picker-month', getComputedClass({month:4*i+j+1}, 'month')]" @click="handleMonthCellClick(4*i+j+1)">{{month[j]}}</td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -50,7 +58,7 @@ export default {
     props: {
         lang: {
             type: String,
-            default: 'en'
+            default: 'zh_cn'
         },
         value: {
             type: [String, Date],
@@ -91,48 +99,97 @@ export default {
         displayDays() {
             const { year, month } = this.displayYearMonth;
             return Calender.getDisplayDays(year, month);
+        },
+        displayYears() {
+            return Calender.getDisplayYears(this.displayYearMonth.year);
+        },
+        displayMonths() {
+            return Calender.getDisplayMonths(this.lang);
         }
     },
     methods: {
-        getYearMonth() {
-
-        },
-        showTable(type) {
+        isShowTable(type) {
             return this.currentType === type;
+        },
+        showPicker(type) {
+            this.currentType = type;
         },
         setCurrentValue(value) {
             this.currentValue = Calender.convert2Date(value);
         },
-        handleYearClick(diff) {
+        handleYearBtnClick(diff = -1) {
+            if (this.currentType === 'year') {
+                diff = 10;
+            }
             const date = Calender.getYearDate(new Date(this.currentValue), diff);
             this.setCurrentValue(date);
         },
-        handleMonthClick(diff) {
+        handleMonthBtnClick(diff) {
             const date = Calender.getMonthDate(new Date(this.currentValue), diff);
             this.setCurrentValue(date);
         },
         getFormatYear(year) {
-            return year.toString() + Calender.YearUnitMaps[this.displayLang];
+            const unit = Calender.YearUnitMaps[this.displayLang];
+            const y = year.toString();
+            if (['date', 'month'].indexOf(this.currentType) > -1) {
+                return year.toString() + unit;
+            }
+            if (this.currentType === 'year') {
+                return y.substr(0, 3) + '0' + unit + ' - ' + y.substr(0, 3) + '9' + unit;
+            }
         },
         getFormatMonth(month) {
-            return Calender.MonthUnitMaps[this.displayLang][month - 1];
+            return Calender.MonthMaps[this.displayLang][month - 1];
         },
-        getComputedClass({ year, month, day }) {
+        getComputedClass({ year, month, day }, type = 'date') {
             const { year: y, month: m, day: d } = Calender.getDateData(Calender.convert2Date(this.value));
             const { year: ty, month: tm, day: td } = Calender.getDateData(new Date);
             const cls = [];
-            if (y === year && m === month && d === day) {
-                cls.push('active');
+            if (type === 'year') {
+                if (y === year) {
+                    cls.push('active');
+                }
+                if (ty === year) {
+                    cls.push('today');
+                }
             }
-            if (ty === year && tm === month && td === day) {
-                cls.push('today');
+            if (type === 'month') {
+                if (m === month) {
+                    cls.push('active');
+                }
+                if (tm === month) {
+                    cls.push('today');
+                }
+            }
+            if (type === 'date') {
+                if (y === year && m === month && d === day) {
+                    cls.push('active');
+                }
+                if (ty === year && tm === month && td === day) {
+                    cls.push('today');
+                }
             }
             return cls.join(' ');
         },
+
         handleCellClick({ year, month, day }) {
             const date = new Date(year, month - 1, day);
             const dateStr = Calender.formatDate(date, this.format);
             this.setCurrentValue(date);
+            this.$emit('input', dateStr);
+        },
+        handleYearCellClick({ year }) {
+            const date = new Date(this.currentValue);
+            date.setFullYear(year);
+            this.setCurrentValue(date);
+            this.showPicker('month');
+        },
+        handleMonthCellClick(month) {
+            const date = new Date(this.currentValue);
+            date.setMonth(month - 1);
+            this.setCurrentValue(date);
+            this.showPicker('date');
+            const dateStr = Calender.formatDate(date, this.format);
             this.$emit('input', dateStr);
         }
     },

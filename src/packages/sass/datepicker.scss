@@ -3,9 +3,12 @@
     display: inline-block;
     background: #fff;
     border-radius: 4px;
+    min-width: 228px;
     .prev-month,
-    .next-month{
-        color: #DDDADA;
+    .next-month,
+    .prev-range,
+    .next-range{
+        color: #999;
     }
     td, th{
         text-align: center;
@@ -74,6 +77,15 @@
         cursor: pointer;
         &:hover{
             color: #20a0ff
+        }
+    }
+
+    .d-datepicker-year-table,
+    .d-datepicker-month-table{
+        width: 100%;
+        padding: 0 15px 10px;
+        td{
+            height: 40px;
         }
     }
 }

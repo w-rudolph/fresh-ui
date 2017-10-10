@@ -1,10 +1,12 @@
+import { deepCopy } from './util.js';
+
 export default class Calender {
     static WeekMaps = {
         'en': ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
         'zh_cn': ['日', '一', '二', '三', '四', '五', '六']
     }
 
-    static MonthUnitMaps = {
+    static MonthMaps = {
         'en': ['Janurary', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
         'zh_cn': ['1 月', '2 月', '3 月', '4 月', '5 月', '6 月', '7 月', '8 月', '9 月', '10 月', '11 月', '12 月']
     }
@@ -108,6 +110,39 @@ export default class Calender {
         const result = [];
         while (total.length) {
             result.push(total.splice(0, 7));
+        }
+        return result;
+    }
+
+    static getDisplayYears(year, range = 10) {
+        const y = parseInt(year.toString().substr(0, 3) + '0');
+        const total = [];
+        for (let i = 0; i < range; i++) {
+            total.push({
+                year: y + i,
+                class: 'current-range'
+            })
+        }
+        total.unshift({
+            year: y - 1,
+            class: 'prev-range'
+        });
+        total.push({
+            year: y + range,
+            class: 'next-range'
+        });
+        const result = [];
+        while (total.length) {
+            result.push(total.splice(0, 4));
+        }
+        return result;
+    }
+
+    static getDisplayMonths(lang = 'en') {
+        const total = deepCopy(Calender.MonthMaps[lang]);
+        const result = [];
+        while (total.length) {
+            result.push(total.splice(0, 4));
         }
         return result;
     }
