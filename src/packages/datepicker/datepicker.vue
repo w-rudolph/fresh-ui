@@ -8,7 +8,7 @@
         </div>
         <transition name="dropdown-slide">
             <div ref="popper" class="d-datepicker-popper" v-show="showPopper">
-                <d-datepicker-panel @close-panel="handlePanelClose" :lang="lang" :type="type" :format="format" :options="options" v-model="currentValue"></d-datepicker-panel>
+                <d-datepicker-panel ref="pickerPanel" @close-panel="handlePanelClose" :lang="lang" :type="type" :format="format" :options="options" v-model="currentValue"></d-datepicker-panel>
             </div>
         </transition>
     </div>
@@ -17,11 +17,10 @@
 <script>
 import DDatepickerPanel from './datepicker-panel';
 import Popper from '../mixins/popper.js';
-import EventEmitter from '../mixins/event_emitter.js';
 
 export default {
     name: 'DDatepicker',
-    mixins: [Popper, EventEmitter],
+    mixins: [Popper],
     components: { DDatepickerPanel },
     props: {
         trigger: {
@@ -78,6 +77,11 @@ export default {
         value(val, oldVal) {
             this.currentValue = val;
             this.$emit('change', val, oldVal);
+        },
+        showPopper(val) {
+            if (!val) {
+                this.$refs.pickerPanel.resetData();
+            }
         }
     },
     computed: {

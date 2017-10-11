@@ -141,6 +141,10 @@ export default {
         setCurrentValue(value) {
             this.currentValue = this.setValue2Date(value);
         },
+        resetData(value) {
+            this.currentType = this.type;
+            this.currentValue = this.setValue2Date(this.value);
+        },
         handleYearBtnClick(diff = -1) {
             if (this.currentType === 'year') {
                 diff = diff * 10;
@@ -228,7 +232,6 @@ export default {
             this.$emit('input', dateStr);
         },
         closePanel() {
-            this.currentType = this.type;
             this.$emit('close-panel');
         }
     },
