@@ -6,7 +6,7 @@
                     <d-icon name="ios-arrow-left"></d-icon>
                     <d-icon name="ios-arrow-left"></d-icon>
                 </span>
-                <span class="left-month-btn" @click="handleMonthBtnClick()" v-if="isShowTable('date')">
+                <span class="left-month-btn" @click="handleMonthBtnClick(-1)" v-if="isShowTable('date')">
                     <d-icon name="ios-arrow-left"></d-icon>
                 </span>
                 <span class="year-picker" @click="showPicker('year')">{{getFormatYear(displayYearMonth.year)}}</span>
