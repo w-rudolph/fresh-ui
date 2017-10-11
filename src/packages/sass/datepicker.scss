@@ -18,6 +18,16 @@
 }
 .d-datepicker{
     display: inline-block;
+    &--large{
+        .d-datepicker-popper{
+            font-size: 16px;   
+        }
+    }
+    &--small{
+        .d-datepicker-popper{
+            font-size: 12px;   
+        }
+    }
 }
 .d-datepicker-panel{
     border: 1px solid #ddd;
@@ -112,4 +122,22 @@
             }
         }
     }
+}
+.d-datepicker-popper{
+    margin: 2px 0;
+}
+.d-datepicker-reference{
+    position: relative;
+}
+.d-datepicker-arrow,
+.d-datepicker-clear {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    line-height: 1;
+    margin-top: -7px;
+    font-size: 14px;
+    color: #80848f;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
 }

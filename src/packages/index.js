@@ -28,6 +28,7 @@ import DDialog from './dialog/dialog';
 import Message from './message/message.js';
 import MessageBox from './message-box/message-box.js';
 import Notification from './notification/notification.js';
+import DDatepickerPanel from './datepicker/datepicker-panel';
 import DDatepicker from './datepicker/datepicker';
 
 const components = [
@@ -58,7 +59,8 @@ const components = [
     DTableColumn,
     DAside,
     DDialog,
-    DDatepicker,
+    DDatepickerPanel,
+    DDatepicker
 ];
 
 const install = function (Vue, opts = {}) {
@@ -111,5 +113,6 @@ export default {
     Message,
     MessageBox,
     Notification,
+    DDatepickerPanel,
     DDatepicker
 }

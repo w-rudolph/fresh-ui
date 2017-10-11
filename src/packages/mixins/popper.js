@@ -19,9 +19,6 @@ export default {
             type: Boolean,
             default: false
         },
-        popper: {},
-        reference: {},
-        arrow: {},
         showArrow: {
             type: Boolean,
             default: true
@@ -33,13 +30,16 @@ export default {
         disabled: {
             type: Boolean,
             default: false
-        }
+        },
     },
     data() {
         return {
             showPopper: false,
             timer: null,
-            popperInstance: null
+            popperInstance: null,
+            reference: null,
+            popper: null,
+            arrow: null
         }
     },
     watch: {
@@ -115,16 +115,16 @@ export default {
             this.showPopper = !this.showPopper;
         },
         handleDocumentClick(e) {
-            const reference = this.$refs.reference;
-            const popper = this.$refs.popper;
+            const reference = this.reference || this.$refs.reference;
+            const popper = this.popper || this.$refs.popper;
             if (!reference.contains(e.target) && !popper.contains(e.target) && this.showPopper) {
                 this.showPopper = false;
             }
         },
         bindEvents() {
             const trigger = this.trigger;
-            const reference = this.$refs.reference;
-            const popper = this.$refs.popper;
+            const reference = this.reference || this.$refs.reference;
+            const popper = this.popper || this.$refs.popper;
             if (trigger === 'click') {
                 reference.addEventListener('click', this.handleToggleClick);
                 if (this.hideWhenClickOutside) {
@@ -140,8 +140,8 @@ export default {
         },
         offEvents() {
             const trigger = this.trigger;
-            const reference = this.$refs.reference;
-            const popper = this.$refs.popper;
+            const reference = this.reference || this.$refs.reference;
+            const popper = this.popper || this.$refs.popper;
             if (trigger === 'click') {
                 reference.removeEventListener('click', this.handleToggleClick);
                 if (this.hideWhenClickOutside) {
@@ -173,6 +173,15 @@ export default {
         }
     },
     mounted() {
+        if (this.$slots.reference) {
+            this.reference = this.$slots.reference[0].elm;
+        }
+        if (this.$slots.popper) {
+            this.popper = this.$slots.popper[0].elm;
+        }
+        if (this.$slots.arrow) {
+            this.arrow = this.$slots.arrow[0].elm;
+        }
         this.createPopper();
         this.bindEvents();
     },
