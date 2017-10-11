@@ -1,0 +1,39 @@
+.d-timepicker-hours,
+.d-timepicker-minutes,
+.d-timepicker-seconds{
+    position: relative;
+    width: 56px;
+    max-height: 144px;
+    float: left;
+    overflow: hidden;
+    border-left: 1px solid #e9eaec;
+    &:hover{
+        overflow-y: auto;
+    }
+}
+.d-timepicker-panel{
+    border-radius: 4px;
+    display: inline-block;
+    border: 1px solid #e9eaec;
+    border-left-width: 0;
+    user-select: none;
+    .d-timepicker__cells{
+        width: 100%;
+        margin: 0;
+        padding: 0 0 120px;
+        list-style: none;
+    }
+    .d-timepicker__cell{
+        cursor: pointer;
+        padding-left: 16px;
+        height: 24px;
+        line-height: 24px;
+        box-sizing: content-box;
+        &:hover{
+            background: #eee;
+        }
+        &.selected{
+            color: #20a0ff;
+        }
+    }
+}

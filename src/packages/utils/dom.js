@@ -51,5 +51,5 @@ export {
     toggleClass,
     getStyle,
     getScrollbarWidth,
-    hasScroll
+    hasScroll,
 }

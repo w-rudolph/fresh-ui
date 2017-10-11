@@ -30,6 +30,8 @@ import MessageBox from './message-box/message-box.js';
 import Notification from './notification/notification.js';
 import DDatepickerPanel from './datepicker/datepicker-panel';
 import DDatepicker from './datepicker/datepicker';
+import DTimepickerPanel from './timepicker/timepicker-panel';
+import DTimepicker from './timepicker/timepicker';
 
 const components = [
     DButton,
@@ -60,7 +62,9 @@ const components = [
     DAside,
     DDialog,
     DDatepickerPanel,
-    DDatepicker
+    DDatepicker,
+    DTimepickerPanel,
+    DTimepicker
 ];
 
 const install = function (Vue, opts = {}) {
@@ -114,5 +118,7 @@ export default {
     MessageBox,
     Notification,
     DDatepickerPanel,
-    DDatepicker
+    DDatepicker,
+    DTimepickerPanel,
+    DTimepicker
 }

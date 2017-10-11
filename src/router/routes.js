@@ -20,6 +20,7 @@ import Message from '@/containers/Message';
 import MessageBox from '@/containers/MessageBox';
 import Notification from '@/containers/Notification';
 import Datepicker from '@/containers/Datepicker';
+import Timepicker from '@/containers/Timepicker';
 
 export default [
     { path: "/", name: "home", component: Home },
@@ -44,4 +45,5 @@ export default [
     { path: "/message-box", name: "message-box", component: MessageBox },
     { path: "/notification", name: "notification", component: Notification },
     { path: "/datepicker", name: "datepicker", component: Datepicker },
+    { path: "/timepicker", name: "timepicker", component: Timepicker },
 ];
