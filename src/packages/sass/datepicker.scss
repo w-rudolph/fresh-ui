@@ -1,3 +1,22 @@
+@mixin activeCell{
+    background-color: #20a0ff;
+    color: #fff;
+}
+@mixin todayCell{
+    position: relative;
+    color: #20a0ff;
+    &:before{
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 0;
+        height: 0;
+        border-top: 5px solid #20a0ff;
+        border-left: 5px solid transparent;
+    }
+}
+
 .d-datepicker-panel{
     border: 1px solid #ddd;
     display: inline-block;
@@ -16,30 +35,7 @@
         width: 30px;
         height: 30px;
     }
-    td{
-        cursor: pointer;
-        &:hover{
-            background: #eee;
-        }
-        &.today{
-            position: relative;
-            color: #20a0ff;
-            &:before{
-                content: "";
-                position: absolute;
-                top: 0;
-                right: 0;
-                width: 0;
-                height: 0;
-                border-top: 5px solid #20a0ff;
-                border-left: 5px solid transparent;
-            }
-        }
-        &.active{
-            background-color: #20a0ff;
-            color: #fff;
-        }
-    }
+    
     .d-datepicker-pannel__header {
         margin: 6px;
         text-align: center;
@@ -79,13 +75,39 @@
             color: #20a0ff
         }
     }
-
+    .d-datepicker-table{
+        td{
+            cursor: pointer;
+            &:hover{
+                background: #eee;
+            }
+            &.today{
+                @include todayCell;
+            }
+            &.active{
+                @include activeCell;
+            }
+        }
+    }
     .d-datepicker-year-table,
     .d-datepicker-month-table{
         width: 100%;
         padding: 0 15px 10px;
         td{
             padding: 25px 0;
+            .cell{
+                padding: 5px;
+                cursor: pointer;
+                &:hover{
+                    background: #eee;
+                }
+            }
+            &.today .cell{
+                @include todayCell;
+            }
+            &.active .cell{
+                @include activeCell;
+            }
         }
     }
 }

@@ -35,14 +35,14 @@
                 <table class="d-datepicker-year-table" v-show="isShowTable('year')">
                     <tbody>
                         <tr v-for="(year, i) in displayYears" :key="i">
-                            <td v-for="j in 4" :key="j" :class="[year[j - 1].class, getComputedClass(year[j-1], 'year')]" @click="handleYearCellClick(year[j-1])">{{year[j-1].year}}</td>
+                            <td v-for="j in 4" :key="j" :class="[year[j - 1].class, getComputedClass(year[j-1], 'year')]" @click="handleYearCellClick(year[j-1])"><span class="cell">{{year[j-1].year}}</span></td>
                         </tr>
                     </tbody>
                 </table>
                 <table class="d-datepicker-month-table" v-show="isShowTable('month')">
                     <tbody>
                         <tr v-for="(month, i) in displayMonths" :key="i">
-                            <td v-for="(t, j) in 4" :key="t" :class="['picker-month', getComputedClass({month:4*i+j+1}, 'month')]" @click="handleMonthCellClick(4*i+j+1)">{{month[j]}}</td>
+                            <td v-for="(t, j) in 4" :key="t" :class="['picker-month', getComputedClass({month:4*i+j+1}, 'month')]" @click="handleMonthCellClick(4*i+j+1)"><span class="cell">{{month[j]}}</span></td>
                         </tr>
                     </tbody>
                 </table>
