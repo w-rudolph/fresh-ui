@@ -83,7 +83,7 @@ export default {
             }
         },
         doScroll(type, value, first = false) {
-            this.$refs[type].scrollTop = value * 24;
+            this.$refs[type].scrollTop = (+value) * 24;
             const data = deepCopy(this[`${type}List`]);
             this[`${type}List`] = data.map(it => {
                 return {
@@ -94,12 +94,17 @@ export default {
             if (!first) {
                 this.$emit('input', [this.current_hours, this.current_minutes, this.current_seconds]);
             }
+        },
+        updateScroll() {
+            this.$nextTick(() => {
+                this.doScroll('hours', this.value[0], true);
+                this.doScroll('minutes', this.value[1], true);
+                this.doScroll('seconds', this.value[2], true);
+            })
         }
     },
     mounted() {
-        this.doScroll('hours', this.value[0], true);
-        this.doScroll('minutes', this.value[1], true);
-        this.doScroll('seconds', this.value[2], true);
+        this.updateScroll();
     }
 }
 </script>
