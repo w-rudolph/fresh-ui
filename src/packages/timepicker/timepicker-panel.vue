@@ -10,7 +10,7 @@
                 <li v-for="item in minutesList" :key="item.value" :class="['d-timepicker__cell', item.active ? 'selected' : '']" @click="handleItemClick(item, 'minutes')">{{item.label}}</li>
             </ul>
         </div>
-        <div class="d-timepicker-seconds" ref="seconds">
+        <div class="d-timepicker-seconds" ref="seconds" v-show="showSeconds">
             <ul class="d-timepicker__cells">
                 <li v-for="item in secondsList" :key="item.value" :class="['d-timepicker__cell', item.active ? 'selected' : '']" @click="handleItemClick(item, 'seconds')">{{item.label}}</li>
             </ul>
@@ -29,6 +29,10 @@ export default {
             default() {
                 return [0, 0, 0]
             }
+        },
+        showSeconds: {
+            type: Boolean,
+            default: true
         }
     },
     data() {
@@ -42,11 +46,13 @@ export default {
         }
     },
     watch: {
-        value(val) {
-            const [v1, v2, v3] = val;
-            this.doScroll('hours', v1, true);
-            this.doScroll('minutes', v2, true);
-            this.doScroll('seconds', v3, true);
+        value(val, oldVal) {
+            ['hours', 'minutes', 'seconds'].forEach((it, index) => {
+                if (val[index] != oldVal[index]) {
+                    this.doScroll(it, val[index], true);
+                }
+            })
+            this.$emit('change', val, oldVal);
         },
     },
     methods: {
@@ -71,14 +77,6 @@ export default {
             return result;
         },
         handleItemClick(item, type) {
-            const data = deepCopy(this[`${type}List`]);
-            this[`${type}List`] = data.map(({ value, label, active }) => {
-                return {
-                    value,
-                    label,
-                    active: item.value == value
-                }
-            });
             if (this[`current_${type}`] != item.value) {
                 this[`current_${type}`] = item.value;
                 this.doScroll(type, item.value);
@@ -86,15 +84,22 @@ export default {
         },
         doScroll(type, value, first = false) {
             this.$refs[type].scrollTop = value * 24;
+            const data = deepCopy(this[`${type}List`]);
+            this[`${type}List`] = data.map(it => {
+                return {
+                    ...it,
+                    active: it.value == value
+                }
+            });
             if (!first) {
                 this.$emit('input', [this.current_hours, this.current_minutes, this.current_seconds]);
             }
         }
     },
     mounted() {
-        this.doScroll('hours', this.hours, true);
-        this.doScroll('minutes', this.minutes, true);
-        this.doScroll('seconds', this.seconds, true);
+        this.doScroll('hours', this.value[0], true);
+        this.doScroll('minutes', this.value[1], true);
+        this.doScroll('seconds', this.value[2], true);
     }
 }
 </script>
