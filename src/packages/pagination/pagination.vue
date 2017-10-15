@@ -28,10 +28,12 @@
 </template>
 <script>
 import DIcon from '../icon/icon.vue';
+import DSelect from '../select/select.vue';
+import DSelectOption from '../select/select-option.vue';
 
 export default {
     name: "DPagination",
-    components: { DIcon },
+    components: { DIcon, DSelect, DSelectOption },
     props: {
         pageSize: {
             type: Number,
