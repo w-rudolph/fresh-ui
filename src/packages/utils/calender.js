@@ -157,6 +157,7 @@ export default class Calender {
             'M+': month,
             'd+': day,
             'h+': hours,
+            'H+': hours,
             'm+': minutes,
             's+': seconds,
             'S': millSeconds

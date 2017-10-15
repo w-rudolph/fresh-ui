@@ -37,3 +37,40 @@
         }
     }
 }
+
+.d-timepicker{
+    display: inline-block;
+    &--large{
+        .d-timepicker-popper{
+            font-size: 16px;   
+        }
+    }
+    &--small{
+        .d-timepicker-popper{
+            font-size: 12px;   
+        }
+    }
+}
+.d-timepicker-popper{
+    margin: 2px 0;
+    background: #fff;
+    box-shadow: 0 1px 6px #ccc;
+    .d-timepicker-panel{
+        border-bottom-width: 0; 
+    }
+}
+.d-timepicker-reference{
+    position: relative;
+}
+.d-timepicker-arrow,
+.d-timepicker-clear {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    line-height: 1;
+    margin-top: -7px;
+    font-size: 14px;
+    color: #80848f;
+    cursor: pointer;
+    transition: all .2s ease-in-out;
+}
