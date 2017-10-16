@@ -37,7 +37,13 @@ Components basic-finished as bellows:
     Message
     MessageBox
     Notification
+    Datepicker
+    Timepicker
+    Pagination
 ```
+## Reference
+* [element-ui](http://element.eleme.io)
+* [iview](https://www.iviewui.com/)
 
 ## License
 [MIT](http://opensource.org/licenses/MIT)
