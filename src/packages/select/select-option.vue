@@ -12,7 +12,7 @@ export default {
     mixins: [EventEmitter],
     props: {
         value: {
-            type: String,
+            type: [String, Number],
             default: ''
         }
     },
