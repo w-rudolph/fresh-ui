@@ -3,6 +3,10 @@ import PopupManager from '../utils/popup-manager.js';
 export default {
     name: 'DDialog',
     props: {
+        value: {
+            type: Boolean,
+            default: false
+        },
         visible: {
             type: Boolean,
             default: false
@@ -37,6 +41,10 @@ export default {
             this.$emit('update:visible', val);
             this.updatePopupManager(val);
         },
+        value(val) {
+            this.$emit('input', val);
+            this.updatePopupManager(val);
+        }
     },
     methods: {
         updatePopupManager(val) {
@@ -48,6 +56,7 @@ export default {
         },
         close() {
             this.$emit('update:visible', false);
+            this.$emit('input', false);
         }
     },
     mounted() {
@@ -63,7 +72,7 @@ export default {
             });
         }
 
-        if (this.visible) {
+        if (this.visible || this.value) {
             this.updatePopupManager(true);
         }
     }

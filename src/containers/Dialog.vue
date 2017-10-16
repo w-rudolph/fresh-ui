@@ -2,11 +2,12 @@
     <div class="container" style="height:1600px">
         <h3>Dialog 组件</h3>
         <hr>
-        <d-dialog :visible.sync="visible" :body-scroll-lock="false">
+        <d-dialog v-model="visible" :body-scroll-lock="false">
+            <span slot="title">Title</span>
             <div style="width:200px;height:300px;background:#fff">
                 <button @click="show1">show</button>
             </div>
-            <d-dialog :visible.sync="visible1" size="large" title="dialog title" :append-to-body="true">
+            <d-dialog v-model="visible1" size="large" title="dialog title" :append-to-body="true">
                 <div style="width:200px;height:300px;background:#fff">
                     <button @click="show2">show</button>
                 </div>

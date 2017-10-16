@@ -1,15 +1,17 @@
 <template>
     <transition name="dialog-fade">
-        <div class="d-dialog__wrapper" v-show="visible">
+        <div class="d-dialog__wrapper" v-show="visible || value">
             <div :class="['d-dialog', size ? 'd-dialog--'+size : '']">
                 <div class="d-dialog__header">
-                    <div class="d-dialog__title">{{title}}</div>
+                    <slot name="title" v-if="$slots.title"></slot>
+                    <div class="d-dialog__title" v-else>{{title}}</div>
                     <d-icon class="d-dialog__icon" name="close" @click="close"></d-icon>
                 </div>
                 <div class="d-dialog__content">
                     <slot></slot>
                 </div>
                 <div class="d-dialog__footer">
+                    <slot name="footer"></slot>
                 </div>
             </div>
 

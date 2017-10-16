@@ -10,7 +10,7 @@
                     <slot name="message"></slot>
                     <template v-if="!$slots.message">{{message}}</template>
                     <template v-if="type === 'prompt'">
-                        <d-input v-model="value" class="d-message-box__input"></d-input>
+                        <d-input v-model="input_value" class="d-message-box__input"></d-input>
                     </template>
                 </div>
                 <div class="d-message-box__footer">
@@ -44,7 +44,7 @@ export default {
     },
     data() {
         return {
-            value: '',
+            input_value: '',
         }
     },
     methods: {
@@ -60,7 +60,7 @@ export default {
             }, 200);
         },
         handleClose(action) {
-            const data = this.type === 'prompt' ? { action, value: this.value } : action;
+            const data = this.type === 'prompt' ? { action, value: this.input_value } : action;
             if (typeof this.beforeClose === 'function') {
                 this.beforeClose(data, this.close);
             } else {
