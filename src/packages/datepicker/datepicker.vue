@@ -2,7 +2,7 @@
     <div :class="['d-datepicker', size ? 'd-datepicker--'+size : '']">
         <slot name="reference"></slot>
         <div v-if="!$slots.reference" ref="reference" class="d-datepicker-reference" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave">
-            <d-input :placeholder="placeholder" class="d-datepicker-input" :value="currentValue" :disabled="disabled" :size="size" readonly></d-input>
+            <d-input :placeholder="placeholder" class="d-datepicker-input" :value="displayValue" :disabled="disabled" :size="size" readonly></d-input>
             <d-icon name="ios-calendar-outline" v-show="!displayClearBtn" class="d-datepicker-arrow"></d-icon>
             <d-icon name="ios-close" v-if="displayClearBtn" class="d-datepicker-clear" @click="onClear"></d-icon>
         </div>
@@ -17,6 +17,7 @@
 <script>
 import DDatepickerPanel from './datepicker-panel';
 import Popper from '../mixins/popper.js';
+import Calender from '../utils/calender.js';
 
 export default {
     name: 'DDatepicker',
@@ -76,7 +77,9 @@ export default {
         },
         value(val, oldVal) {
             this.currentValue = val;
-            this.$emit('change', val, oldVal);
+            this.$emit('change',
+                Calender.formatDate(new Date(val), this.format),
+                Calender.formatDate(new Date(oldVal), this.format));
         },
         showPopper(val) {
             if (!val) {
@@ -87,6 +90,9 @@ export default {
     computed: {
         displayClearBtn() {
             return this.showClear && this.currentValue.length && !this.disabled;
+        },
+        displayValue() {
+            return Calender.formatDate(Calender.convert2Date(this.currentValue), this.format);
         }
     },
     methods: {

@@ -100,7 +100,9 @@ export default {
     watch: {
         value(val, oldV) {
             this.setCurrentValue(val);
-            this.$emit('change', val, oldV);
+            this.$emit('change',
+                Calender.formatDate(new Date(val), this.format),
+                Calender.formatDate(new Date(oldV), this.format));
         }
     },
     computed: {
@@ -130,7 +132,7 @@ export default {
             if (typeof value === 'number') {
                 value = value.toString();
             }
-            return Calender.convert2Date(value);
+            return Calender.convert2Date(value, this.format);
         },
         isShowTable(type) {
             return this.currentType === type;
@@ -201,18 +203,16 @@ export default {
         },
         handleCellClick({ year, month, day }) {
             const date = new Date(year, month - 1, day);
-            const dateStr = Calender.formatDate(date, this.format);
             this.setCurrentValue(date);
-            this.$emit('input', dateStr);
+            this.dispatchValue(date);
             this.closePanel();
         },
         handleYearCellClick({ year }) {
             const date = new Date(this.currentValue);
             date.setFullYear(year);
             this.setCurrentValue(date);
-            const dateStr = Calender.formatDate(date, this.format);
             if (this.type === 'year') {
-                this.$emit('input', dateStr);
+                this.dispatchValue(date);
                 this.closePanel();
             } else {
                 this.showPicker('month');
@@ -222,14 +222,16 @@ export default {
             const date = new Date(this.currentValue);
             date.setMonth(month - 1);
             this.setCurrentValue(date);
-            const dateStr = Calender.formatDate(date, this.format);
             if (this.type === 'date') {
                 this.showPicker('date');
             }
             if (this.type === 'month') {
                 this.closePanel();
+                this.dispatchValue(date);
             }
-            this.$emit('input', dateStr);
+        },
+        dispatchValue(date) {
+            this.$emit('input', date);
         },
         closePanel() {
             this.$emit('close-panel');
