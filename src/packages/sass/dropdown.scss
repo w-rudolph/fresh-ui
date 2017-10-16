@@ -27,10 +27,20 @@
 .d-dropdown__menu-item{
     padding: 0 10px;
     margin: 0;
-    line-height: 1.8;
+    line-height: 24px;
     cursor: pointer;
     &:hover{
         background-color: #DCDEE4;
         color: #485666;
+    }
+    &.disabled{
+        color: #aaa;
+        cursor: not-allowed;
+        &:hover{
+            background-color: #fff;
+        }
+    }
+    &.divided{
+        border-top: 1px solid #d1dbe5;
     }
 }

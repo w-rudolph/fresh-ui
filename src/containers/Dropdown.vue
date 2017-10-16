@@ -11,8 +11,8 @@
                     <d-dropdown-item index="2" label="B">B</d-dropdown-item>
                     <d-dropdown-item index="3" label="C">C</d-dropdown-item>
                     <d-dropdown-item index="4" label="D">D</d-dropdown-item>
-                    <d-dropdown-item index="5" label="E">E</d-dropdown-item>
-                    <d-dropdown-item index="6" label="F">F</d-dropdown-item>
+                    <d-dropdown-item index="5" divided label="E">E</d-dropdown-item>
+                    <d-dropdown-item disabled index="6" label="F">F</d-dropdown-item>
                 </d-dropdown-menu>
             </d-dropdown>
         </div>
