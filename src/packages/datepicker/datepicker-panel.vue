@@ -81,6 +81,8 @@ export default {
                     return 'yyyy';
                 } else if (this.type === 'month') {
                     return 'yyyy-MM';
+                } else if (this.type === 'datetime') {
+                    return 'yyyy-MM-dd HH:mm:ss';
                 }
             }
         },

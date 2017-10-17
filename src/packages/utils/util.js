@@ -13,3 +13,14 @@ export const extend = (a, b) => {
         }
     }
 }
+
+export const isType = (target, type) => {
+    //@type: Array, Date, String, Object, Boolean, Number, Function, RegExp, Undefined, Null
+    return Object.prototype.toString.call(target) === "[object " + type + "]";
+}
+
+export const isString = str => isType(str, 'String');
+
+export const isArray = arr => isType(arr, 'Array');
+
+export const isDate = date => isType(date, 'Date') && !isNaN(date.valueOf());

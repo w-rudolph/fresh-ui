@@ -2,13 +2,13 @@
     <div :class="['d-timepicker', size ? 'd-timepicker--'+size : '']">
         <slot name="reference"></slot>
         <div v-if="!$slots.reference" ref="reference" class="d-timepicker-reference" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave">
-            <d-input :placeholder="placeholder" class="d-timepicker-input" :value="displayValueStr" :disabled="disabled" :size="size" readonly></d-input>
+            <d-input :placeholder="placeholder" class="d-timepicker-input" :value="displayValue" :disabled="disabled" :size="size" readonly></d-input>
             <d-icon name="ios-clock-outline" v-show="!displayClearBtn" class="d-timepicker-arrow"></d-icon>
             <d-icon name="ios-close" v-if="displayClearBtn" class="d-timepicker-clear" @click="onClear"></d-icon>
         </div>
         <transition name="dropdown-slide">
             <div ref="popper" class="d-timepicker-popper" v-show="showPopper">
-                <d-timepicker-panel ref="pickerPanel" :showSeconds="showSeconds" :options="options" v-model="currentValue"></d-timepicker-panel>
+                <d-timepicker-panel ref="pickerPanel" :format="format" :options="options" v-model="currentValue" @change="handleChange"></d-timepicker-panel>
             </div>
         </transition>
     </div>
@@ -18,6 +18,7 @@
 import DtimepickerPanel from './timepicker-panel';
 import Popper from '../mixins/popper.js';
 import Calender from '../utils/calender.js';
+import { isString, isDate } from '../utils/util.js';
 
 export default {
     name: 'DTimepicker',
@@ -38,7 +39,9 @@ export default {
         },
         value: {
             type: [String, Date],
-            default: '',
+            default() {
+                return '';
+            }
         },
         placeholder: {
             type: String,
@@ -63,78 +66,54 @@ export default {
         lang: {},
         type: {},
         options: {},
-        showSeconds: {
-            type: Boolean,
-            default: true
-        },
-        separator: {
-            type: String,
-            default: ':'
-        },
         format: {
             type: String,
-            default() {
-                if (this.showSeconds) {
-                    return 'hh:mm:ss';
-                }
-                return 'hh:mm';
-            }
+            default: 'HH:mm:ss'
         }
     },
     data() {
         return {
-            currentValue: this.getInitValue(this.value),
+            currentValue: this.value,
             showClear: false,
+            displayValue: this.initValue(this.value)
         }
     },
     watch: {
-        value(val, oldVal) {
-            this.currentValue = this.getInitValue(val);
-            this.$emit('change', val, oldVal);
-        },
-        displayValueStr(v) {
-            this.$emit('input', v);
-        },
         showPopper(val) {
             if (val) {
                 this.$refs.pickerPanel.updateScroll();
             }
+        },
+        currentValue(v) {
+            this.$emit('input', v);
         }
     },
     computed: {
         displayClearBtn() {
-            return this.showClear && this.currentValue.length && !this.disabled;
+            return this.showClear && this.currentValue && !this.disabled;
         },
-        displayValueStr() {
-            if (!this.currentValue.length) {
-                return '';
-            }
-            const [h = 0, m = 0, s = 0] = this.currentValue;
-            const date = new Date();
-            date.setHours(h);
-            date.setMinutes(m);
-            date.setSeconds(s);
-            return Calender.formatDate(date, this.format);
-        }
     },
     methods: {
-        formatNum(n) {
-            return +n < 10 ? '0' + (+n) : n;
-        },
-        getInitValue(value) {
-            if (typeof value === 'string') {
-                return value ? value.split(this.separator) : [];
+        initValue(value) {
+            if (isDate(value)) { //Date
+                return Calender.formatDate(value, this.format);
+            } else if (isDate(new Date(value))) { // 'yyyy-MM-dd HH:mm'
+                return Calender.formatDate(new Date(value), this.format);
+            } else if (isString(value) && value.indexOf(':') > -1) { // 'HH:mm'
+                return Calender.formatDate(new Date(Calender.formatDate(new Date, 'yyyy-MM-dd') + ' ' + value), this.format);
             } else {
-                return [];
+                return '';
             }
         },
-        handleChange(v) {
-            console.log(v);
+        formatNum(n) {
+            return +n < 10 ? '0' + (+n) : n;
         },
         onClear(e) {
             e.preventDefault();
             e.stopPropagation();
-            this.currentValue = [];
+            this.displayValue = '';
+            this.$emit('input', '');
+            this.$emit('change', '');
             if (this.showPopper) {
                 this.showPopper = false;
             }
@@ -148,6 +127,10 @@ export default {
             if (this.clearable) {
                 this.showClear = false;
             }
+        },
+        handleChange(v) {
+            this.displayValue = v;
+            this.$emit('change', v);
         }
     }
 }

@@ -1,6 +1,8 @@
-import { deepCopy } from './util.js';
+import { deepCopy, isType } from './util.js';
 
 export default class Calender {
+    static now = new Date();
+    
     static WeekMaps = {
         'en': ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
         'zh_cn': ['日', '一', '二', '三', '四', '五', '六']
@@ -28,12 +30,16 @@ export default class Calender {
     }
 
     static isDate(date) {
-        return Object.prototype.toString.call(date) === "[object Date]";
+        return isType(date, 'Date') && !isNaN(date.valueOf());
+    }
+
+    static isString(str) {
+        return isType(str, 'String')
     }
 
     static isDateString(dateStr) {
         const dateStamp = (new Date(dateStr)).valueOf();
-        return typeof dateStr === 'string' && dateStamp === dateStamp
+        return Calender.isString(dateStr) && dateStamp === dateStamp;
     }
 
     static getCurrentDate() {
