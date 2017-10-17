@@ -1,16 +1,22 @@
 <template>
-    <div :class="['d-aside', visible ? 'visible' : '', placement]">
-        <d-icon class="d-aside__icon" name="close" @click="handleClick"></d-icon>
+    <div :class="['d-aside', visible || value ? 'visible' : '', placement]">
+        <d-icon class="d-aside__icon" name="close" @click="close"></d-icon>
         <slot></slot>
     </div>
 </template>
 <script>
+import Popup from '../mixins/popup.js';
 import DIcon from '../icon/icon';
 
 export default {
     name: 'DAside',
+    mixins: [Popup],
     components: { DIcon },
     props: {
+        value: {
+            type: Boolean,
+            default: false
+        },
         visible: {
             type: Boolean,
             default: false
@@ -18,18 +24,14 @@ export default {
         placement: {
             type: String,
             default: 'left'
-        }
-    },
-
-    watch: {
-        visible(val) {
-            this.$emit('update:visible', val);
-        }
-    },
-    methods: {
-        handleClick() {
-            this.$emit('update:visible', false);
-            this.$emit('visible-change', false);
+        },
+        hasWrapper: {
+            type: Boolean,
+            default: false
+        },
+        closeOnClickModal: {
+            type: Boolean,
+            default: true
         }
     }
 }

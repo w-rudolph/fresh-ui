@@ -35,6 +35,10 @@ export default {
             type: String,
             default: ''
         },
+        hasWrapper: {
+            type: Boolean,
+            default: true
+        }
     },
     watch: {
         visible(val) {
@@ -63,15 +67,15 @@ export default {
         if (this.appendToBody) {
             document.body.appendChild(this.$el);
         }
-
         if (this.closeOnClickModal) {
             this.$el.addEventListener('click', e => {
-                if (e.target === this.$el && PopupManager.modal) {
+                if ((this.hasWrapper && e.target === this.$el ||
+                    !this.hasWrapper && e.target !== this.$el) &&
+                    PopupManager.modal) {
                     PopupManager.modal.click();
                 }
             });
         }
-
         if (this.visible || this.value) {
             this.updatePopupManager(true);
         }
