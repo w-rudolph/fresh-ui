@@ -33,6 +33,7 @@ import DDatepicker from './datepicker/datepicker';
 import DTimepickerPanel from './timepicker/timepicker-panel';
 import DTimepicker from './timepicker/timepicker';
 import DPagination from './pagination/pagination';
+import DBadge from './badge/badge';
 
 const components = [
     DButton,
@@ -66,7 +67,8 @@ const components = [
     DDatepicker,
     DTimepickerPanel,
     DTimepicker,
-    DPagination
+    DPagination,
+    DBadge,
 ];
 
 const install = function (Vue, opts = {}) {
@@ -123,5 +125,6 @@ export default {
     DDatepicker,
     DTimepickerPanel,
     DTimepicker,
-    DPagination
+    DPagination,
+    DBadge
 }

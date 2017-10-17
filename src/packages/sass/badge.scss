@@ -1,0 +1,25 @@
+.d-badge{
+    position: relative;
+    display: inline-block;
+    &.is-dot{
+        .d-badge__num{
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            right: 5px;
+            padding: 0;
+        }
+    }
+}
+
+.d-badge__num{
+    position: absolute;
+    top: 0;
+    right: 10px;
+    background: #f00;
+    border-radius: 10px;
+    font-size: 12px;
+    padding: 0 5px;
+    color: #fff;
+    transform: translate(100%, -50%);
+}

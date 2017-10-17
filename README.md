@@ -40,6 +40,7 @@ Components basic-finished as bellows:
     Datepicker
     Timepicker
     Pagination
+    Badge
 ```
 ## Reference
 * [element-ui](http://element.eleme.io)
