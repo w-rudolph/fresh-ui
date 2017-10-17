@@ -7,7 +7,7 @@
         <d-button @click="handleToggleClick('right')">right</d-button>
         <d-button @click="handleToggleClick('top')">top</d-button>
         <d-button @click="handleToggleClick('bottom')">bottom</d-button>
-        <d-aside :visible.sync="placement.left" placement="left">
+        <d-aside v-model="placement.left" placement="left" style="width:250px;">
             <div>Left Aside</div>
         </d-aside>
         <d-aside :visible.sync="placement.right" placement="right">

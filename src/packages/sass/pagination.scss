@@ -121,3 +121,9 @@
          height: 28px;
      }
  }
+
+ .d-pagination--small{
+     .d-pager-item{
+         border-width: 0 !important;
+     }
+ }

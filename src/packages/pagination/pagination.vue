@@ -1,7 +1,7 @@
 <template>
-    <div class="d-pagination">
-        <span class="d-pagination__count" v-show="showTotal">共 {{total}} 条</span>
-        <span class="d-pagination__sizer" v-show="showSizer">
+    <div :class="['d-pagination', small ? 'd-pagination--small' : '']">
+        <span class="d-pagination__count" v-if="showTotal">共 {{total}} 条</span>
+        <span class="d-pagination__sizer" v-if="showSizer">
             <d-select :value="currentPageSize" @change="haleSelectChange">
                 <d-select-option v-for="size in pageSizes" :key="size" :value="size">{{size}} 条/页</d-select-option>
             </d-select>
@@ -20,7 +20,7 @@
                 <d-icon name="ios-arrow-right"></d-icon>
             </li>
         </ul>
-        <span class="d-pagination__jumper" v-show="showJumper">
+        <span class="d-pagination__jumper" v-if="showJumper">
             <span>前往</span><input type="text" ref="jumper" @keyup.enter="handleKeyEnter" class="jumper-input">
             <span>页</span>
         </span>
@@ -51,7 +51,7 @@ export default {
         },
         currentPage: {
             type: Number,
-            default: 0
+            default: 1
         },
         showTotal: {
             type: Boolean,
@@ -62,6 +62,10 @@ export default {
             default: false
         },
         showJumper: {
+            type: Boolean,
+            default: false
+        },
+        small: {
             type: Boolean,
             default: false
         }
@@ -80,7 +84,7 @@ export default {
     },
     computed: {
         pageCount() {
-            return Math.floor(this.total / this.currentPageSize);
+            return Math.ceil(this.total / this.currentPageSize);
         },
         prevClickable() {
             return !!this.pageCount && this.currentPageValue > 1;
@@ -89,10 +93,10 @@ export default {
             return !!this.pageCount && this.currentPageValue < this.pageCount;
         },
         showPrevMore() {
-            return !!this.pageCount && this.currentPageValue >= this.pageStart + 4;
+            return !!this.pageCount && this.currentPageValue > this.pageStart + 4;
         },
         showNextMore() {
-            return this.pageCount - this.currentPageValue >= 4;
+            return this.pageCount - this.currentPageValue > 4;
         },
         displayPages() {
             if (this.pageCount < this.pageStart) {
@@ -156,7 +160,9 @@ export default {
             }
             this.currentPageValue = value;
             this.$emit('input', value);
-            this.$refs.jumper.value = value || '';
+            if (this.$refs.jumper) {
+                this.$refs.jumper.value = value || '';
+            }
         },
         handlePageClick(page) {
             if (this.currentPageValue === page.num) {
