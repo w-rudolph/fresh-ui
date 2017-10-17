@@ -27,7 +27,7 @@ export default {
 			val: '',
 			val1: '03:12:11',
 			val2: '03:02:00',
-			val3: ''
+			val3: '03:02:00'
 		}
 	},
 	methods: {

@@ -1,6 +1,3 @@
-@import "transition";
-@include transition-fade('tooltip-fade');
-
 .d-tooltip-container{
     display: inline-block;
 }
