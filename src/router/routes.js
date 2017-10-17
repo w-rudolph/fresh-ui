@@ -23,6 +23,7 @@ import Datepicker from '@/containers/Datepicker';
 import Timepicker from '@/containers/Timepicker';
 import Pagination from '@/containers/Pagination';
 import Badge from '@/containers/Badge';
+import Slider from '@/containers/slider';
 
 export default [
     { path: "/", name: "home", component: Home },
@@ -49,5 +50,6 @@ export default [
     { path: "/datepicker", name: "datepicker", component: Datepicker },
     { path: "/timepicker", name: "timepicker", component: Timepicker },
     { path: "/pagination", name: "pagination", component: Pagination },
-    { path: "/badge", name: "badge", component: Badge }
+    { path: "/badge", name: "badge", component: Badge },
+    { path: "/slider", name: "slider", component: Slider },
 ];
