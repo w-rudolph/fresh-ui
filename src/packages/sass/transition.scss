@@ -1,4 +1,4 @@
-@mixin transition-fade($prefix: 'fade', $px: '-20px', $delay: '.3s') {
+@mixin transition-fade($prefix: 'fade', $px: '-20px', $delay: .3s) {
 
     .#{$prefix}-enter-active {
         animation: #{$prefix}-in $delay;
@@ -30,7 +30,7 @@
         }
     }
 }
-@mixin transition-slide($prefix: 'slide', $delay: '.3s') {
+@mixin transition-slide($prefix: 'slide', $delay: .3s) {
     
         .#{$prefix}-enter-active {
             animation: #{$prefix}-down $delay;

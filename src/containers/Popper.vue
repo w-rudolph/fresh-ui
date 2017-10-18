@@ -3,15 +3,11 @@
         <h3>Popper 组件</h3>
         <br>
         <span>
-            @placement: 
+            @placement:
             <pre>top, right, bottom, left</pre>
             <pre>(top|right|bottom|left)-start</pre>
-            <pre>(top|right|bottom|left)-end</pre>
-
-            @trigger:
-            <pre>click/hover</pre>
-
-            @hideWhenClickOutside:
+            <pre>(top|right|bottom|left)-end</pre> @trigger:
+            <pre>click/hover</pre> @hideWhenClickOutside:
             <pre>true/false</pre>
         </span>
         <d-popper :hideWhenClickOutside="true">
@@ -30,13 +26,20 @@
         <d-popper trigger="hover" :show-arrow="true" placement="top-end" title="title" content="content here" :appendToBody="true">
             <a>hover me</a>
         </d-popper>
-        <d-popper trigger="click" :show-arrow="true" placement="bottom" title="title" content="content here" :appendToBody="true">
+        <d-popper trigger="click" :show-arrow="true" :placement="placement" title="title" content="content here" :appendToBody="true">
             <d-button>click me</d-button>
         </d-popper>
     </div>
 </template>
 <script>
 export default {
-
+    data() {
+        return {
+            placement: 'bottom'
+        }
+    },
+    created(){
+        window.VM = this;
+    }
 }
 </script>

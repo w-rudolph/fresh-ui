@@ -1,5 +1,5 @@
 @import "transition";
-@include transition-fade('tooltip-fade', '-10px', '3s');
+@include transition-fade('tooltip-fade', 0, .5s);
 
 .d-tooltip-container{
     display: inline-block;
