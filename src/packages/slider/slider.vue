@@ -1,24 +1,28 @@
 <template>
-    <div :class="['d-slider', vertical ? 'd-slider--vertical' : '']">
-        <div class="d-slider__bar" style="" :style="slideBarStyle"></div>
-        <d-tooltip placement="top" ref="tooltip" theme="black" trigger="focus" :disabled="!showTooltip">
-            <span slot="content">{{this.getFormatTip(currentValue)}}</span>
-            <div slot="reference" :class="['d-slider__button', startMouseDrag ? 'draging' : '']" :style="sliderBtnStyle" @mouseenter="handleMouseHover(true)" @mouseleave="handleMouseHover(false)" @mouseup="handleMouseUp" @mousedown="handleMouseDown"></div>
-        </d-tooltip>
+    <div :class="['d-slider', vertical ? 'd-slider--vertical' : '', disabled ? 'disabled' : '']" @click="handleSliderBarClick">
+        <div class="d-slider__bar" :style="slideBarStyle"></div>
+        <d-slider-button v-model="startValue" :min="min" :max="range ? endValue : max" :vertical="vertical" :show-tooltip="showTooltip" :disabled="disabled" :tip-format="tipFormat"></d-slider-button>
+        <d-slider-button v-if="range" v-model="endValue" :min="startValue" :max="max" :vertical="vertical" :show-tooltip="showTooltip" :disabled="disabled" :tip-format="tipFormat"></d-slider-button>
     </div>
 </template>
-
 <script>
+import DSliderButton from './slider-button.vue';
+
 export default {
     name: 'DSlider',
+    components: { DSliderButton },
     props: {
+        min: {
+            type: Number,
+            default: 0
+        },
+        max: {
+            type: Number,
+            default: 100
+        },
         vertical: {
             type: Boolean,
             default: false
-        },
-        value: {
-            type: Number,
-            default: 20
         },
         disabled: {
             type: Boolean,
@@ -28,119 +32,124 @@ export default {
             type: Boolean,
             default: true
         },
-        formatTip: {
+        tipFormat: {
             type: Function,
             default: () => { }
+        },
+        range: {
+            type: Boolean,
+            default: false
+        },
+        value: {
+            type: [Array, Number],
+            default() {
+                return this.range ? [0, 0] : 0;
+            }
         }
     },
     data() {
         return {
-            currentValue: this.value > 100 ? 100 : this.value,
-            startMouseDrag: false,
-            lastPos: {}
+            startValue: this.setCurrentValue(this.value)[0],
+            endValue: this.setCurrentValue(this.value)[1]
+        }
+    },
+    watch: {
+        value(v) {
+            const [v1, v2] = this.setCurrentValue(v);
+            this.startValue = v1;
+            this.endValue = v2;
+        },
+        startValue(v) {
+            this.startValue = v;
+            this.$emit('input', this.range ? [v, this.endValue] : v);
+        },
+        endValue(v) {
+            this.endValue = v;
+            this.$emit('input', [this.startValue, v]);
         }
     },
     computed: {
         posStyle() {
             return {
-                offset: parseInt(this.currentValue).toString() + '%'
+                offset: parseInt(this.startValue).toString() + '%',
+                wh: parseInt(this.endValue - this.startValue).toString() + '%'
             }
         },
         slideBarStyle() {
             if (this.vertical) {
+                if (this.range) {
+                    return {
+                        height: this.posStyle.wh,
+                        top: this.posStyle.offset
+                    }
+                }
                 return {
-                    height: this.posStyle.offset
+                    height: this.posStyle.offset,
+                }
+            }
+            if (this.range) {
+                return {
+                    width: this.posStyle.wh,
+                    left: this.posStyle.offset
                 }
             }
             return {
                 width: this.posStyle.offset
             }
         },
-        sliderBtnStyle() {
-            if (this.vertical) {
-                return {
-                    top: this.posStyle.offset
-                }
-            }
-            return {
-                left: this.posStyle.offset
-            }
-        }
-    },
-    watch: {
-        currentValue() {
-            this.$refs.tooltip.updatePopper(false);
-        }
     },
     methods: {
-        getFormatTip(currentValue) {
-            const value = parseInt(currentValue);
-            const res = this.formatTip(value);
-            if (res) {
-                return res;
+        setCurrentValue(value) {
+            if (this.range) {
+                let [v1, v2] = value;
+                if (v1 > v2) {
+                    v2 = v1;
+                }
+                v1 = v1 > 100 ? 100 : v1;
+                v2 = v2 > 100 ? 100 : v2;
+                return [v1, v2];
             }
-            return value;
+            return [value > 100 ? 100 : value, 0];
         },
-        handleMouseHover(flag) {
-            if (flag) {
-                this.$refs.tooltip.showPopper = true;
+        handleSliderBarClick(e) {
+            if (this.disabled) {
+                return;
+            }
+            const $el = this.$el;
+            const pos = {
+                top: $el.offsetTop,
+                left: $el.offsetLeft,
+                width: $el.offsetWidth,
+                height: $el.offsetHeight,
+                cX: e.pageX,
+                cY: e.pageY
+            }
+            if (this.vertical) {
+                let value = parseInt((pos.cY - pos.top) / pos.height * 100);
+                if (this.range) {
+                    let avg = (this.startValue + this.endValue) / 2;
+                    if (avg < value) {
+                        this.endValue = value;
+                    } else {
+                        this.startValue = value;
+                    }
+                } else {
+                    this.startValue = value;
+                }
             } else {
-                if (!this.startMouseDrag) {
-                    this.$refs.tooltip.showPopper = false;
+                let value = parseInt((pos.cX - pos.left) / pos.width * 100);
+                if (this.range) {
+                    let avg = (this.startValue + this.endValue) / 2;
+                    if (avg < value) {
+                        this.endValue = value;
+                    } else {
+                        this.startValue = value;
+                    }
+                } else {
+                    this.startValue = value;
                 }
             }
-        },
-        handleMouseDown(e) {
-            if (this.disabled) {
-                return;
-            }
-            this.startMouseDrag = true;
-        },
-        handleMouseUp(e) {
-            if (this.disabled) {
-                return;
-            }
-            this.startMouseDrag = false;
-        },
-        handleMouseMove(e) {
-            if (!this.startMouseDrag || this.disabled) {
-                return;
-            }
-            if (!this.vertical && this.lastPos.cX === e.clientX || this.vertical && this.lastPos.cY === e.clientY) {
-                return;
-            }
-            this.lastPos = {
-                cX: e.clientX,
-                cY: e.clientY
-            };
-            const pos = {
-                left: this.$el.offsetLeft,
-                top: this.$el.offsetTop,
-                width: this.$el.offsetWidth,
-                height: this.$el.offsetHeight,
-                cX: e.clientX,
-                cY: e.clientY
-            };
-            let d = Math.ceil(pos.cX - pos.left);
-            d = d < 0 ? 0 : (d > pos.width ? pos.width : d);
-            d = (d / pos.width > 1 ? 1 : d / pos.width) * 100;
-            if (this.vertical) {
-                d = Math.ceil(pos.cY - pos.top);
-                d = d < 0 ? 0 : (d > pos.height ? pos.height : d);
-                d = (d / pos.height > 1 ? 1 : d / pos.height) * 100;
-            }
-            if (this.currentValue !== d) {
-                this.currentValue = d;
-            }
-        },
-    },
-    mounted() {
-        window.addEventListener('mousemove', this.handleMouseMove);
-        window.addEventListener('mouseup', this.handleMouseUp)
-    },
-    beforeDestroy() {
-        window.removeEventListener('mousemove', this.handleMouseMove);
-        window.removeEventListener('mouseup', this.handleMouseUp)
+        }
     }
 }
 </script>
