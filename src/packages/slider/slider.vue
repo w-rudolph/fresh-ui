@@ -1,9 +1,9 @@
 <template>
     <div :class="['d-slider', vertical ? 'd-slider--vertical' : '']">
         <div class="d-slider__bar" style="" :style="slideBarStyle"></div>
-        <d-tooltip placement="top" ref="tooltip" theme="black" :disabled="!showTooltip">
+        <d-tooltip placement="top" ref="tooltip" theme="black" trigger="focus" :disabled="!showTooltip">
             <span slot="content">{{this.getFormatTip(currentValue)}}</span>
-            <div slot="reference" :class="['d-slider__button', startMouseDrag ? 'draging' : '']" :style="sliderBtnStyle" @mouseup="handleMouseUp" @mousedown="handleMouseDown" @mousemove="handleMouseMove"></div>
+            <div slot="reference" :class="['d-slider__button', startMouseDrag ? 'draging' : '']" :style="sliderBtnStyle" @mouseenter="handleMouseHover(true)" @mouseleave="handleMouseHover(false)" @mouseup="handleMouseUp" @mousedown="handleMouseDown"></div>
         </d-tooltip>
     </div>
 </template>
@@ -81,9 +81,16 @@ export default {
             }
             return value;
         },
+        handleMouseHover(flag) {
+            if (flag) {
+                this.$refs.tooltip.showPopper = true;
+            } else {
+                if (!this.startMouseDrag) {
+                    this.$refs.tooltip.showPopper = false;
+                }
+            }
+        },
         handleMouseDown(e) {
-            e.preventDefault();
-            e.stopPropagation();
             if (this.disabled) {
                 return;
             }
@@ -94,9 +101,6 @@ export default {
                 return;
             }
             this.startMouseDrag = false;
-            if (this.$refs.tooltip.showPopper) {
-                this.$refs.tooltip.showPopper = false;
-            }
         },
         handleMouseMove(e) {
             if (!this.startMouseDrag || this.disabled) {
@@ -104,9 +108,6 @@ export default {
             }
             if (!this.vertical && this.lastPos.cX === e.clientX || this.vertical && this.lastPos.cY === e.clientY) {
                 return;
-            }
-            if (!this.$refs.tooltip.showPopper) {
-                this.$refs.tooltip.showPopper = true;
             }
             this.lastPos = {
                 cX: e.clientX,

@@ -108,6 +108,14 @@ export default {
                 this.showPopper = false;
             }, 200);
         },
+        handleMouseUp() {
+            this.showPopper = false;
+        },
+        handleMouseDown(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.showPopper = true;
+        },
         handleToggleClick() {
             if (this.disabled) {
                 return;
@@ -137,6 +145,11 @@ export default {
                 popper.addEventListener('mouseover', this.handleMouseEnter);
                 popper.addEventListener('mouseleave', this.handleMouseLeave);
             }
+            if (trigger === 'focus') {
+                reference.addEventListener('mousedown', this.handleMouseDown);
+                reference.addEventListener('mouseup', this.handleMouseUp);
+                window.addEventListener('mouseup', this.handleMouseUp);
+            }
         },
         offEvents() {
             const trigger = this.trigger;
@@ -153,6 +166,11 @@ export default {
                 reference.removeEventListener('mouseleave', this.handleMouseLeave);
                 popper.removeEventListener('mouseover', this.handleMouseEnter);
                 popper.removeEventListener('mouseleave', this.handleMouseLeave);
+            }
+            if (trigger === 'focus') {
+                reference.removeEventListener('mousedown', this.handleMouseDown);
+                reference.removeEventListener('mouseup', this.handleMouseUp);
+                window.addEventListener('mouseup', this.handleMouseUp);
             }
             this.popperInstance.destroy();
         },
