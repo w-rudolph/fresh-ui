@@ -1,11 +1,11 @@
-@mixin transition-fade($prefix: 'fade', $px: '-20px') {
+@mixin transition-fade($prefix: 'fade', $px: '-20px', $delay: '.3s') {
 
     .#{$prefix}-enter-active {
-        animation: #{$prefix}-in .3s;
+        animation: #{$prefix}-in $delay;
     }
     
     .#{$prefix}-leave-active {
-        animation: #{$prefix}-out .3s;
+        animation: #{$prefix}-out $delay;
     }
     
     @keyframes #{$prefix}-in {
@@ -30,14 +30,14 @@
         }
     }
 }
-@mixin transition-slide($prefix: 'slide') {
+@mixin transition-slide($prefix: 'slide', $delay: '.3s') {
     
         .#{$prefix}-enter-active {
-            animation: #{$prefix}-down .3s;
+            animation: #{$prefix}-down $delay;
         }
         
         .#{$prefix}-leave-active {
-            animation: #{$prefix}-up .3s;
+            animation: #{$prefix}-up $delay;
         }
         
         @keyframes #{$prefix}-down {

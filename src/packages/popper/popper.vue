@@ -17,7 +17,8 @@
                 <i v-if="showArrow" ref="arrow" :class="`d-${ns}__arrow`"></i>
             </div>
         </transition>
-        <span ref="reference" :class="`d-${ns}__ref`">
+        <slot name="reference"></slot>
+        <span ref="reference" v-if="!$slots.reference" :class="`d-${ns}__ref`">
             <slot></slot>
         </span>
     </div>

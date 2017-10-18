@@ -41,6 +41,7 @@ Components basic-finished as bellows:
     Timepicker
     Pagination
     Badge
+    Slider
 ```
 ## Reference
 * [element-ui](http://element.eleme.io)

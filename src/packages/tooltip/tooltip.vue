@@ -11,7 +11,7 @@ export default {
         },
         transition: {
             type: String,
-            default: '',
+            default: 'tooltip-fade',
         }
     },
     data() {
