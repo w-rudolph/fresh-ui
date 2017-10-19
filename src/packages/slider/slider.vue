@@ -186,6 +186,7 @@ export default {
                 }
             } else {
                 let value = this.countValue((pos.cX - pos.left) / pos.width);
+                value = this.getLastestValue(value);
                 if (this.range) {
                     this.setClickValue(value);
                 } else {
