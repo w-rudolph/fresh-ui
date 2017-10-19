@@ -9,6 +9,8 @@
             <pre>(top|right|bottom|left)-end</pre> @trigger:
             <pre>click/hover</pre> @hideWhenClickOutside:
             <pre>true/false</pre>
+
+            @trigger: click, hover, focus         
         </span>
         <d-popper :hideWhenClickOutside="true">
             <template slot="content">
@@ -28,6 +30,9 @@
         </d-popper>
         <d-popper trigger="click" :show-arrow="true" :placement="placement" title="title" content="content here" :appendToBody="true">
             <d-button>click me</d-button>
+        </d-popper>
+        <d-popper trigger="focus" :placement="placement" title="title" content="content here" :appendToBody="true">
+            <d-button>focus</d-button>
         </d-popper>
     </div>
 </template>

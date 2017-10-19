@@ -13,33 +13,17 @@ export default {
     name: 'DSliderButton',
     components: { DTooltip },
     props: {
-        min: {
-            type: Number,
-            default: 0
-        },
-        max: {
-            type: Number,
-            default: 100
-        },
         value: {
             type: Number,
             default: 0
         },
-        vertical: {
-            type: Boolean,
-            default: false
+        limitEnd: {
+            type: Number,
+            default: Infinity
         },
-        disabled: {
-            type: Boolean,
-            default: false
-        },
-        showTooltip: {
-            type: Boolean,
-            default: true
-        },
-        tipFormat: {
-            type: Function,
-            default: () => { }
+        limitStart: {
+            type: Number,
+            default: -Infinity
         }
     },
     data() {
@@ -55,17 +39,35 @@ export default {
             this.$emit('input', value);
         },
         value(value) {
-            this.currentValue = this.setCurrentValue(value);
+            this.currentValue = this.$parent.ajustValue(value);
         }
     },
     computed: {
+        min() {
+            return this.$parent.min;
+        },
+        max() {
+            return this.$parent.max;
+        },
+        vertical() {
+            return this.$parent.vertical;
+        },
+        disabled() {
+            return this.$parent.disabled;
+        },
+        showTooltip() {
+            return this.$parent.showTooltip;
+        },
+        tipFormat() {
+            return this.$parent.tipFormat;
+        },
         formatValue() {
             const value = parseInt(this.currentValue);
             return this.tipFormat(value) || value;
         },
         posStyle() {
             return {
-                offset: parseInt(this.currentValue).toString() + '%'
+                offset: parseInt((this.currentValue - this.min) / (this.max - this.min) * 100).toString() + '%'
             }
         },
         sliderBtnStyle() {
@@ -80,15 +82,6 @@ export default {
         }
     },
     methods: {
-        setCurrentValue(value) {
-            if (value > this.max) {
-                value = this.max;
-            }
-            if (value < this.min) {
-                value = this.min;
-            }
-            return value;
-        },
         handleMouseHover(flag) {
             if (flag) {
                 this.$refs.tooltip.showPopper = true;
@@ -132,12 +125,16 @@ export default {
                 cX: this.lastPos.cX,
                 cY: this.lastPos.cY
             };
-            let d = this.vertical ? Math.ceil(pos.cY - pos.top) : Math.ceil(pos.cX - pos.left);
-            this.currentValue = this.setCurrentValue(parseInt(d / (this.vertical ? pos.height : pos.width) * 100));
+            let d = this.vertical ? pos.cY - pos.top : pos.cX - pos.left;
+            let percent = d / (this.vertical ? pos.height : pos.width);
+            let value = this.min + (this.max - this.min) * percent;
+            value = this.$parent.ajustValue(value);
+            value = value > this.limitEnd ? this.limitEnd : (value < this.limitStart ? this.limitStart : value);
+            this.currentValue = Math.round(value);
         }
     },
     created() {
-        this.currentValue = this.setCurrentValue(this.value);
+        this.currentValue = this.$parent.ajustValue(this.value);
     },
     mounted() {
         window.addEventListener('mousemove', this.handleMouseMove);
