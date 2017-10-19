@@ -130,7 +130,7 @@ export default {
             let value = this.min + (this.max - this.min) * percent;
             value = this.$parent.ajustValue(value);
             value = value > this.limitEnd ? this.limitEnd : (value < this.limitStart ? this.limitStart : value);
-            this.currentValue = Math.round(value);
+            this.currentValue = this.$parent.getLastestValue(Math.round(value));
         }
     },
     created() {

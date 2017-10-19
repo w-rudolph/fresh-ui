@@ -1,6 +1,9 @@
 <template>
     <div :class="['d-slider', vertical ? 'd-slider--vertical' : '', disabled ? 'disabled' : '']" @click="handleSliderBarClick">
         <div class="d-slider__bar" :style="slideBarStyle"></div>
+        <div class="d-slider__stops" v-if="showStops">
+            <div class="d-slider__stop" v-for="i in stops" :style="vertical ? {top: i + '%'} : {left: i + '%'}" @click="handleStopClick($event, i)"></div>
+        </div>
         <d-slider-button v-model="startValue" :limit-end="range ? endValue : max"></d-slider-button>
         <d-slider-button v-if="range" v-model="endValue" :limit-start="range ? startValue : min"></d-slider-button>
     </div>
@@ -45,6 +48,14 @@ export default {
             default() {
                 return this.range ? [0, 0] : 0;
             }
+        },
+        step: {
+            type: Number,
+            default: 1
+        },
+        showStops: {
+            type: Boolean,
+            default: false
         }
     },
     data() {
@@ -97,13 +108,35 @@ export default {
                 width: this.posStyle.offset
             }
         },
+        stops() {
+            const allStops = this.getAllStops();
+            const stops = allStops.slice(1, allStops.length - 1);
+            if (this.range) {
+                return stops.filter(stop => stop < this.startValue || stop > this.endValue);
+            }
+            return stops.filter(stop => stop > this.startValue);
+        }
     },
     methods: {
         ajustValue(value) {
-            return value > this.max ? this.max : value < this.min ? this.min : value;
+            return this.getLastestValue(value > this.max ? this.max : value < this.min ? this.min : value);
         },
         countValue(percent) {
             return parseInt(this.min + (this.max - this.min) * percent);
+        },
+        getAllStops() {
+            const stopsLength = Math.ceil((this.max - this.min) / this.step);
+            const stops = [];
+            for (let i = 0; i < stopsLength; i++) {
+                let cur = i * this.step;
+                if (cur < this.max) {
+                    stops.push(cur)
+                }
+            }
+            if (stops.indexOf(this.max) === -1) {
+                stops.push(this.max);
+            }
+            return stops;
         },
         getAjustedValue(value) {
             if (this.range) {
@@ -125,6 +158,11 @@ export default {
                 this.startValue = value;
             }
         },
+        handleStopClick(e, i) {
+            e.preventDefault();
+            e.stopPropagation();
+            this.startValue = i;
+        },
         handleSliderBarClick(e) {
             if (this.disabled) {
                 return;
@@ -140,6 +178,7 @@ export default {
             }
             if (this.vertical) {
                 let value = this.countValue((pos.cY - pos.top) / pos.height);
+                value = this.getLastestValue(value);
                 if (this.range) {
                     this.setClickValue(value);
                 } else {
@@ -153,6 +192,26 @@ export default {
                     this.startValue = value;
                 }
             }
+        },
+        getLastestValue(value) {
+            const stops = this.getAllStops();
+            let v1, v2;
+            for (let i = 0; i < stops.length; i++) {
+                let cur = stops[i];
+                let next = stops[i + 1];
+                if (cur <= value && next >= value) {
+                    v1 = cur;
+                    v2 = next;
+                    break;
+                }
+            }
+            if (value === this.max) {
+                return value;
+            }
+            if (Math.abs(value - v1) < this.step / 2) {
+                return v1;
+            }
+            return v2;
         }
     }
 }

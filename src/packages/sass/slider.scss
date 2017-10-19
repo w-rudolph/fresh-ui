@@ -24,6 +24,9 @@
                 transform: scale(1.5);
             }
         }
+        .d-slider__stop{
+            transform: translateY(-50%);
+        }
     }
     &.disabled{
         
@@ -67,4 +70,12 @@
     border-radius: 3px;
     background:#20a0ff;
     height:100%
+}
+.d-slider__stop{
+    position: absolute;
+    width: 6px;
+    height: 6px;
+    border-radius: 100%;
+    background-color: #8c8f92;
+    transform: translateX(-50%);
 }
