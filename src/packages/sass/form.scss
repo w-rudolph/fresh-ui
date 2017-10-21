@@ -1,12 +1,20 @@
 .d-form-item{
     margin-bottom: 20px;
     margin-right: 10px;
+    &.required{
+        .d-form-item__label:before{
+            content: "*";
+            color: #F55858;
+            margin-right: 5px;
+        }
+    }
 }
 .d-form-item__label,
 .d-form-item__content{
+    font-size: 14px;
     text-align: left;
     vertical-align: middle;
-    font-size: 14px;
+    position: relative;
 }
 .d-form-item__label{
     float: left;
@@ -14,7 +22,6 @@
     padding: 10px 10px 10px 0;
     line-height: 1;
 }
-
 .d-form{
     &--inline{
         .d-form-item__content,
@@ -33,4 +40,11 @@
             text-align: left;
         }
     }
+}
+.d-form-item__error{
+    position: absolute;
+    top: 100%;
+    left: 0;
+    color: #F55858;
+    font-size: 12px;
 }
