@@ -78,7 +78,9 @@ export default {
                         }
                     } else {
                         resolve(true);
-                        this.broadcast('DFormItem', 'form.item.errors', []);
+                        if (this.showErrors) {
+                            this.broadcast('DFormItem', 'form.item.errors', []);
+                        }
                     }
                 })
             });

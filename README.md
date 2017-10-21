@@ -42,6 +42,7 @@ Components basic-finished as bellows:
     Pagination
     Badge
     Slider
+    Form
 ```
 ## Reference
 * [element-ui](http://element.eleme.io)
