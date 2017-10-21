@@ -1,0 +1,36 @@
+.d-form-item{
+    margin-bottom: 20px;
+    margin-right: 10px;
+}
+.d-form-item__label,
+.d-form-item__content{
+    text-align: left;
+    vertical-align: middle;
+    font-size: 14px;
+}
+.d-form-item__label{
+    float: left;
+    text-align: right;
+    padding: 10px 10px 10px 0;
+    line-height: 1;
+}
+
+.d-form{
+    &--inline{
+        .d-form-item__content,
+        .d-form-item {
+            display: inline-block;
+        }
+    }
+    &__label-top{
+        .d-form-item__label{
+            float: none;
+            text-align: left;
+        }
+    }
+    &__label-left{
+        .d-form-item__label{
+            text-align: left;
+        }
+    }
+}

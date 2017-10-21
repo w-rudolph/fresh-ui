@@ -35,6 +35,8 @@ import DTimepicker from './timepicker/timepicker';
 import DPagination from './pagination/pagination';
 import DBadge from './badge/badge';
 import DSlider from './slider/slider';
+import DForm from './form/form';
+import DFormItem from './form/form-item';
 
 const components = [
     DButton,
@@ -71,6 +73,8 @@ const components = [
     DPagination,
     DBadge,
     DSlider,
+    DForm,
+    DFormItem,
 ];
 
 const install = function (Vue, opts = {}) {
@@ -129,5 +133,7 @@ export default {
     DTimepicker,
     DPagination,
     DBadge,
-    DSlider
+    DSlider,
+    DForm,
+    DFormItem,
 }
