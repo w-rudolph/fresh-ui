@@ -3,7 +3,9 @@
         <div class="d-form-item__label" :style="labelStyle">{{label}}</div>
         <div class="d-form-item__content" :style="contentStyle">
             <slot></slot>
-            <div class="d-form-item__error" v-if="error">{{error.message}}</div>
+            <transition name="form-item-fade">
+                <div class="d-form-item__error" v-if="error">{{error.message}}</div>
+            </transition>
         </div>
     </div>
 </template>

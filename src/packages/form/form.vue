@@ -41,6 +41,14 @@ export default {
             validateRules: {}
         };
     },
+    watch: {
+        model: {
+            deep: true,
+            handler() {
+                this.handleModelChange();
+            }
+        }
+    },
     computed: {
         inlineClass() {
             return this.inline ? 'd-form--inline' : '';
@@ -56,6 +64,9 @@ export default {
         }
     },
     methods: {
+        handleModelChange() {
+            this.validate().then(_ => { }).catch(_ => { });
+        },
         validate() {
             const validator = new Schema(this.mergedRules);
             return new Promise((resolve, reject) => {

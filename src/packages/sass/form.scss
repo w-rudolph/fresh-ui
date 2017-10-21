@@ -1,3 +1,6 @@
+@import "transition";
+@include transition-fade('form-item-fade', -1px);
+
 .d-form-item{
     margin-bottom: 20px;
     margin-right: 10px;
@@ -7,6 +10,16 @@
             color: #F55858;
             margin-right: 5px;
         }
+    }
+    &.error{
+        .d-input__inner,
+        .d-input-number,
+        .d-checkbox__inner,
+        .d-radio__inner{
+            border-color: #F55858;
+            transition: border-color 0.3s ease-in-out;
+        }
+
     }
 }
 .d-form-item__label,
