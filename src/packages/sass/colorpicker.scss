@@ -1,0 +1,44 @@
+$bgRange: rgb(255, 0, 0), rgb(255, 255, 0), rgb(0, 255, 0), rgb(0, 255, 255), rgb(0, 0, 255), rgb(255, 0, 255), rgb(255, 0, 0);
+
+.d-color-slider {
+    position: relative;
+    box-sizing: border-box;
+    width: 240px;
+    height: 12px;
+    background-color: red;
+    display: inline-block;
+    cursor: pointer;
+    // padding: 0 2px;
+    &.alpha{
+        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAIAAADZF8uwAAAAGUlEQVQYV2M4gwH+YwCGIasIUwhT25BVBADtzYNYrHvv4gAAAABJRU5ErkJggg==);
+    }
+    &--vertical{
+        // padding: 2px 0;
+        width: 12px;
+        height: 240px;
+        .d-color-slider__button{
+            height: 4px;
+            width: 100%;
+        }
+        .d-color-slider__bar{
+            background: linear-gradient($bgRange);
+        }
+    }
+}
+
+.d-color-slider__bar {
+    position: relative;
+    background: linear-gradient(90deg,$bgRange);
+    height: 100%;
+}
+.d-color-slider__button{
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4px;
+    background: #fff;
+    border: 1px solid #f0f0f0;
+    box-shadow: 0 0 2px rgba(0,0,0,.6);
+    cursor: pointer;
+}

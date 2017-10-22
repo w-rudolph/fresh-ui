@@ -45,6 +45,15 @@ const hasScroll = function (el) {
     return scroll;
 }
 
+const getBoundingClientRect = function (el, position = false) {
+    let { left, top, width, height } = el.getBoundingClientRect();
+    if (position) {
+        left += window.scrollX;
+        top += window.scrollY;
+    }
+    return { left, top, width, height };
+}
+
 export {
     addClass,
     removeClass,
@@ -52,4 +61,5 @@ export {
     getStyle,
     getScrollbarWidth,
     hasScroll,
+    getBoundingClientRect,
 }

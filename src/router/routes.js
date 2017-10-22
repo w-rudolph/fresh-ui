@@ -25,6 +25,7 @@ import Pagination from '@/containers/Pagination';
 import Badge from '@/containers/Badge';
 import Slider from '@/containers/Slider';
 import Form from '@/containers/Form';
+import Colorpicker from '@/containers/Colorpicker';
 
 export default [
     { path: "/", name: "home", component: Home },
@@ -54,4 +55,5 @@ export default [
     { path: "/badge", name: "badge", component: Badge },
     { path: "/slider", name: "slider", component: Slider },
     { path: "/form", name: "form", component: Form },
+    { path: "/colorpicker", name: "colorpicker", component: Colorpicker },
 ];

@@ -8,6 +8,7 @@
 </template>
 <script>
 import DTooltip from '../tooltip/tooltip.vue';
+import { getBoundingClientRect } from '../utils/dom.js';
 
 export default {
     name: 'DSliderButton',
@@ -116,12 +117,12 @@ export default {
                 cX: e.pageX,
                 cY: e.pageY
             };
-            const $parent = this.$parent.$el;
+            const { left, top, width, height } = getBoundingClientRect(this.$parent.$el, true);
             const pos = {
-                left: $parent.offsetLeft,
-                top: $parent.offsetTop,
-                width: $parent.offsetWidth,
-                height: $parent.offsetHeight,
+                top,
+                left,
+                width,
+                height,
                 cX: this.lastPos.cX,
                 cY: this.lastPos.cY
             };

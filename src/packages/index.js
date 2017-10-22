@@ -37,6 +37,7 @@ import DBadge from './badge/badge';
 import DSlider from './slider/slider';
 import DForm from './form/form';
 import DFormItem from './form/form-item';
+import DColorpicker from './colorpicker/colorpicker';
 
 const components = [
     DButton,
@@ -75,6 +76,7 @@ const components = [
     DSlider,
     DForm,
     DFormItem,
+    DColorpicker,
 ];
 
 const install = function (Vue, opts = {}) {
@@ -136,4 +138,5 @@ export default {
     DSlider,
     DForm,
     DFormItem,
+    DColorpicker,
 }

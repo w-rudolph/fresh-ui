@@ -2,7 +2,7 @@
     <div :class="['d-slider', vertical ? 'd-slider--vertical' : '', disabled ? 'disabled' : '']" @click="handleSliderBarClick">
         <div class="d-slider__bar" :style="slideBarStyle"></div>
         <div class="d-slider__stops" v-if="showStops">
-            <div class="d-slider__stop" v-for="i in stops" :style="vertical ? {top: i + '%'} : {left: i + '%'}" @click="handleStopClick($event, i)"></div>
+            <div class="d-slider__stop" v-for="i in stops" :key="i" :style="vertical ? {top: i + '%'} : {left: i + '%'}" @click="handleStopClick($event, i)"></div>
         </div>
         <d-slider-button v-model="startValue" :limit-end="range ? endValue : max"></d-slider-button>
         <d-slider-button v-if="range" v-model="endValue" :limit-start="range ? startValue : min"></d-slider-button>
@@ -10,6 +10,7 @@
 </template>
 <script>
 import DSliderButton from './slider-button.vue';
+import { getBoundingClientRect } from '../utils/dom.js';
 
 export default {
     name: 'DSlider',
@@ -167,12 +168,12 @@ export default {
             if (this.disabled) {
                 return;
             }
-            const $el = this.$el;
+            const { left, top, width, height } = getBoundingClientRect(this.$el, true);
             const pos = {
-                top: $el.offsetTop,
-                left: $el.offsetLeft,
-                width: $el.offsetWidth,
-                height: $el.offsetHeight,
+                top,
+                left,
+                width,
+                height,
                 cX: e.pageX,
                 cY: e.pageY
             }

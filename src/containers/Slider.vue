@@ -1,5 +1,5 @@
 <template>
-    <div style="padding: 0 20px;">
+    <div style="padding: 0 20px">
         <h2>Slider 组件</h2>
         <hr>
         <h4>Basic</h4>
