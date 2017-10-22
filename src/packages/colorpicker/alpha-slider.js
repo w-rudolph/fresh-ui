@@ -6,16 +6,20 @@ export default {
     data() {
         return {
             ns: 'alpha',
-            barStyle: {
-                background: 'linear-gradient(to right, rgba(19, 206, 102, 0) 0%, rgb(19, 206, 102) 100%)'
-            }
+            currentValue: 1,
         }
+    },
+    computed: {
+        barStyle() {
+            const { r, g, b } = this.$parent.rgbColor;
+            return {
+                background: `linear-gradient(to right, rgba(${r}, ${g},${b}, 0) 0%, rgb(${r}, ${g},${b}) 100%)`
+            }
+        },
     },
     watch: {
         currentValue(v) {
-            const $bar = this.$refs.bar;
-            const wh = this.vertical ? $bar.offsetHeight : $bar.offsetWidth;
-            console.log(parseFloat((v / wh).toFixed(2)));
+            this.$emit('change', parseFloat(v.toFixed(2)))
         }
     }
 }

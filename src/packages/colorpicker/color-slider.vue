@@ -21,7 +21,6 @@ export default {
             lastPos: {},
             currentValue: 0,
             ns: '',
-            barStyle: {}
         }
     },
     computed: {
@@ -30,9 +29,12 @@ export default {
         },
         buttonStyle() {
             return {
-                top: this.vertical ? this.currentValue + 'px' : undefined,
-                left: this.vertical ? undefined : this.currentValue + 'px'
+                top: this.vertical ? this.currentValue * 100 + '%' : undefined,
+                left: this.vertical ? undefined : this.currentValue * 100 + '%'
             }
+        },
+        barStyle() {
+            return {}
         }
     },
     methods: {
@@ -67,7 +69,7 @@ export default {
             let offset = parseInt(this.vertical ? pos.cY - pos.top : pos.cX - pos.left);
             let wh = this.vertical ? pos.height : pos.width;
             offset = offset < 0 ? 0 : (offset > wh ? wh : offset);
-            this.currentValue = offset;
+            this.currentValue = offset / wh;
         },
         handleClick(e) {
             this.isDragging = true;

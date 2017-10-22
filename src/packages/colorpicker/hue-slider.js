@@ -10,9 +10,7 @@ export default {
     },
     watch: {
         currentValue(v) {
-            const $bar = this.$refs.bar;
-            const wh = this.vertical ? $bar.offsetHeight : $bar.offsetWidth;
-            console.log(parseInt(v / wh * 360));
+            this.$emit('change', parseFloat((v * 360).toFixed(2)));
         }
     }
 }

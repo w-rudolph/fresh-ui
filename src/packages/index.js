@@ -38,6 +38,7 @@ import DSlider from './slider/slider';
 import DForm from './form/form';
 import DFormItem from './form/form-item';
 import DColorpicker from './colorpicker/colorpicker';
+import DColorpickerPanel from './colorpicker/colorpicker-panel';
 
 const components = [
     DButton,
@@ -77,6 +78,7 @@ const components = [
     DForm,
     DFormItem,
     DColorpicker,
+    DColorpickerPanel,
 ];
 
 const install = function (Vue, opts = {}) {
@@ -139,4 +141,5 @@ export default {
     DForm,
     DFormItem,
     DColorpicker,
+    DColorpickerPanel,
 }

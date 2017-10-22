@@ -8,17 +8,16 @@ $bgRange: rgb(255, 0, 0), rgb(255, 255, 0), rgb(0, 255, 0), rgb(0, 255, 255), rg
     background-color: red;
     display: inline-block;
     cursor: pointer;
-    // padding: 0 2px;
     &.alpha{
         background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAIAAADZF8uwAAAAGUlEQVQYV2M4gwH+YwCGIasIUwhT25BVBADtzYNYrHvv4gAAAABJRU5ErkJggg==);
     }
     &--vertical{
-        // padding: 2px 0;
         width: 12px;
         height: 240px;
         .d-color-slider__button{
             height: 4px;
             width: 100%;
+            transform: translateY(-50%);
         }
         .d-color-slider__bar{
             background: linear-gradient($bgRange);
@@ -40,5 +39,42 @@ $bgRange: rgb(255, 0, 0), rgb(255, 255, 0), rgb(0, 255, 0), rgb(0, 255, 255), rg
     background: #fff;
     border: 1px solid #f0f0f0;
     box-shadow: 0 0 2px rgba(0,0,0,.6);
+    transform: translateX(-50%);
     cursor: pointer;
+}
+.d-colorpicker-panel{
+    display: inline-block;
+    border: 1px solid #dbdada;
+    padding: 5px 8px;
+}
+.d-color-svpanel{
+    position: relative;
+    width: 240px;
+    height: 180px;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+.d-color-svpanel__white{
+    background: linear-gradient(90deg,#fff,hsla(0,0%,100%,0));
+}
+.d-color-svpanel__black{
+    background: linear-gradient(0deg,#000,transparent);
+}
+.d-color-svpanel__white,
+.d-color-svpanel__black{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+.d-color-svpanel__pointer{
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 0 0 1.5px #fff, inset 0 0 1px 1px rgba(0,0,0,.3), 0 0 1px 2px rgba(0,0,0,.4);
+    display: inline-block;
+    transform: translate(-50%,-50%);
 }

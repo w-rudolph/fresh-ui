@@ -1,8 +1,8 @@
 <template>
 	<div class="container">
 		<h3>Colorpicker 组件</h3>
-		<br>
-		<d-colorpicker></d-colorpicker>
+		<br> {{colorText}}<br>
+		<d-colorpicker-panel @change="handleChange"></d-colorpicker-panel>
 	</div>
 </template>
 
@@ -12,11 +12,13 @@ import Color from 'tinycolor2';
 export default {
 	data() {
 		return {
+			colorText: ''
 		}
 	},
-	created() {
-		window.Color = Color;
-		console.log(Color('red').toRgb());
+	methods: {
+		handleChange(v) {
+			this.colorText = v;
+		}
 	}
 }
 </script>
