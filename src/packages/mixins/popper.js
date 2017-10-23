@@ -66,8 +66,7 @@ export default {
             }
             this.popperInstance = new Popper(
                 reference,
-                popper,
-                {
+                popper, {
                     placement: this.placement,
                     modifiers: {
                         computeStyle: { gpuAcceleration: this.gpuAcceleration }
@@ -175,7 +174,7 @@ export default {
             this.popperInstance.destroy();
         },
         updatePopper(updateIndex = true) {
-            if (updateIndex) {
+            if (updateIndex && this.showPopper) {
                 this.updatePopperIndex();
             }
             this.popperInstance.update();

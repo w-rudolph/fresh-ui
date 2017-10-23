@@ -52,12 +52,13 @@ rgb(255, 0, 0);
 .d-colorpicker-panel {
     display: inline-block;
     border: 1px solid #dbdada;
+    background: #fff;
     padding: 8px;
 }
 
 .d-color-svpanel {
     position: relative;
-    width: 240px;
+    width: 100%;
     height: 180px;
     cursor: pointer;
     margin-bottom: 5px;
@@ -89,4 +90,81 @@ rgb(255, 0, 0);
     box-shadow: 0 0 0 1.5px #fff, inset 0 0 1px 1px rgba(0, 0, 0, .3), 0 0 1px 2px rgba(0, 0, 0, .4);
     display: inline-block;
     transform: translate(-50%, -50%);
+}
+
+.d-colorpicker,
+.d-colorpicker-reference {
+    display: inline-block;
+}
+
+.d-colorpicker-reference {
+    position: relative;
+    box-sizing: border-box;
+    height: 36px;
+    padding: 6px 20px 6px 6px;
+    border: 1px solid #bfcbd9;
+    border-radius: 4px;
+}
+
+.d-colorpicker-input {
+    position: relative;
+    display: inline-block;
+    border: 1px solid #656060;
+    width: 22px;
+    height: 22px;
+    cursor: default;
+    text-align: center;
+    &.alpha {
+        background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAMCAIAAADZF8uwAAAAGUlEQVQYV2M4gwH+YwCGIasIUwhT25BVBADtzYNYrHvv4gAAAABJRU5ErkJggg==);
+    }
+}
+
+.d-colorpicker-input__inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.d-colorpicker-empty {
+    color: #656060;
+}
+
+.d-colorpicker-arrow {
+    position: absolute;
+    top: 50%;
+    right: 8px;
+    transform: translateY(-50%);
+    font-size: 14px;
+    color: #80848f;
+    cursor: pointer;
+}
+
+.d-colorpicker-popper {
+    background: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px #ddd;
+    .d-colorpicker-panel {
+        border: none;
+        padding-bottom: 0;
+    }
+}
+
+.d-colorpicker-addons {
+    overflow: hidden;
+}
+
+.d-colorpicker-btns {
+    text-align: right;
+    padding: 0 8px 5px 0;
+}
+
+.d-colorpicker-input__value {
+    float: left;
+    padding: 0 0 5px 8px;
+    .d-btn--text {
+        padding-left: 0;
+        padding-right: 0;
+    }
 }
