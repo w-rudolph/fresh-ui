@@ -39,6 +39,7 @@ import DForm from './form/form';
 import DFormItem from './form/form-item';
 import DColorpicker from './colorpicker/colorpicker';
 import DColorpickerPanel from './colorpicker/colorpicker-panel';
+import DProgress from './progress/progress';
 
 const components = [
     DButton,
@@ -79,6 +80,7 @@ const components = [
     DFormItem,
     DColorpicker,
     DColorpickerPanel,
+    DProgress,
 ];
 
 const install = function (Vue, opts = {}) {
@@ -142,4 +144,5 @@ export default {
     DFormItem,
     DColorpicker,
     DColorpickerPanel,
+    DProgress,
 }

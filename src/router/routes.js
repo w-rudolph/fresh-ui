@@ -26,6 +26,7 @@ import Badge from '@/containers/Badge';
 import Slider from '@/containers/Slider';
 import Form from '@/containers/Form';
 import Colorpicker from '@/containers/Colorpicker';
+import Progress from '@/containers/Progress';
 
 export default [
     { path: "/", name: "home", component: Home },
@@ -56,4 +57,5 @@ export default [
     { path: "/slider", name: "slider", component: Slider },
     { path: "/form", name: "form", component: Form },
     { path: "/colorpicker", name: "colorpicker", component: Colorpicker },
+    { path: "/progress", name: "progress", component: Progress },
 ];
