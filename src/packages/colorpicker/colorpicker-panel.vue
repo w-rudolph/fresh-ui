@@ -95,7 +95,9 @@ export default {
             this.$emit('input', val);
         },
         setColor(value) {
-            this.color = tinycolor(value).toHsv();
+            if(value){
+                this.color = tinycolor(value).toHsv();
+            }
         }
     },
     created() {

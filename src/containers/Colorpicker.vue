@@ -5,7 +5,10 @@
 		<h4>Panel</h4>
 		<d-colorpicker-panel v-model="colorText" alpha></d-colorpicker-panel>
 		<h4>Popper</h4>
-		<d-colorpicker v-model="colorText" alpha @active-change="handleActiveChange" @change="handleChange"></d-colorpicker>
+		<h5>Basic</h5>
+		<d-colorpicker v-model="color" @active-change="handleActiveChange" @change="handleChange"></d-colorpicker>
+		<h5>alpha</h5>
+		<d-colorpicker alpha v-model="colorText" @active-change="handleActiveChange" @change="handleChange"></d-colorpicker>
 	</div>
 </template>
 
@@ -15,7 +18,8 @@ import Color from 'tinycolor2';
 export default {
 	data() {
 		return {
-			colorText: 'rgba(255, 255, 0, 0.67)'
+			colorText: 'rgba(255, 255, 0, 0.67)',
+			color: '#f0f'
 		}
 	},
 	methods: {

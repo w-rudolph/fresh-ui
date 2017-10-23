@@ -12,7 +12,7 @@
                 <d-colorpicker-panel :format="format" :alpha="alpha" v-model="color"></d-colorpicker-panel>
                 <div class="d-colorpicker-addons">
                     <div class="d-colorpicker-input__value">
-                        <d-button type="text" size="small">{{color}}</d-button>
+                        <d-button type="text" size="small">{{formatColor(color)}}</d-button>
                     </div>
                     <div class="d-colorpicker-btns">
                         <d-button type="link" size="small" @click="handleValueChange('')">清空</d-button>
@@ -26,6 +26,7 @@
 <script>
 import DColorpickerPanel from './colorpicker-panel';
 import Popper from '../mixins/popper.js';
+import tinycolor from 'tinycolor2';
 
 export default {
     name: 'DColorpicker',
@@ -52,7 +53,12 @@ export default {
             type: Boolean,
             default: false
         },
-        format: {},
+        format: {
+            type: String, // hsl、hsv、hex、rgb
+            default() {
+                return this.alpha ? 'rgb' : 'hex';
+            }
+        }
     },
     data() {
         return {
@@ -72,15 +78,20 @@ export default {
             return {
                 backgroundColor: this.color
             };
-        }
+        },
+
     },
     methods: {
         handleValueChange(value) {
             this.color = value;
-            this.$emit('input', value);
-            this.$emit('change', value);
+            this.$emit('input', value ? this.formatColor(value) : '');
+            this.$emit('change', value ? this.formatColor(value) : '');
             this.showPopper = false;
         },
+        formatColor(color) {
+            const map = { 'hsl': 'toHslString', 'hsv': 'toHsvString', 'hex': 'toHexString', 'rgb': 'toRgbString' };
+            return tinycolor(color)[map[this.format]]();
+        }
     }
 }
 </script>
