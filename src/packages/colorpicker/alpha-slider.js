@@ -6,7 +6,7 @@ export default {
     data() {
         return {
             ns: 'alpha',
-            currentValue: 1,
+            currentValue: this.$parent.color.a,
         }
     },
     computed: {

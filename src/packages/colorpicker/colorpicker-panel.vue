@@ -15,28 +15,29 @@ export default {
     name: 'DColorpickerPanel',
     components: { DHueSlider, DAlphaSlider, svpanel },
     props: {
+        value: {
+            type: String,
+            default: ''
+        },
         alpha: {
             type: Boolean,
             default: false
         },
         format: {
             type: String, // hsl、hsv、hex、rgb
-            default: this.alpha ? 'rgb' : 'hex'
+            default() {
+                return this.alpha ? 'rgb' : 'hex';
+            }
         }
     },
     data() {
         return {
-            color: {
-                h: 0,
-                s: 0,
-                v: 100,
-                a: 1
-            }
+            color: { h: 0, s: 0, v: 0, a: 1 }
         }
     },
     watch: {
-        color() {
-
+        value(val) {
+            this.setColor(val);
         }
     },
     computed: {
@@ -83,15 +84,22 @@ export default {
             this.handleColorChange();
         },
         handleColorChange() {
-            console.log('change');
             const map = {
                 'hsl': 'toHslString',
                 'hsv': 'toHsvString',
                 'hex': 'toHexString',
                 'rgb': 'toRgbString',
             };
-            this.$emit('change', this.colorObj[map[this.format]]());
+            const val = this.colorObj[map[this.format]]();
+            this.$emit('change', val);
+            this.$emit('input', val);
+        },
+        setColor(value) {
+            this.color = tinycolor(value).toHsv();
         }
+    },
+    created() {
+        this.setColor(this.value);
     }
 }
 </script>

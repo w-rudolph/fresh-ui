@@ -110,7 +110,7 @@ export default {
             if (!this.startMouseDrag || this.disabled) {
                 return;
             }
-            if (!this.vertical && this.lastPos.cX === e.clientX || this.vertical && this.lastPos.cY === e.clientY) {
+            if (!this.vertical && this.lastPos.cX === e.pageX || this.vertical && this.lastPos.cY === e.pageY) {
                 return;
             }
             this.lastPos = {

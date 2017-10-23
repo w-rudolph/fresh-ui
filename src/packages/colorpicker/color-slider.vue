@@ -44,13 +44,13 @@ export default {
         handleMouseDown() {
             this.isDragging = true;
         },
-        handleMouseMove(e) {
+        handleMouseMove(e, drag = true) {
             e.preventDefault();
             e.stopPropagation();
-            if (!this.isDragging) {
+            if (!this.isDragging && drag) {
                 return;
             }
-            if (!this.vertical && this.lastPos.cX === e.clientX || this.vertical && this.lastPos.cY === e.clientY) {
+            if (!this.vertical && this.lastPos.cX === e.pageX || this.vertical && this.lastPos.cY === e.pageY) {
                 return;
             }
             this.lastPos = {
@@ -72,11 +72,7 @@ export default {
             this.currentValue = offset / wh;
         },
         handleClick(e) {
-            this.isDragging = true;
-            this.handleMouseMove(e);
-            this.$nextTick(_ => {
-                this.isDragging = false;
-            })
+            this.handleMouseMove(e, false);
         }
     },
     mounted() {

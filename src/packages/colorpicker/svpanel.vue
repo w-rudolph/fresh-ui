@@ -12,40 +12,46 @@ export default {
     name: 'svpanel',
     data() {
         return {
-            pos: {}
+            pos: {},
+            lastPos: {},
         }
     },
     computed: {
         pointerStyle() {
             return {
-                top: this.pos.top + '%',
-                left: this.pos.left + '%'
+                left: this.color.s * 100 + '%',
+                top: (1 - this.color.v) * 100 + '%'
             }
+        },
+        color() {
+            return this.$parent.color;
         }
     },
     watch: {
         pos(v) {
-            this.$emit('change',
-                {
-                    s: parseInt(v.left) + '%',
-                    v: parseInt(100 - v.top) + '%'
-                }
-            );
+            this.$emit('change', { s: v.left, v: 1 - v.top });
         }
     },
     methods: {
         handleMouseUp() {
             this.isDragging = false;
         },
-        handleMouseDown() {
+        handleMouseDown(e) {
             this.isDragging = true;
         },
-        handleMouseMove(e) {
+        handleMouseMove(e, drag = true) {
             e.preventDefault();
             e.stopPropagation();
-            if (!this.isDragging) {
+            if (!this.isDragging && drag) {
                 return;
             }
+            if (this.lastPos.cX === e.pageX && this.lastPos.cY === e.pageY) {
+                return;
+            }
+            this.lastPos = {
+                cX: e.pageX,
+                cY: e.pageY
+            };
             const { left, top, width, height } = getBoundingClientRect(this.$el, true);
             const pos = {
                 left,
@@ -62,16 +68,12 @@ export default {
             t = t > (pos.height - h / 2) ? (pos.height - h / 2) : t < 0 ? 0 : t;
             l = l > (pos.width - w / 2) ? (pos.width - w / 2) : l < 0 ? 0 : l;
             this.pos = {
-                top: t / (pos.height - h / 2) * 100,
-                left: l / (pos.width - w / 2) * 100
+                top: t / (pos.height - h / 2),
+                left: l / (pos.width - w / 2)
             };
         },
         handleClick(e) {
-            this.isDragging = true;
-            this.handleMouseMove(e);
-            this.$nextTick(_ => {
-                this.isDragging = false;
-            })
+            this.handleMouseMove(e, false);
         },
     },
     mounted() {

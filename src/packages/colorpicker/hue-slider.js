@@ -5,7 +5,8 @@ export default {
     mixins: [DColorSlider],
     data() {
         return {
-            ns: 'hue'
+            ns: 'hue',
+            currentValue: this.$parent.color.h / 360,
         }
     },
     watch: {
