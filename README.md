@@ -43,6 +43,7 @@ Components basic-finished as bellows:
     Badge
     Slider
     Form
+    Colorpicker
 ```
 ## Reference
 * [element-ui](http://element.eleme.io)
