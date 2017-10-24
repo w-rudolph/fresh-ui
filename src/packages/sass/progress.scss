@@ -1,0 +1,36 @@
+.d-progress{
+    position: relative;
+    &--circle{
+        display: inline-block;
+        .circle-svg{
+            transform: rotate(-90deg);
+        }
+    }
+    &--line{
+        .d-progress__text{
+            left: auto;
+            right: -5px;
+            transform: translate(100%, -50%);
+        }
+    }
+}
+.d-progress__circle{
+    transition: stroke-dashoffset 0.6s ease 0s, stroke 0.6s ease;
+}
+.d-progress__text{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.d-progress-bar{
+    width: 100%;
+    border-radius: 4px;
+}
+
+.d-progress-bar__inner{
+    border-radius: 4px;
+    transition: width 0.6s ease;
+}
