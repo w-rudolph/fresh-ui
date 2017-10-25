@@ -44,6 +44,7 @@ Components basic-finished as bellows:
     Slider
     Form
     Colorpicker
+    Progress
 ```
 ## Reference
 * [element-ui](http://element.eleme.io)

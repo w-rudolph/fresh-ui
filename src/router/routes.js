@@ -5,6 +5,7 @@ import InputNumber from '@/containers/InputNumber';
 import Select from '@/containers/Select';
 import Radio from '@/containers/Radio';
 import Checkbox from '@/containers/Checkbox';
+import Switch from '@/containers/Switch';
 import Tag from '@/containers/Tag';
 import Icon from '@/containers/icon';
 import Rate from '@/containers/Rate';
@@ -36,6 +37,7 @@ export default [
     { path: "/select", name: "select", component: Select },
     { path: "/radio", name: "radio", component: Radio },
     { path: "/checkbox", name: "checkbox", component: Checkbox },
+    { path: "/switch", name: "switch", component: Switch },
     { path: "/tag", name: "tag", component: Tag },
     { path: "/icon", name: "icon", component: Icon },
     { path: "/rate", name: "rate", component: Rate },
