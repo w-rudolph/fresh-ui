@@ -21,6 +21,7 @@ Components basic-finished as bellows:
     Input
     InputNumber
     Select
+    Switch
     Icon
     Tag
     Rate
