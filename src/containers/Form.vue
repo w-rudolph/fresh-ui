@@ -12,7 +12,7 @@
                 </d-form-item>
             </d-form>
             <h4>Inline</h4>
-            <d-form label-width="80px">
+            <d-form label-width="80px" inline>
                 <d-form-item label="姓名">
                     <d-input style="width: 200px" placeholder="请输入用户名"></d-input>
                 </d-form-item>

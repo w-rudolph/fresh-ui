@@ -1,60 +1,61 @@
 @import "transition";
 @include transition-fade('form-item-fade', -1px);
-
-.d-form-item{
+.d-form-item {
     margin-bottom: 20px;
     margin-right: 10px;
-    &.required{
-        .d-form-item__label:before{
+    &.required {
+        .d-form-item__label:before {
             content: "*";
             color: #F55858;
             margin-right: 5px;
         }
     }
-    &.error{
+    &.error {
         .d-input__inner,
         .d-input-number,
         .d-checkbox__inner,
-        .d-radio__inner{
+        .d-radio__inner {
             border-color: #F55858;
             transition: border-color 0.3s ease-in-out;
         }
-
     }
 }
+
 .d-form-item__label,
-.d-form-item__content{
+.d-form-item__content {
     font-size: 14px;
     text-align: left;
     vertical-align: middle;
     position: relative;
 }
-.d-form-item__label{
+
+.d-form-item__label {
     float: left;
     text-align: right;
     padding: 10px 10px 10px 0;
     line-height: 1;
 }
-.d-form{
-    &--inline{
-        .d-form-item__content,
+
+.d-form {
+    &--inline {
         .d-form-item {
             display: inline-block;
         }
     }
-    &__label-top{
-        .d-form-item__label{
+    &__label-top {
+        .d-form-item__label {
             float: none;
             text-align: left;
         }
     }
-    &__label-left{
-        .d-form-item__label{
+    &__label-left {
+        .d-form-item__label {
             text-align: left;
         }
     }
 }
-.d-form-item__error{
+
+.d-form-item__error {
     position: absolute;
     top: 100%;
     left: 0;
