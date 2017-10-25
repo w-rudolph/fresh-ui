@@ -63,7 +63,7 @@ export default {
             return (1 - this.percent / 100) * this.circumference;
         },
         whStyle() {
-            return this.type === 'circle' ? { width: this.width + 'px', heigth: this.width + 'px' } : {};
+            return this.type === 'circle' ? { width: this.width + 'px', height: this.width + 'px' } : {};
         },
         barStyle() {
             return { width: this.percent + '%', height: this.strokeWidth + 'px', backgroundColor: this.strokeColor };
