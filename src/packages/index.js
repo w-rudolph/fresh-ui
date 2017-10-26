@@ -45,6 +45,7 @@ import DTimeline from './timeline/timeline';
 import DTimelineItem from './timeline/timeline-item';
 import DBreadcrumb from './breadcrumb/breadcrumb';
 import DBreadcrumbItem from './breadcrumb/breadcrumb-item';
+import DCard from './card/card';
 
 const components = [
     DButton,
@@ -91,6 +92,7 @@ const components = [
     DTimelineItem,
     DBreadcrumb,
     DBreadcrumbItem,
+    DCard,
 ];
 
 const install = function(Vue, opts = {}) {
@@ -160,4 +162,5 @@ export default {
     DTimelineItem,
     DBreadcrumb,
     DBreadcrumbItem,
+    DCard,
 }

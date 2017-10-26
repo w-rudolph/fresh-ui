@@ -1,0 +1,17 @@
+.d-card{
+    overflow: hidden;
+    border-radius: 2px;
+    border: 1px solid rgba(0,0,0,.125);
+    &.shadow-on-hover:hover,
+    &.shadow{
+        box-shadow: 0 1px 6px #ccc;
+    }
+    transition: all 0.3s ease-in-out;
+}
+.d-card__header{
+    padding: 10px 15px;
+    border-bottom: 1px solid #ccc;
+}
+.d-card__body{
+    padding: 15px;
+}

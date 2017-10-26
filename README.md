@@ -48,6 +48,7 @@ Components basic-finished as bellows:
     Progress
     Timeline
     Breadcrumb
+    Card
 ```
 ## Reference
 * [element-ui](http://element.eleme.io)
