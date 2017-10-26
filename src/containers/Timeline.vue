@@ -4,7 +4,7 @@
         <hr>
         <d-timeline>
             <d-timeline-item>
-                <d-icon slot="point" name="person"></d-icon>
+                <d-icon slot="point" name="person" class="custom-point"></d-icon>
                 <strong>Tt</strong>
                 <div>历史timeline</div>
                 <div>历史timeline</div>
@@ -37,3 +37,12 @@ export default {
 
 }
 </script>
+<style scoped>
+.custom-point{
+    position:absolute; 
+    transform: translateX(-50%);
+    font-size: 26px;
+    top: -14px;
+}
+</style>
+
