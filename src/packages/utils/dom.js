@@ -1,16 +1,16 @@
-const addClass = function (el, className) {
+export function addClass(el, className) {
     return el.classList.add(className);
 }
 
-const removeClass = function (el, className) {
+export function removeClass(el, className) {
     return el.classList.remove(className);
 }
 
-const toggleClass = function (el, className) {
+export function toggleClass(el, className) {
     return el.classList.toggle(className);
 }
 
-const getStyle = function (el, attr) {
+export function getStyle(el, attr) {
     if (el.currentStyle) {
         return el.currentStyle[attr];
     } else {
@@ -18,7 +18,7 @@ const getStyle = function (el, attr) {
     }
 }
 
-const getScrollbarWidth = function () {
+export function getScrollbarWidth() {
     const oDiv = document.createElement("div");
     oDiv.style.cssText = "position:absolute; top:-1000px; width:100px; height:100px; overflow:hidden;";
     const noScroll = document.body.appendChild(oDiv).clientWidth;
@@ -28,7 +28,7 @@ const getScrollbarWidth = function () {
     return noScroll - scroll;
 }
 
-const hasScroll = function (el) {
+export function hasScroll(el) {
     const scroll = {
         vertical: false,
         horizontal: false
@@ -45,21 +45,11 @@ const hasScroll = function (el) {
     return scroll;
 }
 
-const getBoundingClientRect = function (el, position = false) {
+export function getBoundingClientRect(el, absolute = false) {
     let { left, top, width, height } = el.getBoundingClientRect();
-    if (position) {
+    if (absolute) {
         left += window.scrollX;
         top += window.scrollY;
     }
     return { left, top, width, height };
-}
-
-export {
-    addClass,
-    removeClass,
-    toggleClass,
-    getStyle,
-    getScrollbarWidth,
-    hasScroll,
-    getBoundingClientRect,
 }

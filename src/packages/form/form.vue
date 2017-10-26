@@ -4,7 +4,7 @@
     </div>
 </template>
 <script>
-import Schema from 'async-validator';
+import AsyncValidator from 'async-validator';
 import EventEmitter from '../mixins/event_emitter';
 import { deepCopy } from '../utils/util.js';
 
@@ -35,6 +35,10 @@ export default {
         showErrors: {
             type: Boolean,
             default: true
+        },
+        validateOnChange: {
+            type: Boolean,
+            default: false
         }
     },
     data() {
@@ -49,6 +53,9 @@ export default {
         value: {
             deep: true,
             handler() {
+                if (!this.validateOnChange) {
+                    return;
+                }
                 this.handleModelChange();
             }
         }
@@ -74,53 +81,67 @@ export default {
             }
             this.validate().then(_ => { }).catch(_ => { });
         },
-        validate(model = this.value) {
+        validate(model = this.value, rules = this.mergedRules, single = false) {
             if (this.validator) {
                 this.validator = null;
             }
             model = deepCopy(model);
-            const keys = Object.keys(model);
-            this.validator = new Schema(this.mergedRules);
+            this.validator = new AsyncValidator(rules);
+            const fields = Object.keys(this.mergedRules);
+            const validateFields = Object.keys(rules);
 
             return new Promise((resolve, reject) => {
-                this.validator.validate(deepCopy(model), (errors, fields) => {
+                this.validator.validate(model, errors => {
+                    const error = { errors, validateFields, fields };
+                    if (this.showErrors) {
+                        this.broadcast('DFormItem', 'form.item.errors', error);
+                    }
                     if (errors) {
-                        errors = errors.filter(err => keys.indexOf(err.field) > -1);
                         reject(errors);
-                        if (this.showErrors) {
-                            this.broadcast('DFormItem', 'form.item.errors', errors);
-                        }
+
                     } else {
                         resolve(true);
-                        if (this.showErrors) {
-                            this.broadcast('DFormItem', 'form.item.errors', []);
-                        }
                     }
                 })
             });
         },
         validateField(key) {
-            return this.validate({ [key]: this.value[key] });
+            if (!key || !this.value.hasOwnProperty(key) || !this.mergedRules.hasOwnProperty(key)) {
+                throw new Error(`${key} is not a valid prop`);
+                retrun;
+            }
+            const model = { [key]: this.value[key] };
+            const rules = { [key]: this.mergedRules[key] };
+            return this.validate(model, rules, true);
         },
         resetFields() {
             this.isResetingForm = true;
             this.$emit('input', deepCopy(this.copyModel));
             this.$nextTick(() => {
                 this.isResetingForm = false;
-                this.broadcast('DFormItem', 'form.item.errors', []);
+                const fields = Object.keys(this.mergedRules);
+                this.broadcast('DFormItem', 'form.item.errors', { errors: [], validateFields: fields, fields });
             })
         },
-        collectionRules({ prop, rules }) {
+        collectionRules({ prop, rules, type }) {
             this.$nextTick(() => {
-                this.validateRules = {
-                    ...this.validateRules,
-                    [prop]: rules
-                };
+                if (type === 'add') {
+                    this.validateRules = { ...this.validateRules, [prop]: rules };
+                } else {
+                    let res = {};
+                    for (let k in this.validateRules) {
+                        if (k !== prop) {
+                            res[k] = this.validateRules[k];
+                        }
+                    }
+                    this.validateRules = res;
+                }
             })
         }
     },
     created() {
-        this.subscribe('form.item.rules', this.collectionRules)
+        this.subscribe('form.item.rules.add', this.collectionRules);
+        this.subscribe('form.item.rules.remove', this.collectionRules)
     },
     beforeDestroy() {
         this.validator = null;

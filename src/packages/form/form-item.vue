@@ -10,7 +10,6 @@
     </div>
 </template>
 <script>
-import Schema from 'async-validator';
 import EventEmitter from '../mixins/event_emitter';
 
 export default {
@@ -55,22 +54,26 @@ export default {
         }
     },
     methods: {
-        validateFormField() {
-        },
-        dispatchItemRules() {
+        dispatchItemRules(type) {
             const { prop, rules } = this;
             if (prop && rules) {
-                this.dispatch('DForm', 'form.item.rules', { prop, rules });
+                this.dispatch('DForm', `form.item.rules.${type}`, { prop, rules, type });
             }
         },
-        displayErrors(errors) {
-            this.error = errors.find(err => err.field === this.prop);
+        displayErrors({ errors, fields, validateFields }) {
+            validateFields.forEach(f => {
+                if (fields.indexOf(f) > -1 && f === this.prop) {
+                    this.error = (errors || []).find(err => err.field === this.prop);
+                }
+            })
         }
     },
     created() {
-        this.subscribe('form.item.validate', this.validateFormField);
         this.subscribe('form.item.errors', this.displayErrors);
-        this.dispatchItemRules();
+        this.dispatchItemRules('add');
+    },
+    beforeDestroy() {
+        this.dispatchItemRules('remove');
     }
 }
 </script>
