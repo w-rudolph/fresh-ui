@@ -28,6 +28,7 @@ import Slider from '@/containers/Slider';
 import Form from '@/containers/Form';
 import Colorpicker from '@/containers/Colorpicker';
 import Progress from '@/containers/Progress';
+import Timeline from '@/containers/Timeline';
 
 export default [
     { path: "/", name: "home", component: Home },
@@ -60,4 +61,5 @@ export default [
     { path: "/form", name: "form", component: Form },
     { path: "/colorpicker", name: "colorpicker", component: Colorpicker },
     { path: "/progress", name: "progress", component: Progress },
+    { path: "/timeline", name: "timeline", component: Timeline },
 ];

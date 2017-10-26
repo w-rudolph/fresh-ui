@@ -41,6 +41,8 @@ import DColorpicker from './colorpicker/colorpicker';
 import DColorpickerPanel from './colorpicker/colorpicker-panel';
 import DProgress from './progress/progress';
 import DSwitch from './switch/switch';
+import DTimeline from './timeline/timeline';
+import DTimelineItem from './timeline/timeline-item';
 
 const components = [
     DButton,
@@ -83,9 +85,11 @@ const components = [
     DColorpickerPanel,
     DProgress,
     DSwitch,
+    DTimeline,
+    DTimelineItem,
 ];
 
-const install = function (Vue, opts = {}) {
+const install = function(Vue, opts = {}) {
     if (install.installed) {
         return;
     }
@@ -148,4 +152,6 @@ export default {
     DColorpickerPanel,
     DProgress,
     DSwitch,
+    DTimeline,
+    DTimelineItem,
 }

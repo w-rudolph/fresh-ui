@@ -35,15 +35,19 @@
                 </d-form-item>
             </d-form>
             <h4>Validate</h4>
-            <d-form ref="vform" label-width="80px" :model="model" :label-position="labelPosition">
+            <d-form ref="vform" label-width="80px" v-model="model" :label-position="labelPosition">
                 <d-form-item label="姓名" required prop="name" :rules="[{ required: true, message: '姓名不能为空' }]">
                     <d-input v-model="model.name" style="width: 200px" placeholder="请输入用户名"></d-input>
                 </d-form-item>
                 <d-form-item label="密码" required prop="password" :rules="[{ required: true, message: '密码不能为空' }]">
                     <d-input v-model="model.password" style="width: 200px" placeholder="请输入密码"></d-input>
                 </d-form-item>
+                <d-form-item v-if="show" label="性别" required prop="sex" :rules="[{ required: true, message: '性别不能为空' }]">
+                    <d-input v-model="model.sex" style="width: 200px" placeholder="请输入性别"></d-input>
+                </d-form-item>
                 <d-form-item>
                     <d-button type="primary" @click="validateForm">validate</d-button>
+                    <d-button @click="resetForm">reset</d-button>
                 </d-form-item>
             </d-form>
         </div>
@@ -55,9 +59,11 @@ export default {
     data() {
         return {
             labelPosition: '',
+            show: false,
             model: {
                 name: '',
-                password: ''
+                password: '',
+                sex: ''
             }
         }
     },
@@ -70,7 +76,10 @@ export default {
                 .catch(errors => {
                     // console.log('catch:', errors);
                 })
-        }
+        },
+        resetForm() {
+            this.$refs.vform.resetFields();
+        },
     }
 }
 </script>

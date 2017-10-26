@@ -30,13 +30,13 @@
 @import 'colorpicker';
 @import 'progress';
 @import 'switch';
-
-*{
+@import 'timeline';
+* {
     box-sizing: border-box;
 }
 
-body{
-    font: 14px/1.5 "Helvetica Neue",Helvetica,Arial,"Microsoft Yahei","Hiragino Sans GB","Heiti SC","WenQuanYi Micro Hei",sans-serif;    
+body {
+    font: 14px/1.5 "Helvetica Neue", Helvetica, Arial, "Microsoft Yahei", "Hiragino Sans GB", "Heiti SC", "WenQuanYi Micro Hei", sans-serif;
 }
 
 .v-modal {
@@ -48,9 +48,11 @@ body{
     opacity: .5;
     background: #000;
 }
-.body-scroll-lock{
+
+.body-scroll-lock {
     overflow: hidden !important;
 }
-.collapse-transition{
+
+.collapse-transition {
     transition: height 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
 }

@@ -1,0 +1,25 @@
+.d-timeline-item {
+    position: relative;
+}
+
+.d-timeline-item__line {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    display: inline-block;
+    border-left: 1px solid #f00;
+}
+
+.d-timeline-item__endpoint {
+    transform: translateX(-50%);
+    background: #fff;
+    display: inline-block;
+    border-radius: 50%;
+    border: 1px solid #f00;
+}
+
+.d-timeline-item__content {
+    padding-left: 10px;
+}

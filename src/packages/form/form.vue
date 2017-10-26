@@ -6,6 +6,7 @@
 <script>
 import Schema from 'async-validator';
 import EventEmitter from '../mixins/event_emitter';
+import { deepCopy } from '../utils/util.js';
 
 export default {
     name: 'DForm',
@@ -23,7 +24,7 @@ export default {
             type: String,
             default: ''  // [right, left, top]
         },
-        model: {
+        value: {
             type: Object,
             default: () => { }
         },
@@ -38,11 +39,14 @@ export default {
     },
     data() {
         return {
-            validateRules: {}
+            validateRules: {},
+            copyModel: deepCopy(this.value || {}),
+            validator: null,
+            isResetingForm: false,
         };
     },
     watch: {
-        model: {
+        value: {
             deep: true,
             handler() {
                 this.handleModelChange();
@@ -65,14 +69,24 @@ export default {
     },
     methods: {
         handleModelChange() {
+            if (this.isResetingForm) {
+                return;
+            }
             this.validate().then(_ => { }).catch(_ => { });
         },
-        validate() {
-            const validator = new Schema(this.mergedRules);
+        validate(model = this.value) {
+            if (this.validator) {
+                this.validator = null;
+            }
+            model = deepCopy(model);
+            const keys = Object.keys(model);
+            this.validator = new Schema(this.mergedRules);
+
             return new Promise((resolve, reject) => {
-                validator.validate(this.model, (errors, fields) => {
+                this.validator.validate(deepCopy(model), (errors, fields) => {
                     if (errors) {
-                        reject(errors)
+                        errors = errors.filter(err => keys.indexOf(err.field) > -1);
+                        reject(errors);
                         if (this.showErrors) {
                             this.broadcast('DFormItem', 'form.item.errors', errors);
                         }
@@ -85,10 +99,16 @@ export default {
                 })
             });
         },
-        validateField() {
-
+        validateField(key) {
+            return this.validate({ [key]: this.value[key] });
         },
         resetFields() {
+            this.isResetingForm = true;
+            this.$emit('input', deepCopy(this.copyModel));
+            this.$nextTick(() => {
+                this.isResetingForm = false;
+                this.broadcast('DFormItem', 'form.item.errors', []);
+            })
         },
         collectionRules({ prop, rules }) {
             this.$nextTick(() => {
@@ -101,6 +121,9 @@ export default {
     },
     created() {
         this.subscribe('form.item.rules', this.collectionRules)
+    },
+    beforeDestroy() {
+        this.validator = null;
     }
 }
 </script>
