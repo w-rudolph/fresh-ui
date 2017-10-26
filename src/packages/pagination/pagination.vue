@@ -186,7 +186,7 @@ export default {
         haleSelectChange(size) {
             this.currentPageSize = size;
             if (this.currentPageValue > this.pageCount) {
-                this.currentPageValue = this.pageCount;
+                this.setCurrentPageValue(this.pageCount);
             }
             this.$emit('size-change', size);
         }
