@@ -43,6 +43,8 @@ import DProgress from './progress/progress';
 import DSwitch from './switch/switch';
 import DTimeline from './timeline/timeline';
 import DTimelineItem from './timeline/timeline-item';
+import DBreadcrumb from './breadcrumb/breadcrumb';
+import DBreadcrumbItem from './breadcrumb/breadcrumb-item';
 
 const components = [
     DButton,
@@ -87,6 +89,8 @@ const components = [
     DSwitch,
     DTimeline,
     DTimelineItem,
+    DBreadcrumb,
+    DBreadcrumbItem,
 ];
 
 const install = function(Vue, opts = {}) {
@@ -154,4 +158,6 @@ export default {
     DSwitch,
     DTimeline,
     DTimelineItem,
+    DBreadcrumb,
+    DBreadcrumbItem,
 }

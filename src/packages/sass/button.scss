@@ -72,14 +72,14 @@
         }
     }
     &--text {
-        color: $textColor;
+        color: $blackColor;
         border: none;
         border-radius: 0;
         background-color: transparent;
         box-shadow: none;
         cursor: default;
         &:hover {
-            color: $textColor;
+            color: $blackColor;
         }
     }
     &--link {

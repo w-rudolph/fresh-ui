@@ -46,6 +46,8 @@ Components basic-finished as bellows:
     Form
     Colorpicker
     Progress
+    Timeline
+    Breadcrumb
 ```
 ## Reference
 * [element-ui](http://element.eleme.io)

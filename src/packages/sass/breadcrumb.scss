@@ -1,0 +1,27 @@
+.d-breadcrumb-item,
+.d-breadcrumb-item__separator,
+.d-breadcrumb-item__link,{
+    display: inline-block;
+}
+.d-breadcrumb-item__link{
+    color: $linkColor;
+    padding: 0 10px;
+    a{
+        text-decoration: none;
+    }
+}
+.d-breadcrumb-item__separator{
+    color: $normalColor;
+}
+.d-breadcrumb-item:last-child{
+    .d-breadcrumb-item__link{
+        color: $normalColor;
+        cursor: default;
+        &:hover{
+            color: $normalColor;
+        }
+    }
+    .d-breadcrumb-item__separator{
+        display: none;
+    }
+}
