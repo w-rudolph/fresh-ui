@@ -1,10 +1,8 @@
 <template>
     <div class="d-timeline-item">
         <div class="d-timeline-item__line"></div>
-        <div class="d-timeline-item__endpoint">
-            <div class="d-timeline-item__endpoint-icon">
-                <span class="icon">222</span>
-            </div>
+        <div :class="['d-timeline-item__endpoint', $slots.point ? 'custom' : '']">
+            <slot name="point"></slot>
         </div>
         <div class="d-timeline-item__content">
             <slot></slot>

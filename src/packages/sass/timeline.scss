@@ -4,22 +4,40 @@
 
 .d-timeline-item__line {
     position: absolute;
-    left: 0;
+    left: 6px;
     top: 0;
     width: 1px;
     height: 100%;
     display: inline-block;
-    border-left: 1px solid #f00;
+    background: $infoColor;
 }
 
 .d-timeline-item__endpoint {
-    transform: translateX(-50%);
+    position: absolute;
+    top: 0;
+    width: 12px;
+    height: 12px;
+    border: 1px solid $infoColor;
     background: #fff;
     display: inline-block;
     border-radius: 50%;
-    border: 1px solid #f00;
+    text-align: center;
+    &.custom {
+        border-width: 0;
+    }
 }
 
 .d-timeline-item__content {
-    padding-left: 10px;
+    position: relative;
+    top: -4px;
+    padding-left: 20px;
+    padding-bottom: 20px;
+}
+
+.d-timeline {
+    .d-timeline-item:last-child {
+        .d-timeline-item__line {
+            display: none
+        }
+    }
 }
