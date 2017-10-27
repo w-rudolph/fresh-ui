@@ -13,7 +13,7 @@ export default {
     },
     computed: {
         computedClass() {
-            return 'd-icon-' + this.name;
+            return 'd-icon d-icon-' + this.name;
         }
     },
     methods: {

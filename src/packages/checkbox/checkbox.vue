@@ -1,6 +1,6 @@
 <template>
     <label :class="'d-checkbox' + (disabled ? ' disabled' : '')" @click="handleClick">
-        <span :class="'d-checkbox__input' + (currentValue ? ' checked' : '')">
+        <span :class="['d-checkbox__input', indeterminate ? 'indeterminate' : '' , currentValue ? ' checked' : '']">
             <span class="d-checkbox__inner"></span>
         </span>
         <span class="d-checkbox__label">
@@ -24,6 +24,10 @@ export default {
         label: {
             type: [String, Number],
             default: ''
+        },
+        indeterminate: {
+            type: Boolean,
+            default: false
         }
     },
     mixins: [EventEmitter],

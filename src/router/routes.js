@@ -31,6 +31,7 @@ import Progress from '@/containers/Progress';
 import Timeline from '@/containers/Timeline';
 import Breadcrumb from '@/containers/Breadcrumb';
 import Card from '@/containers/Card';
+import Tree from '@/containers/Tree';
 
 export default [
     { path: "/", name: "home", component: Home },
@@ -66,4 +67,5 @@ export default [
     { path: "/timeline", name: "timeline", component: Timeline },
     { path: "/breadcrumb", name: "breadcrumb", component: Breadcrumb },
     { path: "/card", name: "card", component: Card },
+    { path: "/tree", name: "tree", component: Tree },
 ];

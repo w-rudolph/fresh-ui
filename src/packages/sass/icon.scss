@@ -1,17 +1,23 @@
 .d-icon-load-a,
 .d-icon-load-c {
-	display: inline-block;
+    display: inline-block;
     animation: fa-spin 2s infinite steps(8);
 }
-.d-icon-load-b{
-	display: inline-block;
-	animation: fa-spin 2s infinite linear;
+
+.d-icon-load-b {
+    display: inline-block;
+    animation: fa-spin 2s infinite linear;
 }
+
+.d-icon {
+    display: inline-block;
+}
+
 @keyframes fa-spin {
     0% {
-      transform: rotate(0deg);
+        transform: rotate(0deg);
     }
     100% {
-      transform: rotate(359deg);
+        transform: rotate(359deg);
     }
 }

@@ -49,6 +49,7 @@ Components basic-finished as bellows:
     Timeline
     Breadcrumb
     Card
+    Tree
 ```
 ## Reference
 * [element-ui](http://element.eleme.io)

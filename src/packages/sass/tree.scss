@@ -1,0 +1,47 @@
+.d-tree {
+    background: #fff;
+    border: 1px solid #ccc;
+    border-radius: 2px;
+}
+
+.d-tree-node {
+    cursor: pointer;
+    background: #fff;
+    .d-tree-node__icon {
+        .d-icon {
+            transform: rotate(-90deg);
+            transition: transform .2s ease-in-out;
+        }
+        &.is-expand {
+            .d-icon {
+                transform: rotate(0deg);
+            }
+        }
+    }
+}
+
+.d-tree-node__icon,
+.d-tree-node__indent {
+    width: 12px;
+    height: 12px;
+    display: inline-block;
+}
+
+.d-tree-node__checkbox {
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.d-tree-node__content {
+    height: 30px;
+    line-height: 30px;
+    &:hover {
+        background: $hoverColor;
+    }
+}
+
+.d-tree-node__children {
+    overflow: hidden;
+}
