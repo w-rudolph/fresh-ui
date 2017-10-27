@@ -1,6 +1,6 @@
 <template>
     <div class="d-tree">
-        <d-tree-node v-for="node in treeData" :key="node.node_id" :node="node" :store="treeData"></d-tree-node>
+        <d-tree-node v-for="node in treeData" :key="node.node_id" :node="node" :store="treeData" :render-content="renderContent"></d-tree-node>
     </div>
 </template>
 <script>
@@ -25,11 +25,23 @@ export default {
         checkbox: {
             type: Boolean,
             default: false
+        },
+        renderContent: {
+            type: Function,
+            default: null
         }
     },
     data() {
         return {
             treeData: this.transformProps(deepCopy(this.data), this.mapProps)
+        }
+    },
+    watch: {
+        data: {
+            deep: true,
+            handler() {
+                this.treeData = this.transformProps(deepCopy(this.data), this.mapProps);
+            }
         }
     },
     methods: {
@@ -41,24 +53,36 @@ export default {
             const res = [];
             const childrenKey = props['children'];
             const labelKey = props['label'];
-
             data.forEach(node => {
                 let nid = guid();
-                res.push({
-                    expand: node['expand'] || (node[childrenKey] ? true : false),
+                let newNode = {
+                    ...node,
+                    expand: node['expand'] || false,
                     label: node[labelKey] || '',
-                    node_id: nid,
-                    parent_id: pid,
+                    nid: nid,
+                    pid: pid,
                     children: node[childrenKey] ? this.transformProps(node[childrenKey], props, level + 1, nid) : [],
-                    level,
-                    checkbox: this.checkbox,
-                    checked: !!node['checked'] || false,
-                });
+                    level
+                };
+                if (this.checkbox) {
+                    newNode.checkbox = this.checkbox;
+                    newNode.checked = !!node['checked'] || false;
+                }
+                res.push(newNode);
             })
             return res;
         },
-        setNodeExpand(node) {
-
+        expandAll(data = this.treeData, isOpen = true) {
+            if (typeof data === "boolean" || data === undefined) {
+                isOpen = !!data;
+                data = this.treeData;
+            }
+            data.forEach(node => {
+                node.expand = isOpen;
+                if (node.children.length) {
+                    this.expandAll(node.children, isOpen);
+                }
+            })
         }
     }
 }

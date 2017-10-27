@@ -5,14 +5,19 @@
             <span :class="['d-tree-node__icon', node.expand ? 'is-expand' : '']" @click="handleClick(node)">
                 <d-icon name="arrow-down-b" v-if="node.children.length"></d-icon>
             </span>
-            <span class="d-tree-node__checkbox" v-if="node.checkbox" @click="handleCheckboxClick">
-                <d-checkbox :checked="node.checked" :indeterminate="checkNodeIndeterminate(node)" v-model="node.checked" @change="handleCheckValueChange(node)"></d-checkbox>
-            </span>
-            <span class="d-tree-node__label">{{node.label}}</span>
+            <template v-if="!renderContent">
+                <span class="d-tree-node__checkbox" v-if="node.checkbox" @click="handleCheckboxClick">
+                    <d-checkbox :checked="node.checked" :indeterminate="checkNodeIndeterminate(node)" v-model="node.checked" @change="handleCheckValueChange(node)"></d-checkbox>
+                </span>
+                <span class="d-tree-node__label">{{node.label}}</span>
+            </template>
+            <template v-else>
+                <d-render class="d-tree-node__custom-render" :render="() => renderContent($createElement, node)"></d-render>
+            </template>
         </div>
         <collapse-transition>
             <div class="d-tree-node__children" v-show="node.expand">
-                <DTreeNode :store="store" v-for="child in node.children" :node="child" :key="child.node_id"></DTreeNode>
+                <DTreeNode :store="store" v-for="child in node.children" :node="child" :key="child.nid" :render-content="renderContent"></DTreeNode>
             </div>
         </collapse-transition>
     </div>
@@ -21,10 +26,11 @@
 import DIcon from '../icon/icon';
 import DCheckbox from '../checkbox/checkbox';
 import CollapseTransition from '../transition/collapse-transition.vue';
+import DRender from '../base/render.vue';
 
 export default {
     name: 'DTreeNode',
-    components: { DIcon, DCheckbox, CollapseTransition },
+    components: { DIcon, DCheckbox, CollapseTransition, DRender },
     props: {
         node: {
             type: Object,
@@ -33,6 +39,10 @@ export default {
         store: {
             type: Array,
             default: () => []
+        },
+        renderContent: {
+            type: Function,
+            default: null
         }
     },
     computed: {
@@ -51,7 +61,7 @@ export default {
         },
         handleCheckValueChange(node) {
             node.children.forEach(child => child.checked = node.checked);
-            const parentNode = this.findNodeById(this.store, node.parent_id);
+            const parentNode = this.findNodeById(this.store, node.pid);
             if (parentNode === null) {
                 return;
             }
@@ -74,7 +84,7 @@ export default {
             }
             for (let i = 0; i < nodes.length; i++) {
                 let node = nodes[i];
-                if (node.node_id === nid) {
+                if (node.nid === nid) {
                     return node;
                 } else {
                     if (node.children.length) {
