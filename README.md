@@ -50,6 +50,7 @@ Components basic-finished as bellows:
     Breadcrumb
     Card
     Tree
+    Carousel
 ```
 ## Reference
 * [element-ui](http://element.eleme.io)

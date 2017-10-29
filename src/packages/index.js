@@ -47,6 +47,8 @@ import DBreadcrumb from './breadcrumb/breadcrumb';
 import DBreadcrumbItem from './breadcrumb/breadcrumb-item';
 import DCard from './card/card';
 import DTree from './tree/tree';
+import DCarousel from './carousel/carousel';
+import DCarouselItem from './carousel/carousel-item';
 
 const components = [
     DButton,
@@ -95,6 +97,8 @@ const components = [
     DBreadcrumbItem,
     DCard,
     DTree,
+    DCarousel,
+    DCarouselItem,
 ];
 
 const install = function(Vue, opts = {}) {
@@ -165,5 +169,7 @@ export default {
     DBreadcrumb,
     DBreadcrumbItem,
     DCard,
-    DTree
+    DTree,
+    DCarousel,
+    DCarouselItem
 }

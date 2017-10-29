@@ -30,3 +30,11 @@ export function isArray(arr) {
 export function isDate(date) {
     return isType(date, 'Date') && !isNaN(date.valueOf());
 }
+
+export function makeIndexArray(count){
+    const res = [];
+    for(let i = 0; i < count; i++){
+        res.push(i);
+    }
+    return res;
+}

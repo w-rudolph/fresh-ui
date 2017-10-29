@@ -32,6 +32,7 @@ import Timeline from '@/containers/Timeline';
 import Breadcrumb from '@/containers/Breadcrumb';
 import Card from '@/containers/Card';
 import Tree from '@/containers/Tree';
+import Carousel from '@/containers/Carousel';
 
 export default [
     { path: "/", name: "home", component: Home },
@@ -68,4 +69,5 @@ export default [
     { path: "/breadcrumb", name: "breadcrumb", component: Breadcrumb },
     { path: "/card", name: "card", component: Card },
     { path: "/tree", name: "tree", component: Tree },
+    { path: "/carousel", name: "carousel", component: Carousel },
 ];
