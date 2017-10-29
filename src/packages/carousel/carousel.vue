@@ -100,8 +100,9 @@ export default {
         }
     },
     watch: {
-        activeIndex() {
+        activeIndex(val) {
             this.layoutCarouselItems();
+            this.$emit('change', val);
         }
     },
     methods: {
@@ -147,7 +148,7 @@ export default {
             }
             this.carouselItems = res;
             this.indicatorCount = this.getIndicatorCount();
-            if(this.itemWidth && this.activeIndex === this.indicatorCount - 1){
+            if (this.itemWidth && this.activeIndex === this.indicatorCount - 1) {
                 this.layoutCarouselItems();
             }
             if (this.activeIndex > this.indicatorCount - 1) {
