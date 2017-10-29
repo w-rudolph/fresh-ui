@@ -1,5 +1,5 @@
 <template>
-    <div :class="['d-carousel-item', active ? 'is-active' : '']" :style="transformStyle">
+    <div :class="['d-carousel-item']" :style="transformStyle">
         <slot></slot>
     </div>
 </template>
@@ -13,11 +13,10 @@ export default {
     mixins: [EventEmitter],
     data() {
         return {
-            active: false,
             transformStyle: {}
         }
     },
-    created() {
+    mounted() {
         this.dispatch('DCarousel', 'carousel.item.add', this);
     },
     beforeDestroy(){

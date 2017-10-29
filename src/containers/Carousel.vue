@@ -3,7 +3,7 @@
         <h3>Carousel 组件</h3>
         <hr>
         <h4>Basic</h4>
-        <d-carousel :height="250" style="width: 250px;display:inline-block">
+        <d-carousel :initial-index="2" :height="250" style="width: 250px;display:inline-block">
             <d-carousel-item v-for="i in 4" :key="i">
                 <div class="demo-carousel-content">{{i}}</div>
             </d-carousel-item>
@@ -38,6 +38,12 @@
                 <div class="demo-carousel-content">{{i}}</div>
             </d-carousel-item>
         </d-carousel>
+        <h4>Multi items</h4>
+        <d-carousel :item-width="200" :height="250" style="width: 550px;display:inline-block">
+            <d-carousel-item v-for="i in count" :key="i">
+                <div class="demo-carousel-content" style="border:1px solid #fff">{{i}}</div>
+            </d-carousel-item>
+        </d-carousel>
         <h4>Add/Remove item</h4>
         <d-carousel trigger="click" arrow="always" :height="250" style="width: 450px;display:inline-block">
             <d-carousel-item v-for="i in count" :key="i">
@@ -52,7 +58,7 @@
 export default {
     data() {
         return {
-            count: 4,
+            count: 9,
         }
     },
     methods: {
@@ -67,12 +73,12 @@ export default {
 }
 </script>
 <style>
-.demo-carousel-content{
-    text-align: center;
-    vertical-align: middle;
-    height: 250px;
-    line-height: 250px;
-    background: #ddd;
+.demo-carousel-content {
+  text-align: center;
+  vertical-align: middle;
+  height: 250px;
+  line-height: 250px;
+  background: #ddd;
 }
 </style>
 

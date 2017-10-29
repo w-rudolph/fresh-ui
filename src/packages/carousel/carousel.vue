@@ -1,18 +1,18 @@
 <template>
     <div class="d-carousel">
         <div class="d-carousel-contianer" :style="{height: carouselHeight}" @mouseenter="handleMouseEvent(true)" @mouseleave="handleMouseEvent(false)">
-            <d-button class="d-carousel-arrow left" v-show="carouselItems.length > 1 && showArrow" @click="handleCarouselArrowClick(-1)">
+            <d-button class="d-carousel-arrow left" v-show="indicatorCount > 1 && showArrow" @click="handleCarouselArrowClick(-1)">
                 <d-icon name="chevron-left"></d-icon>
             </d-button>
             <div class="d-carousel-list" :style="transformStyle">
                 <slot></slot>
             </div>
-            <d-button class="d-carousel-arrow right" v-show="carouselItems.length > 1 && showArrow" @click="handleCarouselArrowClick(1)">
+            <d-button class="d-carousel-arrow right" v-show="indicatorCount > 1 && showArrow" @click="handleCarouselArrowClick(1)">
                 <d-icon name="chevron-right"></d-icon>
             </d-button>
         </div>
         <ul :class="['d-carousel-indicators', indicator ? 'd-carousel-indicators--' + indicator : '', indicatorType ? 'd-carousel-indicators--' + indicatorType : '']">
-            <li :class="['d-carousel-indicator', activeIndex === i - 1 ? 'is-active' : '' ]" v-for="i in carouselItems.length" :key="i" @mouseenter="handleIndicatorHover(i-1)" @click="handleIndicatorClick(i-1)">
+            <li :class="['d-carousel-indicator', activeIndex === i - 1 ? 'is-active' : '' ]" v-for="i in indicatorCount" :key="i" @mouseenter="handleIndicatorHover(i-1)" @click="handleIndicatorClick(i-1)">
                 <div class="d-carousel-indicator__button" :style="{backgroundColor: activeIndex === i - 1 ? indicatorActiveColor : indicatorColor}"></div>
             </li>
         </ul>
@@ -68,6 +68,14 @@ export default {
         autoplay: {
             type: Boolean,
             default: false
+        },
+        itemWidth: {
+            type: Number,
+            default: 0
+        },
+        initialIndex: {
+            type: Number,
+            default: 0
         }
     },
     data() {
@@ -75,21 +83,12 @@ export default {
             carouselItems: [],
             showArrow: this.checkArrow(),
             transformStyle: {},
-            timer: null
+            timer: null,
+            activeIndex: 0,
+            indicatorCount: 0,
         }
     },
     computed: {
-        activeIndex() {
-            let index = 0;
-            for (let i = 0; i < this.carouselItems.length; i++) {
-                let item = this.carouselItems[i];
-                if (item.active) {
-                    index = i;
-                    break;
-                }
-            }
-            return index;
-        },
         carouselHeight() {
             if (typeof this.height === 'string') {
                 return this.height;
@@ -98,7 +97,12 @@ export default {
                 return this.height + 'px';
             }
             return 0;
-        },
+        }
+    },
+    watch: {
+        activeIndex() {
+            this.layoutCarouselItems();
+        }
     },
     methods: {
         handleMouseEvent(isShow) {
@@ -113,6 +117,9 @@ export default {
                 return this.showArrow = isShow;
             }
         },
+        getIndicatorCount() {
+            return this.itemWidth ? Math.ceil(this.carouselItems.length * this.itemWidth / this.$el.offsetWidth) : this.carouselItems.length;
+        },
         checkArrow() {
             if (this.arrow === 'always') {
                 return true;
@@ -124,11 +131,11 @@ export default {
             if (index > -1) {
                 return;
             }
-            if (this.carouselItems.length === 0) {
-                item.active = true;
-            }
             this.carouselItems.push(item);
-            this.$nextTick(this.layoutCarouselItems);
+            this.indicatorCount = this.getIndicatorCount();
+            if (this.carouselItems.length === 1) {
+                this.activeIndex = 0;
+            }
         },
         handleItemRemove(item) {
             const res = [];
@@ -138,20 +145,17 @@ export default {
                     res.push(this.carouselItems[i]);
                 }
             }
-            const activeItem = res.find(item => item.active === true);
-            if (!activeItem && res.length) {
-                res[res.length - 1].active = true;
-            }
             this.carouselItems = res;
-            this.$nextTick(this.layoutCarouselItems);
+            this.indicatorCount = this.getIndicatorCount();
+            if(this.itemWidth && this.activeIndex === this.indicatorCount - 1){
+                this.layoutCarouselItems();
+            }
+            if (this.activeIndex > this.indicatorCount - 1) {
+                this.activeIndex = this.indicatorCount - 1;
+            }
         },
         handleCarouselArrowClick(dir = 1) {
-            const length = this.carouselItems.length;
-            let index = (this.activeIndex + dir) % length;
-            if (index === -1) {
-                index = length - 1;
-            }
-            this.handleIndicatorClick(index);
+            dir === -1 ? this.prev() : this.next();
         },
         handleIndicatorHover(index) {
             if (this.trigger !== 'hover') {
@@ -159,26 +163,28 @@ export default {
             }
             this.handleIndicatorClick(index);
         },
-        handleIndicatorClick(index) {
-            if (this.activeIndex === index) {
-                return;
-            }
-            const activeItem = this.carouselItems.find(item => item.active === true);
-            const nextActiveItem = this.carouselItems[index];
-            if (activeItem) {
-                activeItem.active = false;
-            }
-            nextActiveItem.active = true;
-            this.layoutCarouselItems();
+        handleIndicatorClick(indicatorIndex) {
+            this.activeIndex = indicatorIndex;
         },
         layoutCarouselItems() {
-            const activeIndex = this.activeIndex;
-            const width = this.$el.offsetWidth;
-            this.transformStyle = {
-                width: this.carouselItems.length * width + 'px',
-                transform: `translateX(${-activeIndex * width}px)`
+            const containerWidth = this.$el.offsetWidth;
+            const itemCount = this.carouselItems.length;
+            let offset = containerWidth;
+            if (this.itemWidth) {
+                offset = Math.floor(containerWidth / this.itemWidth) * this.itemWidth;
             }
-            this.carouselItems.forEach((item, idx) => item.transformStyle = { width: width + 'px' });
+            offset = this.activeIndex * offset;
+
+            if (this.activeIndex > 0 && this.activeIndex === this.indicatorCount - 1 && this.itemWidth) {
+                offset = itemCount * this.itemWidth - containerWidth;
+            }
+            this.transformStyle = {
+                width: this.carouselItems.length * containerWidth + 'px',
+                transform: `translateX(${-offset}px)`
+            }
+
+            const itemWidth = this.itemWidth ? this.itemWidth : containerWidth;
+            this.carouselItems.forEach((item, idx) => item.transformStyle = { width: itemWidth + 'px' });
         },
         clearTimer() {
             if (this.timer) {
@@ -188,7 +194,26 @@ export default {
         },
         autoPlayCarousel() {
             this.clearTimer();
-            this.timer = setInterval(this.handleCarouselArrowClick, this.interval);
+            this.timer = setInterval(_ => {
+                this.activeIndex = (this.activeIndex + 1) % this.indicatorCount;
+            }, this.interval);
+        },
+        prev() {
+            this.activeIndex = (this.activeIndex - 1 + this.indicatorCount) % this.indicatorCount;
+        },
+        next(index) {
+            this.activeIndex = (this.activeIndex + 1) % this.indicatorCount;
+        },
+        setActiveIndex(index) {
+            if (index < 0) {
+                this.activeIndex = 0;
+            }
+            if (index > this.indicatorCount - 1) {
+                this.activeIndex = this.indicatorCount - 1;
+            }
+            else {
+                this.activeIndex = index;
+            }
         }
     },
     created() {
@@ -196,6 +221,8 @@ export default {
         this.subscribe('carousel.item.remove', this.handleItemRemove);
     },
     mounted() {
+        this.indicatorCount = this.getIndicatorCount();
+        this.setActiveIndex(this.initialIndex);
         this.layoutCarouselItems();
         if (this.autoplay) {
             this.autoPlayCarousel();
