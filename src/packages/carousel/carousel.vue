@@ -1,13 +1,13 @@
 <template>
     <div class="d-carousel">
         <div class="d-carousel-contianer" :style="{height: carouselHeight}" @mouseenter="handleMouseEvent(true)" @mouseleave="handleMouseEvent(false)">
-            <d-button class="d-carousel-arrow left" v-show="indicatorCount > 1 && showArrow" @click="handleCarouselArrowClick(-1)">
+            <d-button class="d-carousel-arrow left" v-show="showPrevArrow" @click="handleCarouselArrowClick(-1)">
                 <d-icon name="chevron-left"></d-icon>
             </d-button>
             <div class="d-carousel-list" :style="transformStyle">
                 <slot></slot>
             </div>
-            <d-button class="d-carousel-arrow right" v-show="indicatorCount > 1 && showArrow" @click="handleCarouselArrowClick(1)">
+            <d-button class="d-carousel-arrow right" v-show="showNextArrow" @click="handleCarouselArrowClick(1)">
                 <d-icon name="chevron-right"></d-icon>
             </d-button>
         </div>
@@ -76,6 +76,10 @@ export default {
         initialIndex: {
             type: Number,
             default: 0
+        },
+        loop: {
+            type: Boolean,
+            default: true
         }
     },
     data() {
@@ -97,6 +101,20 @@ export default {
                 return this.height + 'px';
             }
             return 0;
+        },
+        showPrevArrow() {
+            if (this.loop) {
+                return this.indicatorCount > 1 && this.showArrow;
+            } else {
+                return this.activeIndex > 0 && this.indicatorCount > 1 && this.showArrow;
+            }
+        },
+        showNextArrow() {
+            if (this.loop) {
+                return this.showPrevArrow;
+            } else {
+                return this.activeIndex < this.indicatorCount - 1 && this.indicatorCount > 1 && this.showArrow;
+            }
         }
     },
     watch: {
