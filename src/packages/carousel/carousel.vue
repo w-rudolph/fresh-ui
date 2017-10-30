@@ -119,7 +119,16 @@ export default {
             }
         },
         getIndicatorCount() {
-            return this.itemWidth ? Math.ceil(this.carouselItems.length * this.itemWidth / this.$el.offsetWidth) : this.carouselItems.length;
+            let count = this.carouselItems.length;
+            const containerWidth = this.$el.offsetWidth;
+            const itemWidth = this.itemWidth;
+            if (itemWidth) {
+                const n = containerWidth / itemWidth;
+                if (n >= 1) {
+                    count = Math.ceil(count / Math.floor(n));
+                }
+            }
+            return count;
         },
         checkArrow() {
             if (this.arrow === 'always') {
@@ -170,21 +179,26 @@ export default {
         layoutCarouselItems() {
             const containerWidth = this.$el.offsetWidth;
             const itemCount = this.carouselItems.length;
+            let itemWidth = this.itemWidth;
             let offset = containerWidth;
-            if (this.itemWidth) {
-                offset = Math.floor(containerWidth / this.itemWidth) * this.itemWidth;
+            if (itemWidth) {
+                const n = containerWidth / itemWidth;
+                if (n - parseInt(n) < 0.01) {
+                    itemWidth = containerWidth;
+                }
+                offset = Math.floor(containerWidth / itemWidth) * itemWidth;
             }
             offset = this.activeIndex * offset;
 
-            if (this.activeIndex > 0 && this.activeIndex === this.indicatorCount - 1 && this.itemWidth) {
-                offset = itemCount * this.itemWidth - containerWidth;
+            if (this.activeIndex > 0 && this.activeIndex === this.indicatorCount - 1 && itemWidth) {
+                offset = itemCount * itemWidth - containerWidth;
             }
             this.transformStyle = {
                 width: this.carouselItems.length * containerWidth + 'px',
                 transform: `translateX(${-offset}px)`
             }
 
-            const itemWidth = this.itemWidth ? this.itemWidth : containerWidth;
+            itemWidth = itemWidth ? itemWidth : containerWidth;
             this.carouselItems.forEach((item, idx) => item.transformStyle = { width: itemWidth + 'px' });
         },
         clearTimer() {
