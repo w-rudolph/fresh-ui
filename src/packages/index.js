@@ -49,6 +49,7 @@ import DCard from './card/card';
 import DTree from './tree/tree';
 import DCarousel from './carousel/carousel';
 import DCarouselItem from './carousel/carousel-item';
+import DUpload from './upload/upload';
 
 const components = [
     DButton,
@@ -99,6 +100,7 @@ const components = [
     DTree,
     DCarousel,
     DCarouselItem,
+    DUpload,
 ];
 
 const install = function(Vue, opts = {}) {
@@ -171,5 +173,6 @@ export default {
     DCard,
     DTree,
     DCarousel,
-    DCarouselItem
+    DCarouselItem,
+    DUpload,
 }
