@@ -13,7 +13,7 @@ export default class Upload {
         }
         this.url = url;
         this.xhr.addEventListener("load", uploadComplete, false);
-        this.xhr.addEventListener("progress", uploadProgress, false);
+        this.xhr.upload.addEventListener("progress", uploadProgress, false);
         this.xhr.addEventListener("error", uploadFailed, false);
         this.xhr.addEventListener("abort", uploadCanceled, false);
     }
