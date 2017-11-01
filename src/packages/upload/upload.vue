@@ -4,17 +4,17 @@
             <input type="file" ref="upload" @change="handleFileChange" :multiple="multiple" class="d-upload-input">
             <slot></slot>
         </div>
-        <d-upload-list-type :file-list="uploadFileList"></d-upload-list-type>
+        <d-upload-list-text :file-list="uploadFileList"></d-upload-list-text>
     </div>
 </template>
 <script>
 import UploadJS from '../mixins/upload';
-import DUploadListType from './upload_list';
+import DUploadListText from './upload_list';
 
 export default {
     name: 'DUpload',
     mixins: [UploadJS],
-    components: { DUploadListType },
+    components: { DUploadListText },
     props: {
         listType: {
             type: String,
