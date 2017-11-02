@@ -5,14 +5,19 @@
 ## Build Setup
 
 ``` bash
-# install dependencies
-npm install
+download from github:
+    # install dependencies
+    npm install
 
-# serve with hot reload at localhost:8080
-npm run dev
+    # serve with hot reload at localhost:8080
+    npm run dev
 
-# build for production with minification
-npm run build
+    # build for production with minification
+    npm run build
+
+
+npm package: 
+    npm install fresh-ui -S
 
 ```
 Components basic-finished as bellows:
