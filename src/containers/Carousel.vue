@@ -52,6 +52,13 @@
         </d-carousel>
         <d-button icon="plus" @click="updateCount(1)"></d-button>
         <d-button icon="minus" @click="updateCount(-1)"></d-button>
+
+        <h4>disable loop</h4>
+        <d-carousel :loop="false" :height="250" style="width: 250px;display:inline-block">
+            <d-carousel-item v-for="i in 4" :key="i">
+                <div class="demo-carousel-content">{{i}}</div>
+            </d-carousel-item>
+        </d-carousel>
     </div>
 </template>
 <script>
