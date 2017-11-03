@@ -4,7 +4,7 @@ const less = require('gulp-sass');
 const rename = require('gulp-rename');
 const autoprefixer = require('gulp-autoprefixer');
 
-gulp.task('css', function () {
+gulp.task('css', function() {
     gulp.src('../src/packages/sass/index.scss')
         .pipe(less())
         .pipe(autoprefixer({
@@ -15,9 +15,9 @@ gulp.task('css', function () {
         .pipe(gulp.dest('../dist/styles'));
 });
 
-gulp.task('fonts', function () {
+gulp.task('fonts', function() {
     gulp.src('../src/packages/sass/ionicons/fonts/*.*')
-        .pipe(gulp.dest('../dist/styles/fonts'));
+        .pipe(gulp.dest('../dist/styles/ionicons/fonts'));
 });
 
 gulp.task('default', ['css', 'fonts']);
