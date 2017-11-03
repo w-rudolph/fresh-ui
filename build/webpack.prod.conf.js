@@ -20,7 +20,9 @@ var webpackConfig = merge(baseWebpackConfig, {
   },
   output: {
     path: config.build.assetsRoot,
-    filename: 'fresh-ui.js'
+    filename: 'fresh-ui.js',
+    library: 'fresh-ui',
+    libraryTarget: 'umd'
   },
   plugins: [
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
