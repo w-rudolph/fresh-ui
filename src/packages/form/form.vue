@@ -65,7 +65,7 @@ export default {
             return this.inline ? 'd-form--inline' : '';
         },
         labelPositionClass() {
-            return this.labelPosition ? 'd-form__label-' + this.labelPosition : ''
+            return this.labelPosition ? 'd-form__label-' + this.labelPosition : '';
         },
         mergedRules() {
             return {
@@ -79,7 +79,7 @@ export default {
             if (this.isResetingForm) {
                 return;
             }
-            this.validate().then(_ => { }).catch(_ => { });
+            this.validate().then(() => { }).catch(() => { });
         },
         validate(model = this.value, rules = this.mergedRules, single = false) {
             if (this.validator) {
@@ -108,7 +108,6 @@ export default {
         validateField(key) {
             if (!key || !this.value.hasOwnProperty(key) || !this.mergedRules.hasOwnProperty(key)) {
                 throw new Error(`${key} is not a valid prop`);
-                retrun;
             }
             const model = { [key]: this.value[key] };
             const rules = { [key]: this.mergedRules[key] };

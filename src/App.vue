@@ -1,29 +1,29 @@
 <template>
-  <div id="app">
-    <div class="left-sidebar">
-      <ul>
-        <li v-for="r in routes" :key="r.path">
-          <router-link :to="r.path">{{r.name}}</router-link>
-        </li>
-      </ul>
+    <div id="app">
+        <div class="left-sidebar">
+            <ul>
+                <li v-for="r in routes" :key="r.path">
+                    <router-link :to="r.path">{{r.name}}</router-link>
+                </li>
+            </ul>
+        </div>
+        <div class="right-content">
+            <router-view></router-view>
+        </div>
     </div>
-    <div class="right-content">
-      <router-view></router-view>
-    </div>
-  </div>
 </template>
 
 <script>
 import routes from './router/routes';
 
 export default {
-  name: 'app',
-  data() {
-    return {
-      routes
+    name: 'app',
+    data() {
+        return {
+            routes
+        };
     }
-  }
-}
+};
 </script>
 <style>
 #app {

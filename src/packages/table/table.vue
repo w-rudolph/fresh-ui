@@ -100,7 +100,7 @@ export default {
         }
     },
     watch: {
-        columns(v) {
+        columns() {
             this.initStore();
             this.$nextTick(this.setTableWidth);
         },
@@ -167,7 +167,7 @@ export default {
             return width < this.store.defaultCellWidth ? this.store.defaultCellWidth : width;
         },
         setTableWidth() {
-            const { bodyScroll, scrollbarWidth, visibleColumns, columns } = this.store;
+            const { bodyScroll, scrollbarWidth, columns } = this.store;
             let width;
             if (columns.filter(column => column.width).length === columns.length) {
                 width = columns.map(column => column.width).reduce((a, b) => a + b, 0);
@@ -226,7 +226,7 @@ export default {
                 })
             };
         },
-        handleSelectRows(row) {
+        handleSelectRows() {
             if (this.timer) {
                 clearTimeout(this.timer);
                 this.timer = null;

@@ -27,14 +27,14 @@
 </template>
 <script>
 import EventEmitter from '../mixins/event_emitter.js';
-import { addClass, removeClass, insertAfter } from '../utils/dom.js';
+import { addClass, removeClass } from '../utils/dom.js';
 import DRender from '../base/render.vue';
 import DIcon from '../icon/icon.vue';
 import DCheckbox from '../checkbox/checkbox.vue';
 
 export default {
     name: 'DTableBody',
-    components: { DRender, DCheckbox },
+    components: { DRender, DCheckbox, DIcon },
     mixins: [EventEmitter],
     props: {
         store: {
@@ -83,7 +83,7 @@ export default {
         handleMouseEvent(index, type) {
             this.dispatch('DTable', 'table.row.hover', { type, index });
         },
-        toggleExpand(row, e) {
+        toggleExpand(row) {
             row.expand = !row.expand;
         },
         renderExpandRow(row) {

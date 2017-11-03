@@ -40,7 +40,7 @@ export default {
     methods: {
         close() {
             this.visible = false;
-            setTimeout(_ => {
+            setTimeout(() => {
                 if (this.onClose) {
                     this.onClose();
                 }
@@ -54,7 +54,7 @@ export default {
             if (this.duration <= 0) {
                 return;
             }
-            this.timer = setTimeout(_ => {
+            this.timer = setTimeout(() => {
                 this.close();
             }, this.duration);
         },

@@ -65,7 +65,7 @@ export default class PopupManager {
         addClass(modal, 'v-modal');
         document.body.appendChild(modal);
         PopupManager.modal = modal;
-        modal.addEventListener('click', e => {
+        modal.addEventListener('click', () => {
             const topInstance = PopupManager.getTopInstance();
             if (topInstance && topInstance.modal && topInstance.closeOnClickModal) {
                 topInstance.close();

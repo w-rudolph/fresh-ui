@@ -21,11 +21,11 @@ export function isType(target, type) {
 
 export function isString(str) {
     return isType(str, 'String');
-};
+}
 
 export function isArray(arr) {
     return isType(arr, 'Array')
-};
+}
 
 export function isDate(date) {
     return isType(date, 'Date') && !isNaN(date.valueOf());

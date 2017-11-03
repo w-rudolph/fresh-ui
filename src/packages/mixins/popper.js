@@ -43,7 +43,7 @@ export default {
         }
     },
     watch: {
-        placement(v) {
+        placement() {
             this.createPopper();
         },
         showPopper() {
@@ -103,7 +103,7 @@ export default {
             if (this.disabled) {
                 return;
             }
-            this.timer = setTimeout(_ => {
+            this.timer = setTimeout(() => {
                 this.showPopper = false;
             }, 200);
         },

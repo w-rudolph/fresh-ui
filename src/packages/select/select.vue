@@ -32,7 +32,7 @@ import DTag from '../tag/tag';
 export default {
     name: 'DSelect',
     mixins: [Popper, EventEmitter],
-    comments: { DInput, DIcon },
+    comments: { DInput, DIcon, DTag },
     props: {
         trigger: {
             type: String,

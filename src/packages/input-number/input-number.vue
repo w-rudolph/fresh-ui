@@ -99,7 +99,7 @@ export default {
         },
         filterDash(value) {
             const dashIndex = value.indexOf('-');
-            value = value.replace(/\-/g, '');
+            value = value.replace(/-/g, '');
             if (dashIndex === 0 && this.min < 0) {
                 value = '-' + value;
             }

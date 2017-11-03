@@ -18,7 +18,7 @@
     </div>
 </template>
 <script>
-import { deepCopy, isString, isDate } from '../utils/util.js';
+import { deepCopy, isDate } from '../utils/util.js';
 import Calender from '../utils/calender.js';
 
 export default {

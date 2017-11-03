@@ -38,7 +38,7 @@ export default {
             }
         },
         antoRemoveItem(item) {
-            setTimeout(_ => {
+            setTimeout(() => {
                 this.removeItem(item);
             }, item.duration);
         },

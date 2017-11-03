@@ -63,7 +63,7 @@ export default {
         }
     },
     watch: {
-        value(val, oldValue) {
+        value(val) {
             this.setCurrentValue(val);
         }
     },

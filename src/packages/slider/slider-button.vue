@@ -92,13 +92,13 @@ export default {
                 }
             }
         },
-        handleMouseDown(e) {
+        handleMouseDown() {
             if (this.disabled) {
                 return;
             }
             this.startMouseDrag = true;
         },
-        handleMouseUp(e) {
+        handleMouseUp() {
             if (this.disabled) {
                 return;
             }

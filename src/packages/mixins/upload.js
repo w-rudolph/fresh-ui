@@ -1,15 +1,12 @@
 class UploadJs {
 
-    xhr = null;
-    url = null;
-
-    constructor({ headers, withCredentials, url, type = 'POST', async = true, uploadComplete, uploadProgress, uploadCanceled, uploadFailed }) {
+    constructor({ headers, withCredentials, url, uploadComplete, uploadProgress, uploadCanceled, uploadFailed }) {
         this.xhr = new XMLHttpRequest();
         for (let k in headers) {
-            xhr.setRequestHeader(k, headers[k]);
+            this.xhr.setRequestHeader(k, headers[k]);
         }
         if (withCredentials) {
-            xhr.withCredentials = true;
+            this.xhr.withCredentials = true;
         }
         this.url = url;
         this.xhr.addEventListener("load", uploadComplete, false);
@@ -126,7 +123,7 @@ export default {
         },
         resetUploadState() {
             this.uploadFiles = [];
-            this.requestQueue.map(rq => rq = null);
+            this.requestQueue.forEach(rq => rq = null);
             this.requestQueue = [];
         },
         uploadFile(fileList) {
@@ -154,7 +151,7 @@ export default {
                 this.uploadFailed(rq);
             }
         },
-        uploadSuccess(xhr) {},
+        uploadSuccess() {},
         getResponseBody(xhr) {
             let response = xhr.response || xhr.responseText;
             if (!response) {
@@ -178,7 +175,7 @@ export default {
                 return file;
             });
         },
-        uploadCanceled(rq) {},
+        uploadCanceled() {},
         handleCancelRequest(_fid) {
             let xhr = this.requestQueue.find(rq => rq._fid === _fid);
             if (xhr) {
@@ -188,7 +185,7 @@ export default {
                 this.requestQueue.splice(idx, 1);
             }
         },
-        uploadFailed(rq) {},
+        uploadFailed() {},
         initUploadInstance() {
             return new UploadJs({
                 headers: this.headers,

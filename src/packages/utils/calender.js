@@ -2,7 +2,7 @@ import { deepCopy, isType } from './util.js';
 
 export default class Calender {
     static now = new Date();
-    
+
     static WeekMaps = {
         'en': ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'],
         'zh_cn': ['日', '一', '二', '三', '四', '五', '六']
@@ -101,7 +101,7 @@ export default class Calender {
     static getDisplayDays(year, month) {
         const dayArray = Calender.makeIndexArray(Calender.getDaysOfMonth(year, month));
         const days = dayArray.map(day => ({ year, month, day, class: 'current-month' }));
-        const [firstDayWeek, lastDayWeek] = Calender.getMonthWeek(year, month);
+        const [firstDayWeek] = Calender.getMonthWeek(year, month);
 
         const preDate = Calender.getMonthDate(new Date(year, month - 1, 1), -1);
         const nextDate = Calender.getMonthDate(new Date(year, month - 1, 1), 1);

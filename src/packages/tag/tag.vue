@@ -9,7 +9,7 @@ import DIcon from '../icon/icon';
 
 export default {
     name: 'DTag',
-    components: [DIcon],
+    components: { DIcon },
     props: {
         type: {
             type: String,

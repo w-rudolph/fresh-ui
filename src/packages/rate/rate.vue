@@ -11,7 +11,7 @@ import { addClass, removeClass } from '../utils/dom.js';
 
 export default {
     name: 'DRate',
-    components: [DIcon],
+    components: { DIcon },
     props: {
         value: {
             type: Number,
@@ -33,7 +33,7 @@ export default {
         }
     },
     watch: {
-        value(val, oldVal) {
+        value(val) {
             if (this.disabled) {
                 return;
             }

@@ -108,7 +108,7 @@ const install = function(Vue, opts = {}) {
         return;
     }
     components.forEach(component => {
-        Vue.component(component.name, component);
+        Vue.component(component.name, component, opts);
     });
     Message.$mount(Vue.prototype);
     MessageBox.$mount(Vue.prototype);
