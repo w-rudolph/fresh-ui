@@ -1,6 +1,6 @@
 {
     "name": "fresh-ui",
-    "version": "0.3.2",
+    "version": "0.3.5",
     "description": "Vue components",
     "author": "wangrujiang <rudolph.wang@foxmail.com>",
     "private": false,
@@ -10,12 +10,14 @@
         "start": "node build/dev-server.js",
         "build": "node build/build.js",
         "build:style": "gulp --gulpfile build/build-style.js",
-        "dist": "npm run build & npm run build:style"
+        "dist": "npm run build & npm run build:style",
+        "deploy": "npm run dist && npm publish"
     },
     "repository": {
         "type": "git",
         "url": "git@github.com:w-rudolph/fresh-ui.git"
     },
+    "license": "MIT",
     "dependencies": {
         "async-validator": "^1.8.1",
         "popper.js": "^1.12.5",
