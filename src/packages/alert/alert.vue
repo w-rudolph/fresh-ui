@@ -1,6 +1,6 @@
 <template>
     <transition name="alert-fade">
-        <div :class="['d-alert', type ? 'd-alert--'+type: '', bigIcon ? 'big-icon':'']" v-if="showAlert">
+        <div :class="['d-alert', type ? 'd-alert--'+type: '', showIcon ? 'has-icon':'', bigIcon ? 'big-icon':'']" v-if="showAlert">
             <d-icon v-if="showIcon" class="d-alert__icon" :name="icon"></d-icon>
             <div class="d-alert__content">
                 <slot></slot>
