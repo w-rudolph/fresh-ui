@@ -50,6 +50,7 @@ import DTree from './tree/tree';
 import DCarousel from './carousel/carousel';
 import DCarouselItem from './carousel/carousel-item';
 import DUpload from './upload/upload';
+import DAlert from './alert/alert';
 
 const components = [
     DButton,
@@ -101,6 +102,7 @@ const components = [
     DCarousel,
     DCarouselItem,
     DUpload,
+    DAlert,
 ];
 
 const install = function(Vue, opts = {}) {
@@ -175,4 +177,5 @@ export default {
     DCarousel,
     DCarouselItem,
     DUpload,
+    DAlert,
 }

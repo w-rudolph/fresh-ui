@@ -1,0 +1,81 @@
+$alertSuccessBgColor: #dff0d8;
+$alertSuccessColor: $successColor;
+$alertSuccessBorderColor: #d6e9c6;
+
+$alertInfoBgColor: #d9edf7;
+$alertInfoColor: $infoColor;
+$alertInfoBorderColor: #bce8f1;
+
+$alertWarningBgColor: #fcf8e3;
+$alertWarningColor: $warningColor;
+$alertWarningBorderColor: #faebcc;
+
+$alertDangerBgColor: #f2dede;
+$alertDangerColor: $dangerColor;
+$alertDangerBorderColor: #ebccd1;
+
+.d-alert{
+    position: relative;
+    padding: 10px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    margin-bottom: 10px;
+    opacity: 1;
+    transition: opacity .3s ease-in-out;
+    &--success{
+        color: $alertSuccessColor;
+        background-color: $alertSuccessBgColor;
+        border-color: $alertSuccessBorderColor;
+    }
+    &--info{
+        color: $alertInfoColor;
+        background-color: $alertInfoBgColor;
+        border-color: $alertInfoBorderColor;
+    }
+    &--warning{
+        color: $alertWarningColor;
+        background-color: $alertWarningBgColor;
+        border-color: $alertWarningBorderColor;
+    }
+    &--error{
+        color: $alertDangerColor;
+        background-color: $alertDangerBgColor;
+        border-color: $alertDangerBorderColor;
+    }
+    &--danger{
+        color: $alertDangerColor;
+        background-color: $alertDangerBgColor;
+        border-color: $alertDangerBorderColor;
+    }
+    &.big-icon{
+        .d-alert__icon{
+            font-size: 24px;
+        }
+        .d-alert__content{
+            padding-left: 30px;
+        }
+        .d-alert__close{
+            font-size: 18px;
+        }
+    }
+}
+.d-alert__content{
+    display: inline-block;
+    padding-left: 18px;
+}
+.d-alert__icon{
+    position: absolute;
+    display: inline-block;
+    transform: translateY(-50%);
+    top: 50%
+}
+.d-alert__close{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.alert-fade-leave-active{
+    opacity: 0;
+}

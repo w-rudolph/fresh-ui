@@ -34,6 +34,7 @@ import Card from '@/containers/Card';
 import Tree from '@/containers/Tree';
 import Carousel from '@/containers/Carousel';
 import Upload from '@/containers/Upload';
+import Alert from '@/containers/Alert';
 
 export default [
     { path: "/", name: "home", component: Home },
@@ -72,4 +73,5 @@ export default [
     { path: "/tree", name: "tree", component: Tree },
     { path: "/carousel", name: "carousel", component: Carousel },
     { path: "/upload", name: "upload", component: Upload },
+    { path: "/alert", name: "alert", component: Alert },
 ];
