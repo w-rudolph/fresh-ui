@@ -53,6 +53,8 @@ import DUpload from './upload/upload';
 import DAlert from './alert/alert';
 import DSteps from './steps/steps';
 import DStep from './steps/step';
+import DRow from './row/row';
+import DCol from './row/col';
 
 const components = [
     DButton,
@@ -107,6 +109,8 @@ const components = [
     DAlert,
     DSteps,
     DStep,
+    DRow,
+    DCol,
 ];
 
 const install = function(Vue, opts = {}) {
@@ -184,4 +188,6 @@ export default {
     DAlert,
     DSteps,
     DStep,
+    DRow,
+    DCol,
 }
