@@ -2,7 +2,6 @@
     <div class="container">
         <h3>Alert 组件</h3>
         <hr>
-        <br>
         <h4>Basic</h4>
         <d-alert>alert message</d-alert>
         <h4>Show Icon</h4>

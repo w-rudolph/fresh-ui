@@ -51,6 +51,8 @@ import DCarousel from './carousel/carousel';
 import DCarouselItem from './carousel/carousel-item';
 import DUpload from './upload/upload';
 import DAlert from './alert/alert';
+import DSteps from './steps/steps';
+import DStep from './steps/step';
 
 const components = [
     DButton,
@@ -103,6 +105,8 @@ const components = [
     DCarouselItem,
     DUpload,
     DAlert,
+    DSteps,
+    DStep,
 ];
 
 const install = function(Vue, opts = {}) {
@@ -178,4 +182,6 @@ export default {
     DCarouselItem,
     DUpload,
     DAlert,
+    DSteps,
+    DStep,
 }
