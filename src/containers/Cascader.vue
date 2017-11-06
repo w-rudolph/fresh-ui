@@ -3,13 +3,17 @@
         <h3>Cascader 组件</h3>
         <hr>
         <h4>Basic</h4>
-        <d-cascader-panel :options="options"></d-cascader-panel>
+        <d-cascader-panel v-model="values" :options="options" @active-item-change="handleActiveChange" @change="handleChange"></d-cascader-panel>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <h4>Popper</h4>
+        <d-cascader changeOnSelect clearable style="width:200px;" v-model="values" :options="options" @active-item-change="handleActiveChange" @change="handleChange"></d-cascader>
     </div>
 </template>
 <script>
 export default {
     data() {
         return {
+            values: [ "zhinan", "daohang", "dingbudaohang"],
             options: [{
                 value: 'zhinan',
                 label: '指南',
@@ -49,11 +53,20 @@ export default {
                     }]
                 }]
             }, {
-                value: 'zhinan',
+                value: 'zhinan2',
                 label: '指南2',
                 children: []
             }]
         }
-    }}
+    },
+    methods: {
+        handleActiveChange(v) {
+            // console.log(v);
+        },
+        handleChange(v){
+            console.log(JSON.stringify(v, null, 2));
+        }
+    }
+}
 </script>
 

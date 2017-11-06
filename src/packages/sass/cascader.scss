@@ -1,22 +1,32 @@
 .d-cascader-menu {
-    display: inline-block;
     list-style: none;
     min-width: 160px;
     margin: 0;
     padding: 0;
     border-right: 1px solid #ddd;
     background: #fff;
-    vertical-align: top;
     height: 200px;
     overflow: auto;
+    float: left;
     &:last-child {
         border-right: 0;
     }
     &__item {
+        position: relative;
         padding: 5px 10px;
         cursor: pointer;
+        background: #fff;
+        transition: background-color .2s ease-in-out;
         &:hover {
             background: $hoverColor;
+        }
+        &.active{
+            background: $activeColor;
+            color: #fff;
+        }
+        .d-icon{
+            position: absolute;
+            right: 8px;
         }
     }
 }
@@ -26,3 +36,35 @@
     border: 1px solid #ddd;
     box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
 }
+
+.d-cascader-panel{
+    position: relative;
+}
+.d-cascader-reference{
+    position: relative;
+    .d-select-arrow,
+    .d-select-clear {
+        position: absolute;
+        top: 50%;
+        right: 8px;
+        line-height: 1;
+        margin-top: -7px;
+        font-size: 14px;
+        color: #80848f;
+        cursor: pointer;
+        transition: all .2s ease-in-out;
+    }
+    &.show {
+        .d-select-arrow {
+            transform: rotate(180deg);
+        }
+    }
+}
+.d-cascader-popper{
+    margin-top: 2px;
+    .d-cascader-menus{
+        position: relative;
+        overflow: hidden;
+    }
+}
+
