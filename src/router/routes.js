@@ -37,6 +37,7 @@ import Upload from '@/containers/Upload';
 import Alert from '@/containers/Alert';
 import Steps from '@/containers/Steps';
 import Row from '@/containers/Row';
+import Cascader from '@/containers/Cascader';
 
 export default [
     { path: "/", name: "home", component: Home },
@@ -77,5 +78,6 @@ export default [
     { path: "/upload", name: "upload", component: Upload },
     { path: "/alert", name: "alert", component: Alert },
     { path: "/steps", name: "steps", component: Steps },
-    { path: "/row", name: "grid", component: Row },
+    { path: "/grid", name: "grid", component: Row },
+    { path: "/cascader", name: "cascader", component: Cascader },
 ];

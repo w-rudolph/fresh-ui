@@ -55,6 +55,8 @@ import DSteps from './steps/steps';
 import DStep from './steps/step';
 import DRow from './row/row';
 import DCol from './row/col';
+import DCascader from './cascader/cascader';
+import DCascaderPanel from './cascader/cascader-panel';
 
 const components = [
     DButton,
@@ -111,6 +113,8 @@ const components = [
     DStep,
     DRow,
     DCol,
+    DCascader,
+    DCascaderPanel,
 ];
 
 const install = function(Vue, opts = {}) {
@@ -190,4 +194,6 @@ export default {
     DStep,
     DRow,
     DCol,
+    DCascader,
+    DCascaderPanel,
 }
