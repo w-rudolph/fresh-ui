@@ -77,5 +77,5 @@ export default [
     { path: "/upload", name: "upload", component: Upload },
     { path: "/alert", name: "alert", component: Alert },
     { path: "/steps", name: "steps", component: Steps },
-    { path: "/row", name: "row", component: Row },
+    { path: "/row", name: "grid", component: Row },
 ];

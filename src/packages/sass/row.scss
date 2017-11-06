@@ -1,3 +1,82 @@
-.d-row{
+.d-row,
+.d-col {
     position: relative;
+    overflow: hidden;
+}
+
+$screen-sm-min: 768px;
+$screen-md-min: 992px;
+$screen-lg-min: 1200px;
+@mixin makeStyle($type) {
+    $i: 1;
+    @while $i <=24 {
+        .#{$type}-span-#{$i} {
+            width: percentage($i/24);
+            float: left;
+        }
+        .#{$type}-push-#{$i} {
+            left: percentage($i/24);
+        }
+        .#{$type}-pull-#{$i} {
+            right: percentage($i/24);
+        }
+        .#{$type}-offset-#{$i} {
+            margin-left: percentage($i/24);
+        }
+        $i: $i+1;
+    }
+}
+
+@include makeStyle('d-col');
+@media (max-width: $screen-sm-min) {
+    @include makeStyle('d-col-xs');
+}
+
+@media (min-width: $screen-sm-min) {
+    @include makeStyle('d-col-sm');
+}
+
+@media (min-width: $screen-md-min) {
+    @include makeStyle('d-col-md');
+}
+
+@media (min-width: $screen-lg-min) {
+    @include makeStyle('d-col-lg');
+}
+
+.d-row-flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.d-row-justify-start {
+    justify-content: flex-start;
+}
+
+.d-row-justify-center {
+    justify-content: center;
+}
+
+.d-row-justify-end {
+    justify-content: flex-end;
+}
+
+.d-row-justify-space-between {
+    justify-content: space-between;
+}
+
+.d-row-justify-space-around {
+    justify-content: space-around;
+}
+
+.d-row-align-top {
+    align-items: flex-start;
+}
+
+.d-row-align-center {
+    align-items: center;
+}
+
+.d-row-align-bottom {
+    align-items: flex-end;
 }
