@@ -1,3 +1,28 @@
 .d-cascader-menu {
     display: inline-block;
+    list-style: none;
+    min-width: 160px;
+    margin: 0;
+    padding: 0;
+    border-right: 1px solid #ddd;
+    background: #fff;
+    vertical-align: top;
+    height: 200px;
+    overflow: auto;
+    &:last-child {
+        border-right: 0;
+    }
+    &__item {
+        padding: 5px 10px;
+        cursor: pointer;
+        &:hover {
+            background: $hoverColor;
+        }
+    }
+}
+
+.d-cascader-menus {
+    position: absolute;
+    border: 1px solid #ddd;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
 }
