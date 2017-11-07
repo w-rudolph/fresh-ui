@@ -88,6 +88,13 @@ export default {
             return this.displayRender(this.selected_value);
         }
     },
+    watch: {
+        showPopper(show) {
+            if (show) {
+                this.$refs.panel.refresh();
+            }
+        }
+    },
     methods: {
         onMouseEnter() {
             if (this.clearable) {
@@ -113,6 +120,11 @@ export default {
             this.$emit('change', t);
         },
         handleSelectChange(val) {
+            if (this.changeOnSelect) {
+                const t = val.map(item => item.value);
+                this.$emit('input', t);
+                this.$emit('change', t);
+            }
             this.$emit('active-item-change', val);
         },
         initSelectedItems(res) {

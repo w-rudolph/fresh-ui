@@ -63,11 +63,19 @@ export default {
                 }
             });
             this.selectedMenus = res;
-            this.subMenus = res.slice(0, res.length - 1);
+            res.forEach(item => {
+                this.handleItemClick(item, true);
+            })
+            if(!res.length){
+                this.subMenus = [];
+            }
             this.dispatch('DCascader', 'selected.items', res);
         },
         findNode(items, val) {
             return items.find(item => item.value === val);
+        },
+        refresh() {
+            this.initSelectedItems();
         },
         transformProps(data, props, level = 1, pid = null) {
             if (!isArray(data) || isArray(data) && !data.length) {
@@ -92,31 +100,28 @@ export default {
             })
             return res;
         },
-        handleItemClick(item) {
+        handleItemClick(item, notTriggerEvent = false) {
             const { children, level, value, label, nid } = item;
-            if (!children.length) {
-                this.subMenus = this.subMenus.filter(menu => menu.level < level);
-                this.selectedMenus = this.subMenus.concat(item);
-                this.$nextTick(() => {
-                    this.$emit('change', this.sMenus);
-                    this.$emit('input', this.sMenus.map(item => item.value));
-                    this.$emit('active-item-change', this.sMenus);
-                });
-                return;
-            }
-            const found = this.subMenus.find(menu => menu.level === level);
-            if (found) {
-                const index = this.subMenus.indexOf(found);
-                if (found !== item) {
-                    this.subMenus.splice(index, 1, item);
+            let menus = this.subMenus.filter(menu => menu.level < level);
+            if (children.length) {
+                menus = menus.concat(item);
+                this.selectedMenus = menus;
+                if (!notTriggerEvent) {
+                    this.$nextTick(() => {
+                        this.$emit('active-item-change', this.sMenus);
+                    });
                 }
             } else {
-                this.subMenus.push(item);
+                this.selectedMenus = menus.concat(item);
+                if (!notTriggerEvent) {
+                    this.$nextTick(() => {
+                        this.$emit('change', this.sMenus);
+                        this.$emit('input', this.sMenus.map(item => item.value));
+                        this.$emit('active-item-change', this.sMenus);
+                    });
+                }
             }
-            this.selectedMenus = this.subMenus;
-            this.$nextTick(() => {
-                this.$emit('active-item-change', this.sMenus);
-            })
+            this.subMenus = menus;
         },
 
     },

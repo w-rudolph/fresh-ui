@@ -6,14 +6,21 @@
         <d-cascader-panel v-model="values" :options="options" @active-item-change="handleActiveChange" @change="handleChange"></d-cascader-panel>
         <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
         <h4>Popper</h4>
+        <h5>Basic</h5>
+        <d-cascader style="width:200px;" v-model="values" :options="options" @active-item-change="handleActiveChange" @change="handleChange"></d-cascader>
+        <h5>clearable</h5>
+        <d-cascader clearable style="width:200px;" v-model="values" :options="options" @active-item-change="handleActiveChange" @change="handleChange"></d-cascader>
+        <h5>changeOnSelect</h5>
         <d-cascader changeOnSelect clearable style="width:200px;" v-model="values" :options="options" @active-item-change="handleActiveChange" @change="handleChange"></d-cascader>
+        <h5>displayRender</h5>
+        <d-cascader :display-render="displayRender" style="width:200px;" v-model="values" :options="options" @active-item-change="handleActiveChange" @change="handleChange"></d-cascader>
     </div>
 </template>
 <script>
 export default {
     data() {
         return {
-            values: [ "zhinan", "daohang", "dingbudaohang"],
+            values: ["zhinan", "daohang", "dingbudaohang"],
             options: [{
                 value: 'zhinan',
                 label: '指南',
@@ -63,8 +70,11 @@ export default {
         handleActiveChange(v) {
             // console.log(v);
         },
-        handleChange(v){
+        handleChange(v) {
             console.log(JSON.stringify(v, null, 2));
+        },
+        displayRender(items) {
+            return items.map(item => item.label).join(':');
         }
     }
 }
