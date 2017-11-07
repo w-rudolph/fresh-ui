@@ -1,8 +1,8 @@
 <template>
-    <div class="d-cascader">
+    <div :class="['d-cascader', size ? 'd-cascader--'+size : '']">
         <slot name="reference"></slot>
         <div v-if="!$slots.reference" ref="reference" :class="['d-cascader-reference', showPopper ? 'show' : '']" @mouseenter="onMouseEnter" @mouseleave="onMouseLeave">
-            <d-input :placeholder="placeholder" class="d-cascader-input" :value="displayValue" :disabled="disabled" readonly></d-input>
+            <d-input :size="size" :placeholder="placeholder" class="d-cascader-input" :value="displayValue" :disabled="disabled" readonly></d-input>
             <d-icon name="arrow-down-b" v-show="!displayClearBtn" class="d-select-arrow"></d-icon>
             <d-icon name="ios-close" v-if="displayClearBtn" class="d-select-clear" @click="onClear"></d-icon>
         </div>
@@ -72,6 +72,10 @@ export default {
         changeOnSelect: {
             type: Boolean,
             default: false
+        },
+        size: {
+            type: String,
+            default: ''
         }
     },
     data() {
