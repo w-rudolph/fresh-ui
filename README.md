@@ -56,6 +56,8 @@ Components basic-finished as bellows:
     Card
     Tree
     Carousel
+    Grid
+    Cascader
 ```
 ## Reference
 * [element-ui](http://element.eleme.io)
