@@ -19,6 +19,10 @@ download from github:
 npm package: 
     npm install fresh-ui -S
 
+In browser:
+<link rel="stylesheet" href="https://unpkg.com/fresh-ui@latest/dist/styles/fresh-ui.css" />
+<script type="text/javascript" src="https://unpkg.com/vue@2.5.9/dist/vue.js"></script>
+<script type="text/javascript" src="https://unpkg.com/fresh-ui@latest/dist/fresh-ui.js"></script>
 ```
 Components basic-finished as bellows:
 ```
