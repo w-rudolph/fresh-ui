@@ -1,3 +1,71 @@
 .d-steps{
-    
+    overflow: hidden;
+}
+
+.d-step{
+    float: left;
+    position: relative;
+    color: $primaryColor;
+}
+
+.d-step__icon .icon{
+    position: absolute;
+    left: 0;
+    top: 1px;
+    width: 24px;
+    height: 24px;
+    background-color: #fff;
+    display: inline-block;
+    text-align: center;
+    vertical-align: middle;
+    z-index: 2;
+}
+.d-step__icon .icon.default-style{
+    border: 2px solid $primaryColor;
+    border-radius: 50%;
+}
+.d-step__icon:before{
+    z-index: 1;
+    content: '';
+    width: 100%;
+    height: 2px;
+    background-color: $primaryColor;
+    display: inline-block;
+}
+.d-step:last-child .d-step__icon:before{
+    width: 0;
+}
+.d-step__title{
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+.d-step__content{
+    padding-right: 20px;
+    word-break: break-all;
+}
+
+.d-step.active{
+    .d-step__icon:before{
+        background-color: $normalColor;
+    }
+    &~.d-step{
+        color: $normalColor;
+    }
+    &+.d-step{
+        color: $blackColor;
+    }
+    &~.d-step .d-step__icon {
+        .icon{
+            border-color: $normalColor;
+        }
+        &:before{
+            background-color: $normalColor; 
+        }
+    }
+    &+.d-step .d-step__icon {
+        .icon{
+            border-color: $blackColor;
+        }
+    }
 }
