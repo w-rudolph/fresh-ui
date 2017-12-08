@@ -56,6 +56,8 @@ Components basic-finished as bellows:
     Card
     Tree
     Carousel
+    Alert
+    Steps
     Grid
     Cascader
 ```
